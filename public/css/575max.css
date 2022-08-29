@@ -1,0 +1,28 @@
+
+
+
+
+@media (max-width: 575px){
+    .work-together{
+        flex-direction: column;
+    }
+    .work-together p,
+    .work-together a {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: center;
+    }
+    .work-together p.mb-0{
+        margin-bottom: 15px !important;
+    }
+    .item_text{
+        top: -106px;
+        font-size: 15px;
+    }
+    .footer_add{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+ }

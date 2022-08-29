@@ -1,0 +1,140 @@
+import React from 'react'
+import Slider from "react-slick";
+const client = [
+    "img/C1.png"
+    ,"img/C3.png"
+    ,"img/C4.png"
+    ,"img/C23.svg"
+    ,"img/C9.jpeg"
+    ,"img/C18.jpeg"
+    ,"img/C20.png"
+    ,"img/C26.jpeg"
+    ,"img/C28.png"
+    ,"img/C7.jpeg"
+    ,"img/C8.png"
+    ,"img/C12.png"
+    ,"img/C13.jpeg"
+    ,"img/C10.webp"
+    ,"img/C11.png"
+    ,"img/C14.png"
+    ,"img/C15.png"
+    ,"img/C2.png"
+    ,"img/C5.jpeg"
+    ,"img/C6.jpeg"
+    ,"img/C16.png"
+    ,"img/C17.png"
+    ,"img/C19.png"
+    ,"img/C21.png"
+    ,"img/C22.jpeg"
+    ,"img/C24.png"
+    ,"img/C25.png"
+    ,"img/C27.png"
+]
+
+const Partners = () => {
+    const settings = {
+        dots: true,
+        infinite: true,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        arrows: false,
+        cssEase: "linear",
+		pauseOnHover: true,
+		responsive: [
+              {
+                breakpoint: 767,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1
+                }
+              }
+			]
+       
+      };
+    return (
+        <>
+            <section className="partnersbg pt-5 pb-5">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12 text-center pt-4 pb-4">
+                            <h5 className="heading_fs">Our Clients</h5>
+                        </div>
+
+                        <div className="col-lg-12 text-center">
+                                <Slider {...settings}>
+                                    {
+                                        client.map(i=>{
+                                            return(
+                                                <div className="item client-carousel">
+                                                    <div className="client-carousel-img">
+                                                        <img style={{height: 100, width: 200}} src={i} alt="" />
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+
+                                {/*<div className="item client-carousel">*/}
+                                {/*    <div className="client-carousel-img">*/}
+                                {/*        <img src="img/C3.png" alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className="item client-carousel">*/}
+                                {/*    <div className="client-carousel-img">*/}
+                                {/*        <img src="img/C4.png" alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className="item client-carousel">*/}
+                                {/*    <div className="client-carousel-img">*/}
+                                {/*        <img src="img/C23.svg" alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className="item client-carousel">*/}
+                                {/*    <div className="client-carousel-img">*/}
+                                {/*        <img src="img/C9.jpeg" alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className="item client-carousel">*/}
+                                {/*    <div className="client-carousel-img">*/}
+                                {/*        <img src="img/C18.jpeg" alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div> */}
+                                {/*<div className="item client-carousel">*/}
+                                {/*    <div className="client-carousel-img">*/}
+                                {/*        <img src="img/maruti.png" alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className="item client-carousel">*/}
+                                {/*    <div className="client-carousel-img">*/}
+                                {/*        <img src="img/shadow.png" alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className="item client-carousel">*/}
+                                {/*    <div className="client-carousel-img">*/}
+                                {/*        <img src="img/spoton.png" alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className="item client-carousel">*/}
+                                {/*    <div className="client-carousel-img">*/}
+                                {/*        <img src="img/wowexpress.png" alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                            </Slider>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </>
+    )
+}
+
+export default Partners
