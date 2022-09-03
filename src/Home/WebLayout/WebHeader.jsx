@@ -27,7 +27,7 @@ const WebHeader = (props) => {
     }
     return (
         <>
-            <header style={{zIndex:1, height:70, width:'100%',position:'fixed',backgroundColor:'white'}}>
+            <header style={{zIndex: 10, height:70, width:'100%',position:'fixed',backgroundColor:'white'}}>
                 <div className="container" >
                     <div className="row" >
                         <div className="col-lg-2">
@@ -47,11 +47,11 @@ const WebHeader = (props) => {
                                     <div className="col-lg-10">
                                         <nav className="navbar text-uppercase pl-0 pr-0">
                                             <div
-                                                className={`${
+                                               className={`${
                                                     sideMenu
                                                       ? "navbar-collapse customcollapse"
                                                       : "navbar-collapse"
-                                                  }`}
+                                                   }`}
                                             >
                                                 <ul className="navbar-nav">
                                                     <li className="nav-item">
@@ -66,67 +66,71 @@ const WebHeader = (props) => {
                                                     <li className="nav-item">
                                                          <NavLink
                                                             className="nav-link"
-                                                            to="/#wiwRef"
+                                                            to="/AboutUs"
                                                             exact={true}
                                                         >
-                                                            about us
+                                                             About Us
                                                          </NavLink>
 
                                                     </li>
                                                     <li className="nav-item mb-1">
-                                                         <NavLink
+                                                        <NavLink
                                                             className="nav-link"
-                                                            to="/#wiwRef"
-                                                            exact={true}
-                                                        >
-                                                            Products
-                                                         </NavLink>
-                                                    </li>
-                                                    <li className="nav-item mb-1">
-                                                         <NavLink
-                                                            className="nav-link"
-                                                            to="/#wiwRef"
+                                                            to="/Service"
                                                             exact={true}
                                                         >
                                                             Services
-                                                         </NavLink>
-                                                    </li>
-                                                    <li className="nav-item mb-1">
-                                                         <NavLink
-                                                            className="nav-link"
-                                                            to="/#wiwRef"
-                                                            exact={true}
-                                                        >Clients</NavLink>
+                                                        </NavLink>
+                                                        {/* <a*/}
+                                                        {/*    className="nav-link"*/}
+                                                        {/*    href="/#services"*/}
+                                                        {/*>*/}
+                                                        {/*    Services*/}
+                                                        {/*</a>*/}
                                                     </li>
                                                     <li className="nav-item mb-1">
                                                         <NavLink
                                                             className="nav-link"
-                                                            to="/#wiwRef"
+                                                            to="/Products"
+                                                            exact={true}
+                                                        >
+                                                            Products
+                                                        </NavLink>
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        {/* <NavLink*/}
+                                                        {/*    className="nav-link"*/}
+                                                        {/*    to="/Clients"*/}
+                                                        {/*    exact={true}*/}
+                                                        {/*>Clients</NavLink>*/}
+                                                         <a
+                                                            className="nav-link"
+                                                            href="/#clients"
+                                                        >
+                                                            Clients
+                                                        </a>
+                                                    </li>
+                                                    <li className="nav-item mb-1">
+                                                        {/*<a*/}
+                                                        {/*    className="nav-link"*/}
+                                                        {/*    href="/#gallery"*/}
+                                                        {/*>*/}
+                                                        {/*    Gallery*/}
+                                                        {/*</a>*/}
+                                                        <NavLink
+                                                            className="nav-link"
+                                                            to="/Gallery"
                                                             exact={true}
                                                         >Gallery</NavLink>
                                                     </li>
                                                     <li className="nav-item mb-1">
-                                                        <NavLink
+                                                        <a
                                                             className="nav-link"
-                                                            to="/#wiwRef"
-                                                            exact={true}
+                                                            href="#webp"
+                                                            // exact={true}
                                                             onClick={showContactUs}
-                                                        >Contact Us</NavLink>
+                                                        >Contact Us</a>
                                                     </li>
-                                                    {/*<li className="nav-item mr-1 mb-2">*/}
-                                                    {/*     <NavLink*/}
-                                                    {/*        className="nav-link bg-dark text-white track_btn"*/}
-                                                    {/*        to="/track"*/}
-                                                    {/*    >*/}
-                                                    {/*        Track*/}
-                                                    {/*     </NavLink>*/}
-                                                    {/*</li>*/}
-                                                    {/*<li className="nav-item">*/}
-                                                    {/*    <a type="button" data-toggle="modal" data-target="#contactform" */}
-                                                    {/*    className="nav-link bg-dark text-white track_btn" onClick={GetinTouch}*/}
-                                                    {/*    >*/}
-                                                    {/*    Get in Touch</a>*/}
-                                                    {/*</li>*/}
                                                 </ul>
                                             </div>
                                         </nav>

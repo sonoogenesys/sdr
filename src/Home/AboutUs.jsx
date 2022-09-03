@@ -1,41 +1,154 @@
 
 import React from 'react';
 import WebBase from "./WebLayout/WebBase";
-import {NavLink} from 'react-router-dom'
+require('./aboutus.css');
+
 const AboutUs = () => {
     return (
         <>
          <WebBase>
-          <section className="career-pg">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12 pt-5 pb-3">
-                            <p>Yolojet is an innovative technology powered, automated shipping solution for sellers.Our solution enables you tocompare among leading logistic companies with regards to their price and time of delivery between specified source and destination pin codes. You can Select the best for you based on your preferences ofshipment costor the time of delivery for your shipment, in just a click.  Yolojet’s free to use platform comes with host of benefits along with following services/solutions, to ensure that your shipments issues are the last thing to worry about for you.</p>
-                            <ul>
-                                <li>27000+ Serviceable Pin Codes</li>
-                                <li>More than 12 leading logistic companies to choose from</li>
-                                <li>Discounted Shipping Rates</li>
-                                <li>Freedom to compare and choose basis your preference of price and TAT</li>
-                                <li>Dashboard to give you unified view of your shipment</li>
-                                <li>Dedicated account manager</li>
-                                <li>Hyper-local Delivery</li>
-                                <li>Our analytics powered Recommendation Engine to help you choose the best</li>
-                                <li>Flexibility of shipping your consignment on both Prepaid &amp; Cash on Delivery modes</li>
-                                <li>Option of both individual and Bulk order upload</li>
-                                <li>Tracking of your shipment</li>
-                                <li>Multiple Pickup Locations</li>
-                                <li>Professional customer service and dedicated NDR and Dispute management team</li>
-                                <li>Quick and easy onboarding process.</li>
-                        </ul>
-                        <div className="text-center pt-4">
-                            <NavLink to="/Career" className="btn btn-primary">Apply Now</NavLink>
-
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        
+             <div className="about">
+                 <div className="aboutBox">
+                         <div
+                             className="col-lg-12"
+                             data-aos="fade-up"
+                             data-aos-duration="3000"
+                         >
+                             <div className="bannerText" >
+                                 <h1>About us</h1>
+                                 <p>KCS Electrical is a complete Electrical Engineering firm. We are a brand which ensures inimitable
+                                     services to our clients. KCS Electrical strives for nothing but the best.<br/>
+                                     KCS Electrical came into existence in the year 2006. KCS Electrical is a brainchild of qualified engineers sharing
+                                     common goals and professional acumen in their respective domains. We work with our clients as partners
+                                     to cater all their requirements in a simple and cost effective manner.
+                                     <br/>
+                                     Our forte was in Electrical Engineering projects. We now provide a complete gamut of services for
+                                     Electrical Turnkey projects, Electrical Engineering consultancy.
+                                     Our personnel management strategies focus on building human resource and creating an environment
+                                     where talent can be procreated. Client satisfaction is our motto and we are a perfect blend of employee
+                                     talent, technical expertise and modern technology.
+                                 </p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             <div className="vision">
+                 <div className="visionBox">
+                     <div
+                         className="col-lg-12"
+                         data-aos="fade-up"
+                         data-aos-duration="3000"
+                     >
+                         <div className="bannerText">
+                             <h1>Our Vision</h1>
+                             <p>To be the impeccable Electrical Engineering company in India.<br/>
+                                 Our Vision is to deeply recognize the needs of our Clients who are constantly searching for the latest technologies and new ways of thinking to make the best
+                                 project decisions. We continuously develop our knowledge and expertise and apply
+                                 them in helping our Clients in their business activities. With wide experience,
+                                 we also develop new, efficient software tools that enable our Clients to strengthen
+                                 their business opportunities. And, above all, we work together with our Clients and
+                                 transfer our knowledge and experience through comprehensive training courses.
+                             </p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div className="satisfaction">
+                 <div className="satisfactionBox">
+                     <div
+                         className="row"
+                         data-aos="fade-up"
+                         data-aos-duration="3000"
+                     >
+                         <div className="bannerText">
+                             <h1>Client Satisfaction</h1>
+                             <p>Your complete satisfaction is our mission. Our success will be measured in
+                                 client satisfaction and in our ability to exceed our client&#39;s expectations. We
+                                 strive to be a renowned name in the industry, through a continuous
+                                 improvement program.<br/>
+                                 Being a customer centric organization, we at KCS Electrical know that the client satisfaction
+                                 is directly proportional to the quality of the products. Client satisfaction and quality,
+                                 both are our specialty. We have stuck to the stringent quality policy and have never compromised
+                                 with it. We have a separate quality team which performs the quality test during the procurement
+                                 of electrical goods from renowned suppliers and manufacturers, just to ensure the reliability
+                                 of our products and client satisfaction
+                             </p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div className="clientsLogo">
+                 <div className="clientBox">
+                     <div
+                         className="row"
+                         data-aos="fade-up"
+                         data-aos-duration="3000"
+                     >
+                         <div className="col-lg-5 col-md-5 col">
+                             <div className="logo3 text-right">
+                                 <img src="img/client-logo1.png" alt="logo1" />
+                             </div>
+                         </div>
+                         <div className="col-lg-2 col-md-2 col">
+                             <div className="logo3 text-center">
+                                 <img src="img/client-logo2.png" alt="logo2"/>
+                             </div>
+                         </div>
+                         <div className="col-lg-5 col-md-5 col">
+                             <div className="logo3 text-left">
+                                 <img src="img/client-logo3.png" alt="logo3"/>
+                             </div>
+                         </div>
+                     </div>
+                     <div
+                         className="row"
+                         data-aos="fade-up"
+                         data-aos-duration="3000"
+                     >
+                         <div className="col-lg-4 col-md-4 col">
+                             <div className="logo4 text-right">
+                                 <img src="img/client-logo4.png" alt="logo4" />
+                             </div>
+                         </div>
+                         <div className="col-lg-2 col-md-2 col">
+                             <div className="logo4 text-center">
+                                 <img src="img/client-logo5.png" alt="logo5" />
+                             </div>
+                         </div>
+                         <div className="col-lg-2 col-md-2 col">
+                             <div className="logo4 text-center">
+                                 <img src="img/client-logo6.png" alt="logo6" />
+                             </div>
+                         </div>
+                         <div className="col-lg-4 col-md-4 col">
+                             <div className="logo4 text-left">
+                                 <img src="img/client-logo7.png" alt="logo7" />
+                             </div>
+                         </div>
+                     </div>
+                     <div
+                         className="row"
+                         data-aos="fade-up"
+                         data-aos-duration="3000"
+                     >
+                         <div className="col-lg-5 col-md-5 col">
+                             <div className="logo3 text-right">
+                                 <img src="img/client-logo8.png" alt="logo8"/>
+                             </div>
+                         </div>
+                         <div className="col-lg-2 col-md-2 col">
+                             <div className="logo3 text-center">
+                                 <img src="img/client-logo9.png" alt="logo9" />
+                             </div>
+                         </div>
+                         <div className="col-lg-5 col-md-5 col">
+                             <div className="logo3 text-left">
+                                 <img src="img/client-logo10.png" alt="logo10" />
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
          </WebBase>
         </>
     )

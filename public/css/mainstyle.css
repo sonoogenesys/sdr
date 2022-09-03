@@ -216,52 +216,52 @@
         }
 
         .CreateOrder::before {
-            background-image: url("../img/order.png");
+            /*background-image: url("../img/order.png");*/
         }
 
         .CreateOrder:hover::before {
-            background-image: url("../img/order-fff.png");
+            /*background-image: url("../img/order-fff.png");*/
         }
 
         .product-detail::before {
-            background-image: url("../img/product-detail.png");
+            /*background-image: url("../img/product-detail.png");*/
         }
         .product-detail:hover::before {
-            background-image: url("../img/product-detail-fff.png");
+            /*background-image: url("../img/product-detail-fff.png");*/
         }
         .tracking_hex::before {
-            background-image: url("../img/tracking.png");
+            /*background-image: url("../img/tracking.png");*/
         }
         .tracking_hex:hover::before {
-            background-image: url("../img/tracking-fff.png");
+            /*background-image: url("../img/tracking-fff.png");*/
         }
 
         .pickup_hex::before {
-            background-image: url("../img/pickup.png");
+            /*background-image: url("../img/pickup.png");*/
         }
         .pickup_hex:hover::before {
-            background-image: url("../img/pickup-fff.png");
+            /*background-image: url("../img/pickup-fff.png");*/
         }
 
         .compare_hex::before {
-            background-image: url("../img/compare.png");
+            /*background-image: url("../img/compare.png");*/
         }
         .compare_hex:hover::before {
-            background-image: url("../img/compare-fff.png");
+            /*background-image: url("../img/compare-fff.png");*/
         }
 
         .select_hex::before {
-            background-image: url("../img/select.png");
+            /*background-image: url("../img/select.png");*/
         }
         .select_hex:hover::before {
-            background-image: url("../img/select-fff.png");
+            /*background-image: url("../img/select-fff.png");*/
         }
 
         .pay_hex::before {
-            background-image: url("../img/pay.png");
+            /*background-image: url("../img/pay.png");*/
         }
         .pay_hex:hover::before {
-            background-image: url("../img/pay-fff.png");
+            /*background-image: url("../img/pay-fff.png");*/
         }
 
         .track-stroke,
@@ -576,4 +576,14 @@
             min-height: 400px;
             width: 100%;
             /*background-size: cover;*/
+        }
+        .preview_image_container {
+            height: 500px;
+            border: none;
+        }
+        .preview_image_container img {
+            width: 100%;
+            object-fit: scale-down;
+            height: inherit;
+            transition: transform 200ms ease 0s;
         }

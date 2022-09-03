@@ -10,7 +10,10 @@ import Home from "../Home/Home";
 // import PrivacyPolicy from "../Home/PrivacyPolicy";
 // import TermsAndConditions from "../Home/TermsAndConditions";
 // import Career from "../Home/Career";
-// import AboutUs from "../Home/AboutUs";
+import AboutUs from "../Home/AboutUs";
+import Services from "../Home/Service";
+import Products from "../Home/Products";
+import Gallery from "../Home/Gallery";
 // import Features from "../Home/HomeChunks/Features";
 // import Track from "../Home/Track";
 
@@ -23,8 +26,10 @@ const AuthContainer = () => {
                 <Route exact path="/" component={Home} />
                 {/*<Route exact path="/PrivacyPolicy" component={PrivacyPolicy} />*/}
                 {/*<Route exact path="/TermsAndConditions" component={TermsAndConditions} />*/}
-                {/*<Route exact path="/Career" component={Career} />*/}
-                {/*<Route exact path="/AboutUs" component={AboutUs} />*/}
+                <Route exact path="/Service" component={Services} />
+                <Route exact path="/AboutUs" component={AboutUs} />
+                <Route exact path="/Products" component={Products} />
+                <Route exact path="/Gallery" component={Gallery} />
                 {/*<Route exact path="/Track" component={Track} />*/}
                 {/*<PrivateRoute path="/app/" component={ApplayoutContainer} />*/}
                 <AuthRouter />

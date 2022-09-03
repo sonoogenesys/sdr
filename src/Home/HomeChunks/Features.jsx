@@ -5,7 +5,7 @@ import React from 'react'
 const Features = () => {
         return (
             <>
-                <section className="featuresbg pt-5 pb-5" id="features">
+                <section className="featuresbg pt-5" id="services">
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12 text-center pt-4">

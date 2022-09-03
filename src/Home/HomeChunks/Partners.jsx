@@ -62,7 +62,7 @@ const Partners = () => {
       };
     return (
         <>
-            <section className="partnersbg pt-5 pb-5">
+            <section className="partnersbg pt-5" id={'clients'}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 text-center pt-4 pb-4">
@@ -82,52 +82,6 @@ const Partners = () => {
                                             )
                                         })
                                     }
-
-                                {/*<div className="item client-carousel">*/}
-                                {/*    <div className="client-carousel-img">*/}
-                                {/*        <img src="img/C3.png" alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className="item client-carousel">*/}
-                                {/*    <div className="client-carousel-img">*/}
-                                {/*        <img src="img/C4.png" alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className="item client-carousel">*/}
-                                {/*    <div className="client-carousel-img">*/}
-                                {/*        <img src="img/C23.svg" alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className="item client-carousel">*/}
-                                {/*    <div className="client-carousel-img">*/}
-                                {/*        <img src="img/C9.jpeg" alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className="item client-carousel">*/}
-                                {/*    <div className="client-carousel-img">*/}
-                                {/*        <img src="img/C18.jpeg" alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div> */}
-                                {/*<div className="item client-carousel">*/}
-                                {/*    <div className="client-carousel-img">*/}
-                                {/*        <img src="img/maruti.png" alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className="item client-carousel">*/}
-                                {/*    <div className="client-carousel-img">*/}
-                                {/*        <img src="img/shadow.png" alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className="item client-carousel">*/}
-                                {/*    <div className="client-carousel-img">*/}
-                                {/*        <img src="img/spoton.png" alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className="item client-carousel">*/}
-                                {/*    <div className="client-carousel-img">*/}
-                                {/*        <img src="img/wowexpress.png" alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
                             </Slider>
                         </div>
                     </div>

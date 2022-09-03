@@ -44,7 +44,7 @@ const Brand = () => {
       };
     return (
         <>
-            <section className="partnersbg pt-5 pb-5 bg-white">
+            <section className="partnersbg bg-white pt-5" id={'products'}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 text-center pt-4 pb-4">
