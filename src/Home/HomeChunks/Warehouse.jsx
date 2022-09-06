@@ -3,6 +3,7 @@ import Slider from "react-slick";
 
 const products = [
     'img/51.jpeg',
+    'img/75.jpeg',
     'img/52.jpeg',
     'img/53.jpeg',
     'img/54.jpeg',

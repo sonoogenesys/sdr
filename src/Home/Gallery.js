@@ -4,6 +4,7 @@ import {Card} from "react-bootstrap";
 import ImageViewer from 'react-simple-image-viewer';
 const images = [
     'img/51.jpeg',
+    'img/75.jpeg',
     'img/52.jpeg',
     'img/53.jpeg',
     'img/54.jpeg',
