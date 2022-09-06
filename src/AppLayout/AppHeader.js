@@ -17,10 +17,10 @@ const AppHeader = (props) => {
                         <div className="navbar-brand-box">
                             <Link to="/app/dashboard" className="logo logo-dark d-inline-block">
                                 <span className="logo-sm">
-                                    <img src="/images/logo2.svg" alt="" height="52" />
+                                    <img src="/img/logo.jpeg" alt="" height="52" />
                                 </span>
                                 <span className="logo-lg">
-                                    <img src="/images/logo.svg" alt="" height="65" />
+                                    <img src="/img/logo.jpeg" alt="" height="65" />
                                 </span>
                             </Link>
                         </div>
@@ -60,113 +60,6 @@ const AppHeader = (props) => {
                                 </form>
                             </div>
                         </div>
-                        {/* <div className="dropdown d-none d-lg-inline-block ml-1">
-                                <button type="button" className="btn header-item noti-icon" data-toggle="fullscreen">
-                                    <i className="bx bx-fullscreen"></i>
-                                </button>
-                            </div> */}
-                        {/* <div className="dropdown d-none d-lg-inline-block ml-1">
-                            <button type="button" className="btn header-item noti-icon">
-                                <i className="fe fe-tag"></i>
-                                <span className="badge badge-danger badge-pill">3</span>
-                            </button>
-                        </div> */}
-                        {/* <div className="dropdown d-none d-lg-inline-block ml-1">
-                            <button type="button" className="btn header-item noti-icon">
-                                <i className="fe fe-bar-chart"></i>
-                                <span className="badge badge-danger badge-pill">3</span>
-                            </button>
-                        </div> */}
-                        {/* <div className="dropdown d-inline-block">
-                            <button type="button" className="btn header-item noti-icon" id="page-header-notifications-dropdown"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="bx bx-bell"></i>
-                                <span className="badge badge-danger badge-pill">3</span>
-                            </button>
-                            <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" aria-labelledby="page-header-notifications-dropdown">
-                                <div className="p-3">
-                                    <div className="row align-items-center">
-                                        <div className="col">
-                                            <h6 className="m-0" key="t-notifications"> Notifications </h6>
-                                        </div>
-                                        <div className="col-auto">
-                                            <a href="#!" className="small" key="t-view-all"> View All</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div data-simplebar style={{maxHeight: 230}}>
-                                    <a href="" className="text-reset notification-item">
-                                        <div className="media">
-                                            <div className="avatar-xs mr-3">
-                                                <span className="avatar-title bg-primary rounded-circle font-size-16">
-                                                    <i className="bx bx-cart"></i>
-                                                </span>
-                                            </div>
-                                            <div className="media-body">
-                                                <h6 className="mt-0 mb-1" key="t-your-order">Your order is placed</h6>
-                                                <div className="font-size-12 text-muted">
-                                                    <p className="mb-1" key="t-grammer">If several languages coalesce the grammar</p>
-                                                    <p className="mb-0"><i className="mdi mdi-clock-outline"></i> <span key="t-min-ago">3 min ago</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="" className="text-reset notification-item">
-                                        <div className="media">
-                                            <div className="avatar-xs mr-3">
-                                                <span className="avatar-title bg-success rounded-circle font-size-16">
-                                                    <i className="bx bx-badge-check"></i>
-                                                </span>
-                                            </div>
-                                            <div className="media-body">
-                                                <h6 className="mt-0 mb-1" key="t-shipped">Your item is shipped</h6>
-                                                <div className="font-size-12 text-muted">
-                                                    <p className="mb-1" key="t-grammer">If several languages coalesce the grammar</p>
-                                                    <p className="mb-0"><i className="mdi mdi-clock-outline"></i> <span key="t-min-ago">3 min ago</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="" className="text-reset notification-item">
-                                        <div className="media">
-                                            <div className="avatar-xs mr-3">
-                                                <span className="avatar-title bg-primary rounded-circle font-size-16">
-                                                    <i className="bx bx-cart"></i>
-                                                </span>
-                                            </div>
-                                            <div className="media-body">
-                                                <h6 className="mt-0 mb-1" key="t-your-order">Your order is placed</h6>
-                                                <div className="font-size-12 text-muted">
-                                                    <p className="mb-1" key="t-grammer">If several languages coalesce the grammar</p>
-                                                    <p className="mb-0"><i className="mdi mdi-clock-outline"></i> <span key="t-min-ago">3 min ago</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="" className="text-reset notification-item">
-                                        <div className="media">
-                                            <div className="avatar-xs mr-3">
-                                                <span className="avatar-title bg-success rounded-circle font-size-16">
-                                                    <i className="bx bx-badge-check"></i>
-                                                </span>
-                                            </div>
-                                            <div className="media-body">
-                                                <h6 className="mt-0 mb-1" key="t-shipped">Your item is shipped</h6>
-                                                <div className="font-size-12 text-muted">
-                                                    <p className="mb-1" key="t-grammer">If several languages coalesce the grammar</p>
-                                                    <p className="mb-0"><i className="mdi mdi-clock-outline"></i> <span key="t-min-ago">3 min ago</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="p-2 border-top">
-                                    <a className="btn btn-sm btn-link font-size-14 btn-block text-center" href="javascript:void(0)">
-                                        <i className="mdi mdi-arrow-right-circle mr-1"></i> <span key="t-view-more">View More..</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div> */}
                         {
                             global_password?.show &&
                             <div className="dropdown d-none d-lg-inline-block ml-1">
@@ -190,19 +83,19 @@ const AppHeader = (props) => {
                             <Dropdown>
                                 <Dropdown.Toggle className="btn header-item d-flex align-items-center" style={{backgroundColor : "#fff", color: "#555b6d"}}>
                                     <span style={{background: getAvatarColor(props?.loggedInUser?._id), fontSize: 14, display:'inline-block', width:32, height:32, lineHeight: '32px', borderRadius:'50%', color:'white'}} className="mr-2">
-                                        {getNameInitials(props?.loggedInUser?.first_name || props?.loggedInUser?.email)}
+                                        {getNameInitials(props?.loggedInUser?.name || props?.loggedInUser?.email)}
                                     </span>
                                     <div className="text-left">
                                         <p className="mb-0" key="t-henry">
                                             {
-                                                (props?.loggedInUser?.first_name && props?.loggedInUser?.last_name) ? `${props?.loggedInUser?.first_name} ${props?.loggedInUser?.last_name || ""}` : (props?.loggedInUser?.first_name || props?.loggedInUser?.email)
+                                                (props?.loggedInUser?.name) ? `${props?.loggedInUser?.name}` : (props?.loggedInUser?.email)
                                             }
                                             <i className="mdi mdi-chevron-down d-xl-inline-block ml-1"></i>
                                         
                                         </p>
                                         <p data-title={`Role`} style={{color: '#2f54eb',background: '#f0f5ff',borderColor: '#adc6ff',borderRadius:'3px',fontSize: '11px', paddingTop: '2px', paddingBottom: '2px',}}
                                         className="w-auto pl-2 pr-2 d-inline-block mb-0">
-                                           {props?.loggedInUser?.role?._id?.name}
+                                           Admin
                                         </p>
                                     </div>
                                 </Dropdown.Toggle>
@@ -221,12 +114,12 @@ const AppHeader = (props) => {
                                         <i className="fe fe-settings font-size-18 align-middle mr-1"></i>
                                         <span key="t-settings">Account Settings</span>
                                     </a> */}
-                                    <Dropdown.Item className="dropdown-item d-block" onClick={() => props.history.push('/app/AccountCreation')}>
-                                        {/* <Link className="dropdown-item d-block" to='/app/AccountCreation'> */}
-                                            <i className="fe fe-settings font-size-18 align-middle mr-1"></i>
-                                            <span key="t-settings">Account Details</span>
-                                        {/* </Link> */}
-                                    </Dropdown.Item>
+                                    {/*<Dropdown.Item className="dropdown-item d-block" onClick={() => props.history.push('/app/AccountCreation')}>*/}
+                                    {/*    /!* <Link className="dropdown-item d-block" to='/app/AccountCreation'> *!/*/}
+                                    {/*        <i className="fe fe-settings font-size-18 align-middle mr-1"></i>*/}
+                                    {/*        <span key="t-settings">Account Details</span>*/}
+                                    {/*    /!* </Link> *!/*/}
+                                    {/*</Dropdown.Item>*/}
                                     <Dropdown.Item className="dropdown-item d-block pointer" onClick={props.logOut}>
                                         <i className="fe fe-power font-size-18 align-middle mr-1"></i>
                                         <span key="t-settings">Log Out</span>

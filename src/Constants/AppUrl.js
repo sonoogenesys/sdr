@@ -2,46 +2,16 @@ let BASE_URL, url;
 export let RAZORPAY_KEY = "rzp_test_i3xrBjjHzvOUMC";
 url = window.location.hostname;
 
-BASE_URL = "https://api.yolojet.com"
+BASE_URL = "https://www.kcs-electrical.com"
 RAZORPAY_KEY = "rzp_live_NWsAltrWTgsGbG";
 console.log("url", url);
-
-// switch (url) {
-//     case 'yolojet.penitt.com':
-//     case '139.59.2.111':
-//         BASE_URL = "https://yolojetapi.penitt.com";
-//         RAZORPAY_KEY = "rzp_test_i3xrBjjHzvOUMC";
-//         break;
-//     case 'yolojet.com':
-//     case '15.207.20.156':
-//     case '3.108.65.39':
-// 	    // BASE_URL = "https://api.yolojet.com:5788"
-//         BASE_URL = "https://api.yolojet.com"
-//         RAZORPAY_KEY = "rzp_live_NWsAltrWTgsGbG";
-//         break;
-//     case 'staging.yolojet.com':
-// 	    BASE_URL = "https://api-stage.yolojet.com"
-//         RAZORPAY_KEY = "rzp_test_i3xrBjjHzvOUMC";
-//         break;
-//     case '20.193.240.250':
-//         BASE_URL = "http://20.193.240.250:5788";
-//         RAZORPAY_KEY = "rzp_live_NWsAltrWTgsGbG";
-//         break;
-//     case 'localhost':
-//         BASE_URL = "http://localhost:4343";
-//         RAZORPAY_KEY = "rzp_test_i3xrBjjHzvOUMC";
-//         break;
-//     default:
-//         BASE_URL = "https://api-stage.yolojet.com"
-//         RAZORPAY_KEY = "rzp_test_i3xrBjjHzvOUMC";
-// }
 
 const API_BASE_URL = `${BASE_URL}/api/v1`;
 
 let appUrl = {
     SOCKET_URL: BASE_URL,
     SIGN_UP_URL: API_BASE_URL + "/signup",
-    SIGN_IN_URL: API_BASE_URL + "/login",
+    SIGN_IN_URL: API_BASE_URL + "/signin",
     FORGOT_PASSWORD_URL: API_BASE_URL + "/forgot-password",
     ORDER_URL: API_BASE_URL + "/order",
     ORDERS_URL: API_BASE_URL + "/orders",

@@ -481,35 +481,35 @@ class EditProfile extends Component {
                         <div className="col-lg-12">
                             <div className="card">
                                 <AddressDetails
-                                    heading={"Pickup Address"}
+                                    heading={"Address"}
                                     details={newPickupAddress}
                                     handelChange={this.handelAddressChange("newPickupAddress")}
                                     isRequired={true}
                                     moreInfo
                                 />
-                                <div className="card-body pt-0">
-                                    <div className="w-100 text-right pr-3">
-                                        <div className="button-items">
-                                            <button
-                                                type="button"
-                                                className="btn  btn-primary"
-                                                onClick={this.handlePickupAddress}
-                                                disabled={isLoadingAddress}
-                                            >
-                                                {
-                                                    isLoadingAddress
-                                                        ? (
-                                                            <>
-                                                                <span className="spinner-border spinner-border-sm"></span>
-                                                                <span className="visually-hidden">  Adding Address...</span>
-                                                            </>
-                                                        )
-                                                        : "Add Address"
-                                                }
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                            {/*    <div className="card-body pt-0">*/}
+                            {/*        <div className="w-100 text-right pr-3">*/}
+                            {/*            <div className="button-items">*/}
+                            {/*                <button*/}
+                            {/*                    type="button"*/}
+                            {/*                    className="btn  btn-primary"*/}
+                            {/*                    onClick={this.handlePickupAddress}*/}
+                            {/*                    disabled={isLoadingAddress}*/}
+                            {/*                >*/}
+                            {/*                    {*/}
+                            {/*                        isLoadingAddress*/}
+                            {/*                            ? (*/}
+                            {/*                                <>*/}
+                            {/*                                    <span className="spinner-border spinner-border-sm"></span>*/}
+                            {/*                                    <span className="visually-hidden">  Adding Address...</span>*/}
+                            {/*                                </>*/}
+                            {/*                            )*/}
+                            {/*                            : "Add Address"*/}
+                            {/*                    }*/}
+                            {/*                </button>*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
                             </div>
                         </div>
                     </div>

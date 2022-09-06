@@ -22,7 +22,8 @@ import axios from 'axios';
             if (userData?.meta?.success === false || userData?.meta?.status !== 200) {
                 yield put({ type: ACTIONS.SIGN_IN_FAIL, payload: userData })
             } else {
-                localStorage.setItem('jwt', userData.data.attributes.value);
+                console.log('----->',userData)
+                localStorage.setItem('jwt', userData.data.token);
                 yield put({ type: ACTIONS.SIGN_IN_SUCCESS, payload: userData })
             }
         } catch (error) {

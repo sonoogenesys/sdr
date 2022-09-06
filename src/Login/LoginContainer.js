@@ -54,7 +54,7 @@ class LoginContainer extends Component {
         email = email.trim().toLowerCase();
         this.setState({ isLoading: true });
         if (validateEmail(email) && isValidPassword(password)) {
-            // this.props.signInRequest({email, password});
+            this.props.signInRequest({email, password});
         } else {
             let emailError = "";
             let passwordError = "";

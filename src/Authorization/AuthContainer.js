@@ -3,9 +3,9 @@ import AuthRouter from "./AuthRouter";
 // import RedirectPath from "./RedirectPath";
 import { DefaultConfig } from "../Config/Axios";
 import { Route, Redirect, Switch } from "react-router-dom";
-// import ApplayoutContainer from "../AppLayout/ApplayoutContainer";
+import ApplayoutContainer from "../AppLayout/ApplayoutContainer";
 // // import CheckUserAuthentication from "../Utils/CheckUserAuthentication";
-// import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 import Home from "../Home/Home";
 // import PrivacyPolicy from "../Home/PrivacyPolicy";
 // import TermsAndConditions from "../Home/TermsAndConditions";
@@ -31,7 +31,7 @@ const AuthContainer = () => {
                 <Route exact path="/Products" component={Products} />
                 <Route exact path="/Gallery" component={Gallery} />
                 {/*<Route exact path="/Track" component={Track} />*/}
-                {/*<PrivateRoute path="/app/" component={ApplayoutContainer} />*/}
+                <PrivateRoute path="/app/" component={ApplayoutContainer} />
                 <AuthRouter />
                 {/* <RedirectPath exact path="/" /> */}
                 {/* <Route path='/app' component={ApplayoutContainer} /> */}

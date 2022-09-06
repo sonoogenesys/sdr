@@ -14,15 +14,8 @@ import jwtDecode from 'jwt-decode'
 import { getLoggedInUser } from '../Profile/Duck/ProfileActions'
 import { logOut } from '../Login/Duck/LoginActions'
 import {Redirect} from 'react-router-dom'
-import { fetchAllUsersRequest } from "../Users/Duck/UsersActions"
-import { fetchPlanRequest } from "../plan/Duck/PlanActions"
-import { fetchDepartmentRequest } from "../Department/Duck/DepartmentActions"
-import { fetchAllBulkOrderRequest, fetchAllOrderRequest, searchAllOrderRequest } from "../Order/Duck/OrderActions"
-import {fetchLogistics} from '../UploadData/Duck/UploadDataActions'
-import {fetchAllRemittanceRequest} from '../Remittance/Duck/RemittanceActions'
 import ScrollToTop from '../ScrollToTop'
 import ChangePassword from './Components/ChangePassword'
-import { fetchWalletRequest } from '../Wallet/Duck/WalletActions'
 
 class ApplayoutContainer extends Component {
 
@@ -33,19 +26,19 @@ class ApplayoutContainer extends Component {
     }
 
     componentDidMount(){
-        let { getLoggedInUser, fetchLogistics, fetchPlans, fetchWallet, loggedInUser } = this.props;
-        getLoggedInUser(jwtDecode(localStorage.getItem('jwt')).user.id)
+        let { getLoggedInUser } = this.props;
+        getLoggedInUser(jwtDecode(localStorage.getItem('jwt')).user._id)
         // typeof fetchRoles === "function" && fetchRoles();
-        if (loggedInUser && !loggedInUser?.user_type?._id) {
-            fetchLogistics?.();
-        }
-        fetchWallet && fetchWallet();
-
-        fetchPlans && fetchPlans()
-
-        // fetchAllOrders && fetchAllOrders();
-        // fetchAllBulkOrders && fetchAllBulkOrders();
-        this.loadMoreOrders();
+        // if (loggedInUser && !loggedInUser?.user_type?._id) {
+        //     fetchLogistics?.();
+        // }
+        // fetchWallet && fetchWallet();
+        //
+        // fetchPlans && fetchPlans()
+        //
+        // // fetchAllOrders && fetchAllOrders();
+        // // fetchAllBulkOrders && fetchAllBulkOrders();
+        // this.loadMoreOrders();
     }
 
     loadMoreOrders = () => {
@@ -60,14 +53,14 @@ class ApplayoutContainer extends Component {
         fetchAllOrders && fetchAllOrders(params);
     }
 
-    componentDidUpdate(prevProps){
-        const { fetchLogistics, loggedInUser } = this.props
-        if(!prevProps?.loggedInUser){
-            if (loggedInUser && !loggedInUser?.user_type?._id) {
-                fetchLogistics?.();
-            }
-        }
-    }
+    // componentDidUpdate(prevProps){
+        // const { fetchLogistics, loggedInUser } = this.props
+        // if(!prevProps?.loggedInUser){
+        //     if (loggedInUser && !loggedInUser?.user_type?._id) {
+        //         fetchLogistics?.();
+        //     }
+        // }
+    // }
 
     logOut = () => {
         this.setState({redirectToLogin: true})
@@ -163,17 +156,17 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getLoggedInUser: (id) => dispatch(getLoggedInUser(id)),
-        fetchAllUsers: (params) => dispatch(fetchAllUsersRequest(params)),
-        fetchDepartments: (params) => dispatch(fetchDepartmentRequest(params)),
-        // fetchRoles: (params) => dispatch(fetchRoleRequest(params)),
-        fetchPlans: (params) => dispatch(fetchPlanRequest(params)),
-        fetchAllOrders: (prams) => dispatch(fetchAllOrderRequest(prams)),
-        fetchAllBulkOrders: (prams) => dispatch(fetchAllBulkOrderRequest(prams)),
-        fetchLogistics: (params) => dispatch(fetchLogistics(params)),
-        fetchAllRemittance: (params) => dispatch(fetchAllRemittanceRequest(params)),
-        fetchWallet: () => dispatch(fetchWalletRequest()),
+        // fetchAllUsers: (params) => dispatch(fetchAllUsersRequest(params)),
+        // fetchDepartments: (params) => dispatch(fetchDepartmentRequest(params)),
+        // // fetchRoles: (params) => dispatch(fetchRoleRequest(params)),
+        // fetchPlans: (params) => dispatch(fetchPlanRequest(params)),
+        // fetchAllOrders: (prams) => dispatch(fetchAllOrderRequest(prams)),
+        // fetchAllBulkOrders: (prams) => dispatch(fetchAllBulkOrderRequest(prams)),
+        // fetchLogistics: (params) => dispatch(fetchLogistics(params)),
+        // fetchAllRemittance: (params) => dispatch(fetchAllRemittanceRequest(params)),
+        // fetchWallet: () => dispatch(fetchWalletRequest()),
         logOut: () => dispatch(logOut()),
-        fetchAllOrders: (prams) => dispatch(searchAllOrderRequest(prams)),
+        // fetchAllOrders: (prams) => dispatch(searchAllOrderRequest(prams)),
     }
 }
 

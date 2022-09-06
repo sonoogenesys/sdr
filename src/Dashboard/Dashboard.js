@@ -263,370 +263,47 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-xl-12">
-                        <div className="card">
-                            <h4 className="card-title">Filter</h4>
-                            <div className="card-body">
-                                <form>
-                                    <div className="row order_filter">
-                                        <div className="col-md-2 col-sm-3 col-6 datePicker">
-                                            <label>
-                                                <DatePicker
-                                                    selected={this.state.fromDate}
-                                                    onChange={this.selectDateFrom}
-                                                    dateFormat="dd/MM/yyyy"
-                                                    className="form-control"
-                                                    placeholderText="From"
-                                                    maxDate={new Date()}
-                                                    isClearable
-                                                />
-                                                {
-                                                !this.state.fromDate &&
-                                                    <span>
-                                                        <i className="bx bx-calendar-alt"></i>
-                                                    </span>
-                                                }
-                                            </label>
-                                        </div>
-                                        <div className="col-md-2 col-sm-3 col-6 datePicker">
-                                            <label>
-                                                <DatePicker
-                                                    selected={
-                                                        this.state.toDate
-                                                    }
-                                                    onChange={this.selectDateTo}
-                                                    dateFormat="dd/MM/yyyy"
-                                                    className="form-control"
-                                                    placeholderText="To"
-                                                    maxDate={new Date()}
-                                                    isClearable
-                                                />
-                                                {
-                                                    !this.state.toDate &&
-                                                        <span>
-                                                            <i className="bx bx-calendar-alt"></i>
-                                                        </span>
-                                                }
-                                            </label>
-                                        </div>
-                                        <div className="col-md-2 col-sm-3 col-12">
-                                            <select
-                                                className="form-control"
-                                                placeholder='Order Type'
-                                                value={this.state.orderType}
-                                                onChange={this.handleChange("orderType")}
-                                            >
-                                                <option value='all'>All Shipments</option>
-                                                <option value='individual'>Individual</option>
-                                                <option value='bulk'>Bulk</option>
-                                            </select>
-                                        </div>
-
-                                        <div className="col-md-3 col-sm-3 col-12">
-                                            <select
-                                                className="form-control"
-                                                value={this.state.payment_method}
-                                                onChange={this.handleChange("payment_method")}
-                                            >
-                                                <option value='all'>All Payment Modes</option>
-                                                <option value='cod'>COD</option>
-                                                <option value='prepaid'>Prepaid</option>
-                                            </select>
-                                        </div>
-
-                                        {
-                                            logistics?.length &&
-                                            <div className="col-md-3 col-sm-3 col-12">
-                                                <select
-                                                    className="form-control"
-                                                    value={this.state.logistic_id}
-                                                    onChange={this.handleChange("logistic_id")}
-                                                >
-                                                    <option value='all'>All Partners</option>
-                                                    {
-                                                        logistics &&
-                                                        logistics.map((cp, index) => (
-                                                            <option
-                                                                key={index}
-                                                                value={cp?._id}
-                                                            >{cp?.name}</option>
-                                                        ))
-                                                    }
-                                                </select>
-                                            </div>
-                                        }
-
-                                        {/* <div className="col-md-3 col-sm-3 col-12">
-                                            <select
-                                                className="form-control"
-                                                value={this.state.plan}
-                                                onChange={this.handleChange("plan")}
-                                            >
-                                                <option value={""}>All Plan</option>
-                                                {
-                                                    Array.isArray(planOrder) &&
-                                                    planOrder.map((id, index) => {
-                                                        let plan = id && plans[id];
-                                                        let name = plan?.planName;
-
-                                                        return (
-                                                            <option
-                                                                key={index}
-                                                                value={id}
-                                                            >{name}</option>
-                                                        );
-                                                    })
-                                                }
-                                            </select>
-                                        </div> */}
-
-
-                                        {/* <div className="col-md-2 col-sm-3 col-12">
-                                            <select className="form-control">
-                                                <option>Order by</option>
-                                                <option>India</option>
-                                                <option>London</option>
-                                            </select>
-                                        </div> */}
-                                        <div className="col-md-2 col-sm-4">
-                                            <div className="filter_btns d-flex align-items-start">
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-primary mr-2 btn-icon-text"
-                                                    onClick={this.onFilter}
-                                                    style={{width:80}}
-                                                >
-                                                    Search
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-outline-secondary btn-icon-text"
-                                                    onClick={this.onReset}
-                                                    style={{width:80}}
-                                                >
-                                                    Reset
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-
-                                {
-                                    this.state.error &&
-                                    <div className='mt-1' style={{color:'red'}}>{this.state.error}</div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div className="row align-items-start dashboard-grid">
 
                     <CounterContainer
-                        counter_key={"total_order_received"}
+                        counter_key={"raised_order"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total Order Received"}
-                        counter={data?.total_order_received}
+                        name={"Raised Order"}
+                        counter={0}
                         {...this.props}
                     />
 
                     <CounterContainer
-                        counter_key={"total_order_shipped"}
+                        counter_key={"order_receive"}
                         containerClassName={"dashboard_two common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total Order Shipped"}
-                        counter={data?.total_order_shipped}
+                        name={"Received Order"}
+                        counter={0}
                         {...this.props}
                     />
-
                     <CounterContainer
-                        counter_key={"total_order_out_for_delivery"}
-                        containerClassName={"dashboard_three common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total Order Out for Delivery"}
-                        counter={data?.total_order_out_for_delivery}
+                        counter_key={"order_progress"}
+                        containerClassName={"dashboard_two common_grid_css bg-white p-3 br-5 mb-3"}
+                        name={"In-progress Order"}
+                        counter={0}
                         {...this.props}
                     />
-
                     <CounterContainer
-                        counter_key={"total_order_delivered"}
-                        containerClassName={"dashboard_three common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total Order Delivered"}
-                        counter={data?.total_order_delivered}
+                        counter_key={"order_complete"}
+                        containerClassName={"dashboard_two common_grid_css bg-white p-3 br-5 mb-3"}
+                        name={"Completed Order"}
+                        counter={0}
                         {...this.props}
                     />
-
-                    <CounterContainer
-                        counter_key={"total_cod_remitted"}
-                        containerClassName={"dashboard_four common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total COD Remitted"}
-                        counter={data?.total_cod_remitted}
-                        {...this.props}
-                    />
-
-                    <CounterContainer
-                        counter_key={"total_order_transit"}
-                        containerClassName={"dashboard_five common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total Order in transit"}
-                        counter={data?.total_order_transit}
-                        {...this.props}
-                    />
-
-                    <CounterContainer
-                        counter_key={"total_order_ndr"}
-                        containerClassName={"dashboard_six common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total order in NDR"}
-                        counter={data?.total_order_ndr}
-                        {...this.props}
-                    />
-
-                    <CounterContainer
-                        counter_key={"total_order_delivered_tat"}
-                        containerClassName={"dashboard_seven common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total Order in delivered in TAT"}
-                        counter={data?.total_order_delivered_tat}
-                        {...this.props}
-                    />
-
-                    <CounterContainer
-                        counter_key={"total_order_delivered_beyon_tat"}
-                        containerClassName={"dashboard_eight common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total Order in delivered beyond TAT"}
-                        counter={data?.total_order_delivered_beyon_tat}
-                        {...this.props}
-                    />
-
-                    <CounterContainer
-                        counter_key={"total_order_cancelled"}
-                        containerClassName={"dashboard_nine common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total Order Cancelled"}
-                        counter={data?.total_order_cancelled}
-                        {...this.props}
-                    />
-
-                    <CounterContainer
-                        counter_key={"total_order_others"}
-                        containerClassName={"dashboard_others common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Others"}
-                        counter={data?.total_order_others}
-                        {...this.props}
-                    />
-
-                    {/* <div className="col-md-3 pr-0">
-                        <div className="dashboard_one common_grid_css bg-white p-3 br-5 mb-3">
-                           <div className="d-flex justify-content-between">
-                                <p className="font-size-14">Total Order Received</p>
-                                <span className="theme_text_color font-size-18">
-                                    <i class="fa fa-download ml-2" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <h4 className="text-primary font-size-24">{data?.total_order_received || 0}</h4>
-                        </div>
-                    </div>
-                    <div className="col-md-3 pr-0">
-                        <div className="dashboard_two common_grid_css bg-white p-3 br-5 mb-3">
-                           <div className="d-flex justify-content-between">
-                                <p className="font-size-14">Total Order Shipped</p> <span className="theme_text_color font-size-18"><i class="fa fa-download ml-2" aria-hidden="true"></i></span>
-                            </div>
-                            <h4 className="text-primary font-size-24">{data?.total_order_shipped || 0}</h4>
-                        </div>
-                    </div>
-                    <div className="col-md-3 pr-0">
-                        <div className="dashboard_six common_grid_css bg-white p-3 br-5 mb-3">
-                           <div className="d-flex justify-content-between">
-                                <p className="font-size-14">Total Order in Delivered</p> <span className="theme_text_color font-size-18"><i class="fa fa-download ml-2" aria-hidden="true"></i></span>
-                            </div>
-                            <h4 className="text-primary font-size-24">{data?.total_order_delivered || 0}</h4>
-                        </div>
-                    </div>
-
-                    <div className="col-md-3 pr-0">
-                        <div className="dashboard_four common_grid_css bg-white p-3 br-5 mb-3">
-                            <div className="d-flex justify-content-between">
-                                <p className="font-size-14">Total COD Remitted</p>
-                                 <span className="theme_text_color font-size-18"><i class="fa fa-download ml-2" aria-hidden="true"></i></span>
-                            </div>
-                            <h4 className="text-primary font-size-24">{data?.total_cod_remitted || 0}</h4>
-                        </div>
-                    </div>
-                    <div className="col-md-3 pr-0">
-                        <div className="dashboard_five common_grid_css bg-white p-3 br-5 mb-3">
-                            <div className="d-flex justify-content-between">
-                                <p className="font-size-14">Total Order in transit</p>
-                                 <span className="theme_text_color font-size-18"><i class="fa fa-download ml-2" aria-hidden="true"></i></span>
-                            </div>
-                            <h4 className="text-primary font-size-24">{data?.total_order_transit || 0}</h4>
-                        </div>
-                    </div>
-
-                    <div className="col-md-3 pr-0">
-                        <div className="dashboard_ten common_grid_css bg-white p-3 br-5 mb-3">
-                            <div className="d-flex justify-content-between">
-                                <p className="font-size-14">Total order in NDR</p>
-                                 <span className="theme_text_color font-size-18"><i class="fa fa-download ml-2" aria-hidden="true"></i></span>
-                            </div>
-                            <h4 className="text-primary font-size-24">{data?.total_order_ndr || 0}</h4>
-                        </div>
-                    </div>
-                    <div className="col-md-3 pr-0">
-                        <div className="dashboard_eight common_grid_css bg-white p-3 br-5 mb-3">
-                            <div className="d-flex justify-content-between">
-                                <p className="font-size-14">Total Order in delivered in TAT</p>
-                                 <span className="theme_text_color font-size-18"><i class="fa fa-download ml-2" aria-hidden="true"></i></span>
-                            </div>
-                            <h4 className="text-primary font-size-24">{data?.total_order_delivered_tat || 0}</h4>
-                        </div>
-                    </div>
-                    <div className="col-md-3 pr-0">
-                        <div className="dashboard_eight common_grid_css bg-white p-3 br-5 mb-3">
-                            <div className="d-flex justify-content-between">
-                                <p className="font-size-14">Total Order in delivered beyond TAT</p>
-                                 <span className="theme_text_color font-size-18"><i class="fa fa-download ml-2" aria-hidden="true"></i></span>
-                            </div>
-                            <h4 className="text-primary font-size-24">{data?.total_order_delivered_beyon_tat || 0}</h4>
-                        </div>
-                    </div> */}
-
                 </div>
 
-                {/* <div className="row">
-                    <div className="col-md-12 mb-4">
-                        <div className="card">
-                                <div className="d-flex card-title">
-                                    <h4 className="">
-                                        Daily Consignment Report
-                                    </h4>
-                                </div>
-                                <Tabs className="border-0 mt-2 ml-2 mr-2 justify-content-end">
-                                    <Tab eventKey="home" title="Weekly" tabClassName="tab_link">
-                                        <div className="p-3  ml-2 mr-2">
-                                        <h5>Weekly</h5>
-                                        <img src="/images/dummygraph.png" alt=""/>
-                                        </div>
-                                    </Tab>
-                                    <Tab eventKey="profile" title="Monthly" tabClassName="tab_link">
-                                        <div className="p-3  ml-2 mr-2">
-                                            <h5>Monthly</h5>
-                                        <img src="/images/dummygraph.png" alt=""/>
-                                        </div>
-                                    </Tab>
-                                    <Tab eventKey="contact" title="Year" tabClassName="tab_link">
-                                        <div className="p-3  ml-2 mr-2">
-                                            <h5>Year</h5>
-                                        <img src="/images/dummygraph.png" alt=""/>
-                                        </div>
-                                    </Tab>
-                                </Tabs>
-
-                        </div>
-                    </div>
-                </div> */}
 
                 <div className="row">
                     <div className="col-md-6 mb-4">
                         <div className="card">
                             <div className="d-flex card-title">
                                 <h4 className="">
-                                    Order Summary
+                                    Total Query Summary
                                 </h4>
                             </div>
 
@@ -642,7 +319,7 @@ class Dashboard extends Component {
                                             data: confirm_order_weeks,
                                         },
                                         {
-                                            label: "Total Order Delivered",
+                                            label: "Order Completed",
                                             backgroundColor: "#1FAA59",
                                             data: delivered_order_weeks,
                                         },
@@ -657,7 +334,7 @@ class Dashboard extends Component {
                         <div className="card">
                             <div className="d-flex card-title">
                                 <h4 className="">
-                                    Invoice value
+                                    Invoive
                                 </h4>
                             </div>
 
@@ -669,7 +346,7 @@ class Dashboard extends Component {
                                     labels={["Week 1", "Week 2", "Week 3", "Week 4"]}
                                     datasets={[
                                         {
-                                            label: "Total Orders Amount",
+                                            label: "Invoice",
                                             backgroundColor: "#1B98F5",
                                             data: last_four_weeks_deliver_orders,
                                         },
@@ -681,89 +358,6 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 </div>
-
-                {/* <div className="row">
-                    <div className="col-md-12 mb-4">
-                        <div className="card">
-                            <div className="d-flex card-title">
-                                <h4 className="">
-                                    Invoice value
-                                </h4>
-                            </div>
-
-                            <div
-                                className="border-0 m-4 justify-content-end"
-                                style={{ height: 300 }}
-                            >
-                                <DashboardChart
-                                    labels={["Week 1", "Week 2", "Week 3", "Week 4"]}
-                                    datasets={[
-                                        {
-                                            label: "Total Order Delivered",
-                                            backgroundColor: "#1B98F5",
-                                            data: last_four_weeks_deliver_orders,
-                                        },
-                                    ]}
-                                    displayLegend={false}
-                                />
-                            </div>
-
-                        </div>
-                    </div>
-                </div> */}
-
-
-                {/* <div className="row">
-                    <div className="col-md-12 mb-4">
-                        <div className="card">
-                            <h4 className="card-title">
-                                Daily Consignment Report
-                            </h4>
-                            <div className="card-body">
-                                <table className="table table-striped table-bordered dt-responsive nowrap action_icons">
-                                    <thead>
-                                        <th>
-                                        Products
-                                        </th>
-                                        <th>
-                                        Distance
-                                        </th>
-                                        <th>
-                                        Weight
-                                        </th>
-                                        <th>
-                                        Delivery Days
-                                        </th>
-                                        <th>
-                                        Details
-                                        </th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                            HP Laptop 24 inch
-                                            </td>
-                                            <td>
-                                            110023 - 110038 (45km)
-                                            </td>
-                                            <td>
-                                            12400 gram
-                                            </td>
-                                            <td>
-                                            2 Working Days
-                                            </td>
-                                           <td>
-                                               <button className="btn btn-primary view_btn">View Details</button>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-
                 {
                     this.state.showPreviewOfFileId &&
                         <FilePreviewModal toggleModal={this.togglePreview}>
@@ -775,32 +369,6 @@ class Dashboard extends Component {
                         </FilePreviewModal>
                 }
 
-                {/* <div className="row">
-                    <div className="col-md-12 mb-4">
-                        <div className="card">
-                            <h4 className="card-title">
-                                Daily Consignment Report
-                            </h4>
-                            <div className="card-body">
-                                <BaseTable
-                                    className="table table-striped table-bordered dt-responsive nowrap action_icons"
-                                    headingData={[
-                                        "No.",
-                                        "AWB Number",
-                                        "Shipment Date",
-                                        "Payment Mode",
-                                        "Estimated TAT",
-                                        { text: "Status", style: {} },
-                                        // "Action",
-                                    ]}
-                                    rowData={data?.consignment_report}
-                                    renderRowItem={this.renderRow}
-                                    loading={loading}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
             </>
         )
     }

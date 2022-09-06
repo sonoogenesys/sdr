@@ -4,7 +4,7 @@ const AppFooter = (props) => {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-sm-12 text-center">
-                         Copyright 2021 © Yolojet Internet Services Pvt. Ltd. All Rights Reserved
+                         Copyright 2022 Rights Reserved
                     </div>                        
                 </div>
             </div>
