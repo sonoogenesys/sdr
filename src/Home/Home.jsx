@@ -21,7 +21,6 @@ const Home = (props) => {
         return (
             <>
                 <WebBase>
-                    {/*<HowItWorks/>*/}
                     <HomeBanner/>
                     <LogisticSection/>
                     <Features />

@@ -23,7 +23,7 @@ const Features = () => {
                                     </div>
                                     {/*<h5>Large coverage */}
                                     {/*</h5>*/}
-                                    <p>circleStructure and foundation design</p>
+                                    <p>Structure and foundation design</p>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@ const Features = () => {
                                     <img style={{width: 70, height:70}}  src="img/circle_planning.png" alt="" />
                                 </div>
                                 {/*<h5>Track Your Shipments</h5>*/}
-                                <p>circlePlanning for line routing  </p>
+                                <p>Planning for line routing  </p>
                             </div>
                             </div>
                             <div className="col-lg-2 col-md-2 col-sm-6 col-12 d-flex text-center">
@@ -86,7 +86,7 @@ const Features = () => {
                                         <img style={{width: 100, height:70}} src="img/hv.png" alt="" />
                                     </div>
                                     {/*<h5>Automated Shipping Solution</h5>*/}
-                                    <p>circleConstruction, Cable-laying and Energisation of all types of transmission lines</p>
+                                    <p>Construction, Cable-laying and Energisation of all types of transmission lines</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-12 d-flex text-center">
@@ -96,7 +96,7 @@ const Features = () => {
                                     </div>
                                     {/*<h5>Choice of Carrier </h5>*/}
                                     <p>
-                                        circleCable system design including analysis and calculation for cable support and pressure maintenance systems</p>
+                                        Cable system design including analysis and calculation for cable support and pressure maintenance systems</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-12 d-flex text-center">
@@ -105,7 +105,7 @@ const Features = () => {
                                         <img style={{width: 100, height:70}} src="img/pipe.png" alt="" />
                                     </div>
                                     {/*<h5>Discounted Shipping Rates</h5>*/}
-                                    <p>circleDuct work involving Trenching, Directional Boring and Manholes</p>
+                                    <p>Duct work involving Trenching, Directional Boring and Manholes</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-12 d-flex text-center">
@@ -114,7 +114,7 @@ const Features = () => {
                                         <img style={{width: 100, height:70}} src="img/power_cable.png" alt="" />
                                     </div>
                                     {/*<h5>Warehouse Services</h5>*/}
-                                    <p>circleHigh voltage power cable and accessories supply</p>
+                                    <p>High voltage power cable and accessories supply</p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-12 d-flex text-center">
@@ -124,7 +124,7 @@ const Features = () => {
                                                 <img style={{width: 100, height:70}}  src="img/transmission.png" alt="" />
                                             </div>
                                             {/*<h5>Recommendation Engine</h5>*/}
-                                            <p>circleConstruction, Erection, Testing & Commissioning of all types of HV overhead transmission lines and structures of 11 KV and above
+                                            <p>Construction, Erection, Testing & Commissioning of all types of HV overhead transmission lines and structures of 11 KV and above
                                             </p>
                                         </div>
                                     </div>
