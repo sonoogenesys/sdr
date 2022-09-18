@@ -6,7 +6,7 @@ import axiosRetry from 'axios-retry';
 // localStorage.debug = 'socket.io-client:socke
 const DefaultConfig = {
     retry:{
-        noOfAttempts:2,
+        noOfAttempts:1,
         interval:1000, // milliseconds
     },
     exception:{

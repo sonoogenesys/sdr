@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Slider from "react-slick";
 
 const products = [
@@ -74,7 +74,8 @@ const products = [
 ]
 
 
-const House = () => {
+const House = ({galleryItem}) => {
+    const [gallery, setGallery] = useState([])
     const settings = {
         dots: true,
         infinite: true,
@@ -103,6 +104,17 @@ const House = () => {
         ]
 
     };
+
+    const preload = ()=> {
+        if(galleryItem){
+            const images = Object.values(galleryItem).map(o=>o.logo);
+            setGallery(images)
+        }
+    }
+
+    useEffect(() => {
+        preload();
+    });
     return (
         <>
             <section className="partnersbg pt-5" id={'gallery'}>
@@ -114,7 +126,7 @@ const House = () => {
                         <div className="col-lg-12 text-center">
                             <Slider {...settings}>
                                 {
-                                    products.map(i=>{
+                                    gallery.map(i=>{
                                         return (
                                             <>
                                             {/*<div className="item client-carousel">*/}

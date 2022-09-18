@@ -6,7 +6,7 @@ import ChangePassword from "./Components/ChangePassword";
 
 import { getLoggedInUser, updateUser, AddAddress, UpdatePickAddress } from "./Duck/ProfileActions";
 
-import AddressDetails from "../IndividualOrder/Components/AddressDetails";
+import AddressDetails from "./Components/AddressDetails";
 
 
 class EditProfile extends Component {

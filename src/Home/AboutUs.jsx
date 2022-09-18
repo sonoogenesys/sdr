@@ -1,9 +1,10 @@
 
 import React from 'react';
 import WebBase from "./WebLayout/WebBase";
+import {connect} from "react-redux";
 require('./aboutus.css');
 
-const AboutUs = () => {
+const AboutUs = ({about}) => {
     return (
         <>
          <WebBase>
@@ -16,18 +17,19 @@ const AboutUs = () => {
                          >
                              <div className="bannerText" >
                                  <h1>About us</h1>
-                                 <p>KCS Electrical is a complete Electrical Engineering firm. We are a brand which ensures inimitable
-                                     services to our clients. KCS Electrical strives for nothing but the best.<br/>
-                                     KCS Electrical came into existence in the year 2006. KCS Electrical is a brainchild of qualified engineers sharing
-                                     common goals and professional acumen in their respective domains. We work with our clients as partners
-                                     to cater all their requirements in a simple and cost effective manner.
-                                     <br/>
-                                     Our forte was in Electrical Engineering projects. We now provide a complete gamut of services for
-                                     Electrical Turnkey projects, Electrical Engineering consultancy.
-                                     Our personnel management strategies focus on building human resource and creating an environment
-                                     where talent can be procreated. Client satisfaction is our motto and we are a perfect blend of employee
-                                     talent, technical expertise and modern technology.
-                                 </p>
+                                 {/*<p>KCS Electrical is a complete Electrical Engineering firm. We are a brand which ensures inimitable*/}
+                                 {/*    services to our clients. KCS Electrical strives for nothing but the best.<br/>*/}
+                                 {/*    KCS Electrical came into existence in the year 2006. KCS Electrical is a brainchild of qualified engineers sharing*/}
+                                 {/*    common goals and professional acumen in their respective domains. We work with our clients as partners*/}
+                                 {/*    to cater all their requirements in a simple and cost effective manner.*/}
+                                 {/*    <br/>*/}
+                                 {/*    Our forte was in Electrical Engineering projects. We now provide a complete gamut of services for*/}
+                                 {/*    Electrical Turnkey projects, Electrical Engineering consultancy.*/}
+                                 {/*    Our personnel management strategies focus on building human resource and creating an environment*/}
+                                 {/*    where talent can be procreated. Client satisfaction is our motto and we are a perfect blend of employee*/}
+                                 {/*    talent, technical expertise and modern technology.*/}
+                                 {/*</p>*/}
+                                 <p>{about?.aboutUs}</p>
                              </div>
                          </div>
                      </div>
@@ -41,14 +43,15 @@ const AboutUs = () => {
                      >
                          <div className="bannerText">
                              <h1>Our Vision</h1>
-                             <p>To be the impeccable Electrical Engineering company in India.<br/>
-                                 Our Vision is to deeply recognize the needs of our Clients who are constantly searching for the latest technologies and new ways of thinking to make the best
-                                 project decisions. We continuously develop our knowledge and expertise and apply
-                                 them in helping our Clients in their business activities. With wide experience,
-                                 we also develop new, efficient software tools that enable our Clients to strengthen
-                                 their business opportunities. And, above all, we work together with our Clients and
-                                 transfer our knowledge and experience through comprehensive training courses.
-                             </p>
+                             {/*<p>To be the impeccable Electrical Engineering company in India.<br/>*/}
+                             {/*    Our Vision is to deeply recognize the needs of our Clients who are constantly searching for the latest technologies and new ways of thinking to make the best*/}
+                             {/*    project decisions. We continuously develop our knowledge and expertise and apply*/}
+                             {/*    them in helping our Clients in their business activities. With wide experience,*/}
+                             {/*    we also develop new, efficient software tools that enable our Clients to strengthen*/}
+                             {/*    their business opportunities. And, above all, we work together with our Clients and*/}
+                             {/*    transfer our knowledge and experience through comprehensive training courses.*/}
+                             {/*</p>*/}
+                             <p>{about?.ourVision}</p>
                          </div>
                      </div>
                  </div>
@@ -62,17 +65,18 @@ const AboutUs = () => {
                      >
                          <div className="bannerText">
                              <h1>Client Satisfaction</h1>
-                             <p>Your complete satisfaction is our mission. Our success will be measured in
-                                 client satisfaction and in our ability to exceed our client&#39;s expectations. We
-                                 strive to be a renowned name in the industry, through a continuous
-                                 improvement program.<br/>
-                                 Being a customer centric organization, we at KCS Electrical know that the client satisfaction
-                                 is directly proportional to the quality of the products. Client satisfaction and quality,
-                                 both are our specialty. We have stuck to the stringent quality policy and have never compromised
-                                 with it. We have a separate quality team which performs the quality test during the procurement
-                                 of electrical goods from renowned suppliers and manufacturers, just to ensure the reliability
-                                 of our products and client satisfaction
-                             </p>
+                             {/*<p>Your complete satisfaction is our mission. Our success will be measured in*/}
+                             {/*    client satisfaction and in our ability to exceed our client&#39;s expectations. We*/}
+                             {/*    strive to be a renowned name in the industry, through a continuous*/}
+                             {/*    improvement program.<br/>*/}
+                             {/*    Being a customer centric organization, we at KCS Electrical know that the client satisfaction*/}
+                             {/*    is directly proportional to the quality of the products. Client satisfaction and quality,*/}
+                             {/*    both are our specialty. We have stuck to the stringent quality policy and have never compromised*/}
+                             {/*    with it. We have a separate quality team which performs the quality test during the procurement*/}
+                             {/*    of electrical goods from renowned suppliers and manufacturers, just to ensure the reliability*/}
+                             {/*    of our products and client satisfaction*/}
+                             {/*</p>*/}
+                             <p>{about?.clientSatisfaction}</p>
                          </div>
                      </div>
                  </div>
@@ -154,4 +158,20 @@ const AboutUs = () => {
     )
 }
 
-export default AboutUs
+const mapStateToProps = (state) => {
+    return {
+        about: state?.about?.about,
+        gallery: state?.gallery?.gallery,
+        client: state?.client?.clients,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // aboutRequest: (params) => dispatch(fetchAboutRequest(params)),
+        // clientRequest: (params) => dispatch(fetchAllClientsRequest(params)),
+        // galleryRequest: (params) => dispatch(fetchAllGallerysRequest(params))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AboutUs)

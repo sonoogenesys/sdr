@@ -4,7 +4,7 @@ const AppFooter = (props) => {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-sm-12 text-center">
-                         Copyright 2022 Rights Reserved
+                        Copyright 2022 © KCS Electrical Traders & Engineering. All Rights Reserved
                     </div>                        
                 </div>
             </div>

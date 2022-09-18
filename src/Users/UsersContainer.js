@@ -4,8 +4,8 @@ import TableContainer from "../Utils/TableContainer";
 import UserModal from "./Components/UserModal";
 import { fetchAllUsersRequest, deleteUserRequest } from "./Duck/UsersActions";
 import { fetchAllRoleRequest, fetchRoleRequest } from "../Role/Duck/RoleActions";
-import { fetchDepartmentRequest } from "../Department/Duck/DepartmentActions";
 import { fetchPlanRequest } from "../plan/Duck/PlanActions";
+import { fetchAllClientsRequest } from "../Client/Duck/ClientsActions";
 import StatusToggleModal from "./Components/StatusToggleModal";
 import Tippy from '@tippyjs/react';
 import moment from "moment";
@@ -23,11 +23,15 @@ class UsersContainer extends Component {
     }
 
     componentDidMount() {
-        let { fetchAllRole, fetchDepartments,fetchPlans, fetchAllUsers } = this.props;
+        let { fetchAllRole, fetchDepartments,fetchPlans, fetchAllUsers, fetchClient } = this.props;
         typeof fetchAllRole === "function" && fetchAllRole();
         typeof fetchDepartments === "function" && fetchDepartments();
         typeof fetchPlans === "function" && fetchPlans();
         // typeof fetchAllUsers === "function" && fetchAllUsers();
+
+
+
+        fetchClient()
         this.loadMoreUser(0);
     }
 
@@ -214,15 +218,13 @@ class UsersContainer extends Component {
                 <TableContainer
                     title={"User Management"}
                     headings={[
-                        "No.",
+                        "Created at",
                         "Name",
                         "Email",
-                        "Role",
-                        "Department",
+                        "Address",
                         "Phone number",
-                        "Created at",
-                        "Status",
-                        "Action",
+                        "Website",
+                        "logo"
                     ]}
                     rowData={userOrder || []}
                     renderRow={this.renderTableRow}
@@ -264,8 +266,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchAllUsers: (params) => dispatch(fetchAllUsersRequest(params)),
         deleteUser: (id) => dispatch(deleteUserRequest(id)),
-        fetchDepartments: (params) => dispatch(fetchDepartmentRequest(params)),
         fetchPlans: (params) => dispatch(fetchPlanRequest(params)),
+        fetchClient: (params) => dispatch(fetchAllClientsRequest(params)),
         fetchAllRole: (params) => dispatch(fetchAllRoleRequest(params)),
     };
 };

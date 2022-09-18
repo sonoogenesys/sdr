@@ -22,7 +22,7 @@ const AppSidebar = (props) => {
                         </li>
                         <li className={pathname === '/app/product' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
                             <Link to="/app/product" className="waves-effect">
-                                <i className="ti ti-anchor"></i>
+                                <i className="ti ti-bag"></i>
                                 <span key="t-product"> Product</span>
                             </Link>
                         </li>
@@ -36,6 +36,12 @@ const AppSidebar = (props) => {
                             <Link to="/app/gallery" className="waves-effect">
                                 <i className="ti ti-gallery"></i>
                                 <span key="t-gallery"> Gallery</span>
+                            </Link>
+                        </li>
+                        <li className={pathname === '/app/invoice' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
+                            <Link to="/app/invoice" className="waves-effect">
+                                <i className="ti ti-printer"></i>
+                                <span key="t-invoice"> Invoice</span>
                             </Link>
                         </li>
                     </ul>

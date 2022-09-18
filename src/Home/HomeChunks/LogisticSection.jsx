@@ -1,12 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
-const LogisticSection = () => {
+const LogisticSection = ({aboutItem}) => {
+    const [about, setAbout] = useState("")
+    const preload = ()=> {
+        if(aboutItem){
+            setAbout(aboutItem.aboutUs)
+        }
+    }
+
+    useEffect(() => {
+        preload();
+    });
+
     return (
         <section className="featuresbg">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-12 logistics_content mb-2">
                         <h4 className="heading_fs">KCS Introduction</h4>
+
                         <p>KCS Electrical Engineers is a complete Electrical Engineering firm. We are a brand which ensures inimitable services to our clients. KCS Electrical strives for nothing but the best.
                          </p><p>   KCS Electrical came into existence in the year 2006. KCS Electrical is a brainchild of qualified engineers sharing common goals and professional acumen in their respective domains. We work with our clients as partners to cater all their requirements in a simple and cost effective manner.
                         </p>

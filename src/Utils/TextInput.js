@@ -16,6 +16,7 @@ const TextInput = ({
     isPasswordText = false,
     isRequired = false,
     cols = "",
+    rows = "",
     autoFocus = false,
     onKeyUp
 }) => {
@@ -41,6 +42,7 @@ const TextInput = ({
                     onChange={onChange}
                     disabled={disabled}
                     cols={cols}
+                    rows={rows}
                     autoFocus={autoFocus}
                 />
             ) : (

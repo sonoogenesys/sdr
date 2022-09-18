@@ -28,39 +28,7 @@ class ApplayoutContainer extends Component {
     componentDidMount(){
         let { getLoggedInUser } = this.props;
         getLoggedInUser(jwtDecode(localStorage.getItem('jwt')).user._id)
-        // typeof fetchRoles === "function" && fetchRoles();
-        // if (loggedInUser && !loggedInUser?.user_type?._id) {
-        //     fetchLogistics?.();
-        // }
-        // fetchWallet && fetchWallet();
-        //
-        // fetchPlans && fetchPlans()
-        //
-        // // fetchAllOrders && fetchAllOrders();
-        // // fetchAllBulkOrders && fetchAllBulkOrders();
-        // this.loadMoreOrders();
     }
-
-    loadMoreOrders = () => {
-        let { fetchAllOrders } = this.props;
-
-        let params = {
-            payment_status: "complete",
-            weight_dispute: true,
-            weight_dispute_created_from: moment().subtract(7, "days").startOf("days").utc().format(),
-        };
-
-        fetchAllOrders && fetchAllOrders(params);
-    }
-
-    // componentDidUpdate(prevProps){
-        // const { fetchLogistics, loggedInUser } = this.props
-        // if(!prevProps?.loggedInUser){
-        //     if (loggedInUser && !loggedInUser?.user_type?._id) {
-        //         fetchLogistics?.();
-        //     }
-        // }
-    // }
 
     logOut = () => {
         this.setState({redirectToLogin: true})
@@ -136,37 +104,15 @@ class ApplayoutContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const pathname = {
-        payment_status: "complete",
-        weight_dispute: true,
-        weight_dispute_created_from: moment().subtract(7, "days").startOf("days").utc().format()
-    };
-    let filter = JSON.stringify(pathname);
-    let boards = state.order?.boards;
-
-    let mBoard = boards[filter];
-    let orderMeta = mBoard?.meta;
-
     return {
         loggedInUser: state?.loggedInUser?.data?.data,
-        orderMeta: orderMeta,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getLoggedInUser: (id) => dispatch(getLoggedInUser(id)),
-        // fetchAllUsers: (params) => dispatch(fetchAllUsersRequest(params)),
-        // fetchDepartments: (params) => dispatch(fetchDepartmentRequest(params)),
-        // // fetchRoles: (params) => dispatch(fetchRoleRequest(params)),
-        // fetchPlans: (params) => dispatch(fetchPlanRequest(params)),
-        // fetchAllOrders: (prams) => dispatch(fetchAllOrderRequest(prams)),
-        // fetchAllBulkOrders: (prams) => dispatch(fetchAllBulkOrderRequest(prams)),
-        // fetchLogistics: (params) => dispatch(fetchLogistics(params)),
-        // fetchAllRemittance: (params) => dispatch(fetchAllRemittanceRequest(params)),
-        // fetchWallet: () => dispatch(fetchWalletRequest()),
-        logOut: () => dispatch(logOut()),
-        // fetchAllOrders: (prams) => dispatch(searchAllOrderRequest(prams)),
+        logOut: () => dispatch(logOut())
     }
 }
 
