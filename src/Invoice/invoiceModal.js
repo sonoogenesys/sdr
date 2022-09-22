@@ -41,6 +41,7 @@ class InvoiceModal extends Component {
             insurance: null,
             freight: null,
             discount: null,
+            invoice_number: "013 /2022-23",
             items: {}
         };
     }
@@ -87,6 +88,7 @@ class InvoiceModal extends Component {
             insurance: null,
             freight: null,
             discount: null,
+            invoice_number: null,
             items: {}
         });
 
@@ -114,7 +116,8 @@ class InvoiceModal extends Component {
             insurance,
             freight,
             discount,
-            items
+            items,
+            invoice_number
         }
          = this.state;
         let {createInvoice} = this.props;
@@ -142,7 +145,8 @@ class InvoiceModal extends Component {
             insurance: insurance,
             freight: freight,
             discount: discount,
-            items: items
+            items: items,
+            invoice_number: invoice_number
         }
 
         createInvoice(params)
@@ -234,13 +238,13 @@ class InvoiceModal extends Component {
         if(name === "selectedShipping") {
             let shipping_name = client[event.value].name
             let shipping_address = client[event.value].address
-            let shipping_gst = client[event.value].gst
+            let shipping_gst = client[event.value].gstin
             this.setState({shipping_name, shipping_address, shipping_gst})
         }
         if(name === "selectedBilling") {
             let billing_name = client[event.value].name
             let billing_address = client[event.value].address
-            let billing_gst = client[event.value].gst
+            let billing_gst = client[event.value].gstin
             this.setState({billing_name, billing_address, billing_gst})
         }
     };
@@ -275,6 +279,7 @@ class InvoiceModal extends Component {
             billing_name,
             billing_address,
             billing_gst,
+            invoice_number
         } = this.state;
         let title = !userId ? "Add New Invoice" : "Edit Invoice";
 
@@ -372,8 +377,9 @@ class InvoiceModal extends Component {
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Invoice Number"}
-                                disabled={true}
-                                value={"inv-001"}
+                                value={invoice_number}
+                                onChange={this.handleChange("invoice_number")}
+
                             />
                         </div>
                         <div className="col-xl-4 col-4 col-md-4">
