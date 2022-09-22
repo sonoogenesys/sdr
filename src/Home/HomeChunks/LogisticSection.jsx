@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 
 const LogisticSection = ({aboutItem}) => {
-    const [about, setAbout] = useState("")
-    const preload = ()=> {
-        if(aboutItem){
-            setAbout(aboutItem.aboutUs)
-        }
-    }
-
-    useEffect(() => {
-        preload();
-    });
+    // const [about, setAbout] = useState("")
+    // const preload = ()=> {
+    //     if(about === "" && aboutItem){
+    //         setAbout(aboutItem.aboutUs)
+    //     }
+    // }
+    //
+    // useEffect(() => {
+    //     preload();
+    // });
 
     return (
         <section className="featuresbg">

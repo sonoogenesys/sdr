@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Slider from "react-slick";
+import {connect} from "react-redux";
 
 // const products = [
 //     'img/51.jpeg',
@@ -73,78 +74,90 @@ import Slider from "react-slick";
 //     'img/48.jpeg',
 // ]
 
+class House extends React.Component {
 
-const House = ({galleryItem}) => {
-    const [gallery, setGallery] = useState([])
-    const settings = {
-        dots: true,
-        infinite: true,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 1000,
-        arrows: false,
-        cssEase: "linear",
-        pauseOnHover: true,
-        responsive: [
-            {
-                breakpoint: 767,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
+    render() {
+        const settings = {
+            dots: true,
+            infinite: true,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1000,
+            arrows: false,
+            cssEase: "linear",
+            pauseOnHover: true,
+            responsive: [
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
                 }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
+            ]
 
-    };
+        };
+        const {gallery} = this.props
 
-    const preload = ()=> {
-        if(galleryItem){
-            const images = Object.values(galleryItem).map(o=>o.logo);
-            setGallery(images)
-        }
-    }
+        let images = Object.values(gallery).map(o=>o.logo);
 
-    useEffect(() => {
-        preload();
-    });
-    return (
-        <>
-            <section className="featuresbg pt-5" id={'gallery'}>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12 text-center pt-4 pb-4">
-                            <h5 className="heading_fs">Gallery</h5>
-                        </div>
-                        <div className="col-lg-12 text-center">
-                            <Slider {...settings}>
-                                {
-                                    gallery.map(i=>{
-                                        return (
-                                            <>
-                                            {/*<div className="item client-carousel">*/}
-                                            {/*    <div className="client-carousel-img">*/}
+        return (
+            <>
+                <section className="featuresbg pt-5" id={'gallery'}>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-12 text-center pt-4 pb-4">
+                                <h5 className="heading_fs">Gallery</h5>
+                            </div>
+                            <div className="col-lg-12 text-center">
+                                <Slider {...settings}>
+                                    {
+                                        images.map(i=>{
+                                            return (
+                                                <>
+                                                    {/*<div className="item client-carousel">*/}
+                                                    {/*    <div className="client-carousel-img">*/}
                                                     <img style={{width: 200, height: 200}} src={i} alt=""/>
-                                                {/*</div>*/}
-                                            {/*</div>*/}
-                                            </>
-                                        )
-                                    })
-                                }
-                            </Slider>
+                                                    {/*</div>*/}
+                                                    {/*</div>*/}
+                                                </>
+                                            )
+                                        })
+                                    }
+                                </Slider>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </>
-    )
+                </section>
+            </>
+        )
+    }
 }
 
-export default House
+
+const mapStateToProps = (state) => {
+    return {
+        about: state?.about?.about,
+        gallery: state?.gallery?.gallery,
+        // client: state?.client?.clients,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // aboutRequest: (params) => dispatch(fetchAboutRequest(params)),
+        // clientRequest: (params) => dispatch(fetchAllClientsRequest(params)),
+        // galleryRequest: (params) => dispatch(fetchAllGallerysRequest(params))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(House)
+

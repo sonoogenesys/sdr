@@ -85,7 +85,6 @@ const Partners = () => {
                                 <Slider {...settings}>
                                     {
                                         client.map(i=>{
-                                            console.log(i)
                                             return(
                                                 <div className="item client-carousel">
                                                     <div className="client-carousel-img">

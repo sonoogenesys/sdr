@@ -24,7 +24,7 @@ const Home = (props) => {
                 <Features />
                 <Partners  />
                 <Brand/>
-                <Warehouse galleryItem={galleryItem}/>
+                <Warehouse/>
                 <Team />
             </WebBase>
 

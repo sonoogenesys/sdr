@@ -13,36 +13,31 @@ import Gallery from "../Home/Gallery";
 import {fetchAllGallerysRequest} from "../Gallery/Duck/GalleryActions";
 import {fetchAboutRequest} from "../About/Duck/AboutActions";
 
+class AuthContainer extends React.Component {
+   componentDidMount() {
+       DefaultConfig.setRequests();
+       let {aboutRequest, galleryRequest} = this.props
+           aboutRequest();
+           galleryRequest();
+   }
 
-const AuthContainer = (props) => {
-    DefaultConfig.setRequests();
+   render(){
+       return (
+           <React.Fragment>
+               <Switch>
+                   <Route exact path="/" component={Home} />
+                   <Route exact path="/Service" component={Services} />
+                   <Route exact path="/AboutUs" component={AboutUs} />
+                   <Route exact path="/Products" component={Products} />
+                   <Route exact path="/Gallery" component={Gallery} />
+                   <PrivateRoute path="/app/" component={ApplayoutContainer} />
+                   <AuthRouter />
+               </Switch>
+           </React.Fragment>
+       );
+   }
 
-    const preload = ()=> {
-        let {aboutRequest, galleryRequest, about} = props
-        if(Object.keys(about).length === 0){
-            aboutRequest();
-            galleryRequest();
-        }
-
-    }
-    useEffect(() => {
-        preload();
-    });
-
-    return (
-        <React.Fragment>
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/Service" component={Services} />
-                <Route exact path="/AboutUs" component={AboutUs} />
-                <Route exact path="/Products" component={Products} />
-                <Route exact path="/Gallery" component={Gallery} />
-                <PrivateRoute path="/app/" component={ApplayoutContainer} />
-                <AuthRouter />
-            </Switch>
-        </React.Fragment>
-    );
-};
+}
 
 const mapStateToProps = (state) => {
     return {
