@@ -2,8 +2,8 @@ let BASE_URL, url;
 export let RAZORPAY_KEY = "rzp_test_i3xrBjjHzvOUMC";
 url = window.location.hostname;
 
-// BASE_URL = "https://www.kcs-electrical.com"
-BASE_URL = "http://localhost:4343"
+BASE_URL = "https://www.kcs-electrical.com"
+// BASE_URL = "http://localhost:4343"
 RAZORPAY_KEY = "rzp_live_NWsAltrWTgsGbG";
 console.log("url", url);
 
