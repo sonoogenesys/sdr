@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import InvoicePreview from "./InvoicePreview";
 import TableComponent from "./tableComponent";
 import moment from 'moment'
 import InvoiceModal from "./invoiceModal";
@@ -8,6 +9,7 @@ import {fetchAllInvoiceRequest} from "./Duck/InvoiceActions";
 import {connect} from "react-redux";
 import BaseTable from "../Utils/BaseTable";
 import Tippy from "@tippyjs/react";
+import TextInput from "../Utils/TextInput";
 
 class OrderInvoice extends React.Component {
     state = {
@@ -22,7 +24,11 @@ class OrderInvoice extends React.Component {
         ],
         showInvoiceModal: false,
         previewInvoiceModal: false,
-        invoiceId: null
+        invoiceId: null,
+        screenHeight: 455
+    }
+    handleHeight = (e) => {
+        this.setState({screenHeight: e.target.value})
     }
 
     handleModal = (show = false, show2 = false, invoiceId = null) => {
@@ -41,7 +47,7 @@ class OrderInvoice extends React.Component {
     }
 
     render() {
-        let { showInvoiceModal, previewInvoiceModal, invoiceId  } = this.state;
+        let { showInvoiceModal, previewInvoiceModal, invoiceId, screenHeight  } = this.state;
         let invoice = this.props.invoice && (Object.keys(this.props.invoice).length > 0 ? Object.values(this.props.invoice) : []);
 
 
@@ -61,15 +67,44 @@ class OrderInvoice extends React.Component {
                             <i className="bx bxs-printer"></i>
                         </Tippy>
                     </span>
+                    <span className={'ml-2'} onClick={()=>this.handleModal(true, false, item?._id)}>
+                       <Tippy content="Edit">
+                            <i className="bx bxs-edit"/>
+                        </Tippy>
+                    </span>
+
                     </td>
                 </tr>
             );
         };
+
         return (
             <>
+
                 <div className="row">
                     <div className="col-md-12">
-                        <div className="page-title-box d-flex align-items-center justify-content-between">
+                        {previewInvoiceModal ? <div className="page-title-box d-flex align-items-center justify-content-between">
+                                <div className="page-title-left">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary my-2 btn-icon-text"
+                                        onClick={() => this.handleModal(false, false, null)}
+                                    >
+                                        <i className="fe fe-arrow-left mr-2"></i> Back
+                                    </button>
+                                </div>
+                                <TextInput value={screenHeight} onChange={this.handleHeight}/>
+                                <div className="page-title-right">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary my-2 btn-icon-text"
+                                        onClick={window.print}
+                                    >
+                                        <i className="fe fe-printer mr-2"></i> Print
+                                    </button>
+                                </div>
+                            </div> :
+                            <div className="page-title-box d-flex align-items-center justify-content-between">
                             <div className="page-header">
                                 <div>
                                     <h2 className="main-content-title tx-24 mg-b-5">
@@ -86,18 +121,20 @@ class OrderInvoice extends React.Component {
                                     <i className="fe fe-plus mr-2"></i> Generate Invoice
                                 </button>
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 </div>
 
-                {
-                    previewInvoiceModal ? <TableComponent invoice={this.props.invoice[invoiceId]}/> : <BaseTable
-                        headingData={this.state.headingData}
-                        rowData={invoice ? invoice : []}
-                        renderRowItem={renderRowItem}
-                    />
-                }
+
+                {previewInvoiceModal ?
+                    <TableComponent screenHeight={screenHeight} invoice={this.props.invoice[invoiceId]}/>
+                    :  <BaseTable
+                    headingData={this.state.headingData}
+                    rowData={invoice ? invoice : []}
+                    renderRowItem={renderRowItem}
+                />}
                 <InvoiceModal
+                    invoiceId={invoiceId}
                     show={showInvoiceModal}
                     handelModal={this.handleModal}
                 />
@@ -109,6 +146,8 @@ class OrderInvoice extends React.Component {
         );
     }
 }
+
+
 
 const mapStateToProps = (state, ownProps) => {
     return {

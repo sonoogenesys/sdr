@@ -82,7 +82,7 @@ const AppHeader = (props) => {
                         <div className="dropdown d-inline-block">
                             <Dropdown>
                                 <Dropdown.Toggle className="btn header-item d-flex align-items-center" style={{backgroundColor : "#fff", color: "#555b6d"}}>
-                                    <span style={{background: getAvatarColor(props?.loggedInUser?._id), fontSize: 14, display:'inline-block', width:32, height:32, lineHeight: '32px', borderRadius:'50%', color:'white'}} className="mr-2">
+                                    <span style={{background: "#012d80", fontSize: 14, display:'inline-block', width:32, height:32, lineHeight: '32px', borderRadius:'50%', color:'white'}} className="mr-2">
                                         {getNameInitials(props?.loggedInUser?.name || props?.loggedInUser?.email)}
                                     </span>
                                     <div className="text-left">

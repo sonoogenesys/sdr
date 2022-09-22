@@ -434,7 +434,7 @@ body[data-layout=horizontal] .footer {
 }
 .vertical-menu {
 	width: 270px;
-	background: #a67d01 !important;
+	background: #012d80 !important;
 	z-index: 1001;
 	background: #fff;
 	bottom: 0;
@@ -497,7 +497,7 @@ body[data-layout=horizontal] .footer {
 	color: #784b09;
 }
 #sidebar-menu ul li a:hover i {
-	color: #784b09;
+	color: #012d80;
 }
 
 #sidebar-menu .sub-menu .mm-active>a{
@@ -558,7 +558,7 @@ body[data-layout=horizontal] .footer {
 }
 
 .mm-active>a {
-	color:#a67d01 !important;
+	color:#012d80 !important;
 	position: relative;
 	font-weight:600;
     z-index: 1;
@@ -579,7 +579,7 @@ body[data-layout=horizontal] .footer {
 
 .mm-active>a i {
 	color: #ffffff !important;
-	background-color: #a67d01;
+	background-color: #012d80;
 	font-size: 20px !important;
     margin: 7px 5px;
     width: 35px;

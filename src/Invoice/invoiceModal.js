@@ -48,12 +48,7 @@ class InvoiceModal extends Component {
 
 
     componentDidUpdate(preProps) {
-    //     let { client, userId } = this.props;
-    //
-    //     if (!!client && preProps?.userId !== userId) {
-    //         this.setClientDetails();
-    //     }
-    //
+        console.log(this.props.loading, preProps.loading, this.state.isLoading)
         if (!this.props.loading && preProps.loading && this.state.isLoading) {
             if (!this.props.error) {
                 this.onClickClose();
@@ -67,8 +62,8 @@ class InvoiceModal extends Component {
         let { handelModal } = this.props;
         this.setState({
             isLoading: false,
-            selectedShipping: {},
-            selectedBilling: {},
+            selectedShipping: null,
+            selectedBilling: null,
             selectedProduct: null,
             selectedState: null,
             selectedCity: null,
@@ -92,7 +87,7 @@ class InvoiceModal extends Component {
             items: {}
         });
 
-        typeof handelModal === "function" && handelModal();
+        handelModal(false, false, null);
     };
 
     onClickSave = () => {
@@ -123,8 +118,8 @@ class InvoiceModal extends Component {
         let {createInvoice} = this.props;
 
         let params = {
-            selectedState: selectedState.label,
-            selectedCity: selectedCity.label,
+            selectedState: selectedState,
+            selectedCity: selectedCity,
             shipping_address: {
                 name: shipping_name,
                 address: shipping_address,
@@ -135,8 +130,8 @@ class InvoiceModal extends Component {
                 address: billing_address,
                 gst: billing_gst,
             },
-            selectedTransport: selectedTransport.label,
-            selectedReverse: selectedReverse.label,
+            selectedTransport: selectedTransport,
+            selectedReverse: selectedReverse,
             lrNo: lrNo,
             vehicle: vehicle,
             supply: supply,
@@ -150,8 +145,8 @@ class InvoiceModal extends Component {
         }
 
         createInvoice(params)
+        setTimeout(()=>this.onClickClose(), 5000)
 
-        console.log('State', params)
 
     };
 
@@ -314,25 +309,29 @@ class InvoiceModal extends Component {
                                        labelText={"Transport Mode"}
                                        options={[
                                            {
-                                               value: "Bus",
-                                               label: "Bus"
+                                               value: "By Road (Bus)",
+                                               label: "By Road (Bus)"
                                            },
                                            {
-                                               value: "Rikshaw",
-                                               label: "Rikshaw"
+                                               value: "By Road (Rikshaw)",
+                                               label: "By Road (Rikshaw)"
                                            },
                                            {
-                                               value: "MotorCycle",
-                                               label: "MotorCycle"
+                                               value: "By Road (MotorCycle)",
+                                               label: "By Road (MotorCycle)"
                                            },
                                            {
-                                               value: "Car",
-                                               label: "Car"
+                                               value: "By Road (Car)",
+                                               label: "By Road (Car)"
+                                           },
+                                           {
+                                               value: "By Road (Truck)",
+                                               label: "By Road (Truck)"
                                            },
                                            {
                                                value: "Train",
                                                label: "Train"
-                                           },
+                                           }
 
                                        ]}
                             />
