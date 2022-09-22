@@ -371,11 +371,11 @@ const Products = () => {
                                             <div>
                                                 <div className="position-relative">
                                                     <div className="hex large_hex">
-                                                        <div className="large_hex_content">
-                                                            <img src="img/P7.jpeg"  className="largeBox"  style={{width: 75, height: 75}}/>
-                                                            <img src="img/P7.jpeg" className="largeBoxfff" style={{width: 150, height: 150, borderRadius: 50}}/>
-                                                            <h5 className="mt-2">Transformer and AVR</h5>
-                                                            <p>Something need to write here for broadcasting and attractive</p>
+                                                        <div className="large_hex_content text-center">
+                                                            {/*<img src="img/P7.jpeg"  className="largeBox"  style={{width: 75, height: 75}}/>*/}
+                                                            {/*<img src="img/P7.jpeg" className="largeBoxfff" style={{width: 150, height: 150, borderRadius: 50}}/>*/}
+                                                            <h5 style={{marginTop: -110}}>Transformer and AVR</h5>
+                                                            {/*<p>Something need to write here for broadcasting and attractive</p>*/}
                                                         </div>
                                                     </div>
                                                     <svg  style={{visibility: 'hidden', position: 'absolute'}} width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">

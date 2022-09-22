@@ -73,7 +73,7 @@ export default class RoleDetails extends Component {
                         <div className="page-title-box d-flex align-items-center justify-content-between">
                             <div className="page-header">
                                 <div>
-                                    <h2 className="main-content-title tx-24 mg-b-5">
+                                    <h2 style={{color:'#fff'}} className="main-content-title tx-24 mg-b-5">
                                         About Page
                                     </h2>
                                 </div>

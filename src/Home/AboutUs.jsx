@@ -16,7 +16,7 @@ const AboutUs = ({about}) => {
                              data-aos-duration="3000"
                          >
                              <div className="bannerText" >
-                                 <h1>About us</h1>
+                                 <h1 style={{color:'#fff'}}>About us</h1>
                                  {/*<p>KCS Electrical is a complete Electrical Engineering firm. We are a brand which ensures inimitable*/}
                                  {/*    services to our clients. KCS Electrical strives for nothing but the best.<br/>*/}
                                  {/*    KCS Electrical came into existence in the year 2006. KCS Electrical is a brainchild of qualified engineers sharing*/}
@@ -29,7 +29,7 @@ const AboutUs = ({about}) => {
                                  {/*    where talent can be procreated. Client satisfaction is our motto and we are a perfect blend of employee*/}
                                  {/*    talent, technical expertise and modern technology.*/}
                                  {/*</p>*/}
-                                 <p>{about?.aboutUs}</p>
+                                 <p style={{color:'#fff'}}>{about?.aboutUs}</p>
                              </div>
                          </div>
                      </div>
@@ -64,7 +64,7 @@ const AboutUs = ({about}) => {
                          data-aos-duration="3000"
                      >
                          <div className="bannerText">
-                             <h1>Client Satisfaction</h1>
+                             <h1 style={{color:'#fff'}}>Client Satisfaction</h1>
                              {/*<p>Your complete satisfaction is our mission. Our success will be measured in*/}
                              {/*    client satisfaction and in our ability to exceed our client&#39;s expectations. We*/}
                              {/*    strive to be a renowned name in the industry, through a continuous*/}
@@ -76,81 +76,81 @@ const AboutUs = ({about}) => {
                              {/*    of electrical goods from renowned suppliers and manufacturers, just to ensure the reliability*/}
                              {/*    of our products and client satisfaction*/}
                              {/*</p>*/}
-                             <p>{about?.clientSatisfaction}</p>
+                             <p style={{color:'#fff'}}>{about?.clientSatisfaction}</p>
                          </div>
                      </div>
                  </div>
              </div>
              <div className="clientsLogo">
                  <div className="clientBox">
-                     <div
-                         className="row"
-                         data-aos="fade-up"
-                         data-aos-duration="3000"
-                     >
-                         <div className="col-lg-5 col-md-5 col">
-                             <div className="logo3 text-right">
-                                 <img src="img/client-logo1.png" alt="logo1" />
-                             </div>
-                         </div>
-                         <div className="col-lg-2 col-md-2 col">
-                             <div className="logo3 text-center">
-                                 <img src="img/client-logo2.png" alt="logo2"/>
-                             </div>
-                         </div>
-                         <div className="col-lg-5 col-md-5 col">
-                             <div className="logo3 text-left">
-                                 <img src="img/client-logo3.png" alt="logo3"/>
-                             </div>
-                         </div>
-                     </div>
-                     <div
-                         className="row"
-                         data-aos="fade-up"
-                         data-aos-duration="3000"
-                     >
-                         <div className="col-lg-4 col-md-4 col">
-                             <div className="logo4 text-right">
-                                 <img src="img/client-logo4.png" alt="logo4" />
-                             </div>
-                         </div>
-                         <div className="col-lg-2 col-md-2 col">
-                             <div className="logo4 text-center">
-                                 <img src="img/client-logo5.png" alt="logo5" />
-                             </div>
-                         </div>
-                         <div className="col-lg-2 col-md-2 col">
-                             <div className="logo4 text-center">
-                                 <img src="img/client-logo6.png" alt="logo6" />
-                             </div>
-                         </div>
-                         <div className="col-lg-4 col-md-4 col">
-                             <div className="logo4 text-left">
-                                 <img src="img/client-logo7.png" alt="logo7" />
-                             </div>
-                         </div>
-                     </div>
-                     <div
-                         className="row"
-                         data-aos="fade-up"
-                         data-aos-duration="3000"
-                     >
-                         <div className="col-lg-5 col-md-5 col">
-                             <div className="logo3 text-right">
-                                 <img src="img/client-logo8.png" alt="logo8"/>
-                             </div>
-                         </div>
-                         <div className="col-lg-2 col-md-2 col">
-                             <div className="logo3 text-center">
-                                 <img src="img/client-logo9.png" alt="logo9" />
-                             </div>
-                         </div>
-                         <div className="col-lg-5 col-md-5 col">
-                             <div className="logo3 text-left">
-                                 <img src="img/client-logo10.png" alt="logo10" />
-                             </div>
-                         </div>
-                     </div>
+             {/*        <div*/}
+             {/*            className="row"*/}
+             {/*            data-aos="fade-up"*/}
+             {/*            data-aos-duration="3000"*/}
+             {/*        >*/}
+             {/*            <div className="col-lg-5 col-md-5 col">*/}
+             {/*                <div className="logo3 text-right">*/}
+             {/*                    <img src="img/client-logo1.png" alt="logo1" />*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*            <div className="col-lg-2 col-md-2 col">*/}
+             {/*                <div className="logo3 text-center">*/}
+             {/*                    <img src="img/client-logo2.png" alt="logo2"/>*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*            <div className="col-lg-5 col-md-5 col">*/}
+             {/*                <div className="logo3 text-left">*/}
+             {/*                    <img src="img/client-logo3.png" alt="logo3"/>*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*        </div>*/}
+             {/*        <div*/}
+             {/*            className="row"*/}
+             {/*            data-aos="fade-up"*/}
+             {/*            data-aos-duration="3000"*/}
+             {/*        >*/}
+             {/*            <div className="col-lg-4 col-md-4 col">*/}
+             {/*                <div className="logo4 text-right">*/}
+             {/*                    <img src="img/client-logo4.png" alt="logo4" />*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*            <div className="col-lg-2 col-md-2 col">*/}
+             {/*                <div className="logo4 text-center">*/}
+             {/*                    <img src="img/client-logo5.png" alt="logo5" />*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*            <div className="col-lg-2 col-md-2 col">*/}
+             {/*                <div className="logo4 text-center">*/}
+             {/*                    <img src="img/client-logo6.png" alt="logo6" />*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*            <div className="col-lg-4 col-md-4 col">*/}
+             {/*                <div className="logo4 text-left">*/}
+             {/*                    <img src="img/client-logo7.png" alt="logo7" />*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*        </div>*/}
+             {/*        <div*/}
+             {/*            className="row"*/}
+             {/*            data-aos="fade-up"*/}
+             {/*            data-aos-duration="3000"*/}
+             {/*        >*/}
+             {/*            <div className="col-lg-5 col-md-5 col">*/}
+             {/*                <div className="logo3 text-right">*/}
+             {/*                    <img src="img/client-logo8.png" alt="logo8"/>*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*            <div className="col-lg-2 col-md-2 col">*/}
+             {/*                <div className="logo3 text-center">*/}
+             {/*                    <img src="img/client-logo9.png" alt="logo9" />*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*            <div className="col-lg-5 col-md-5 col">*/}
+             {/*                <div className="logo3 text-left">*/}
+             {/*                    <img src="img/client-logo10.png" alt="logo10" />*/}
+             {/*                </div>*/}
+             {/*            </div>*/}
+             {/*        </div>*/}
                  </div>
              </div>
          </WebBase>

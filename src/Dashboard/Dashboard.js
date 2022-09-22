@@ -8,8 +8,6 @@ import { Badge } from 'react-bootstrap';
 import FilePreviewModal from '../FilePreview/filePreviewModal';
 import FilePreviewWrapper from '../FilePreview/filePreviewWrapper';
 // import {Tab,Tabs} from 'react-bootstrap';
-
-import DatePicker from "react-datepicker";
 import CounterContainer from './Components/CounterContainer';
 import DashboardChart from './Components/DashboardChart';
 import { getCurrentMonthOfWeek } from '../Utils/CommonFunctions';
