@@ -107,7 +107,7 @@ class House extends React.Component {
         };
         const {gallery} = this.props
 
-        let images = Object.values(gallery).map(o=>o.logo);
+        let images = Object.values(gallery).map(o=>o.active && o.logo);
 
         return (
             <>
@@ -121,15 +121,18 @@ class House extends React.Component {
                                 <Slider {...settings}>
                                     {
                                         images.map(i=>{
-                                            return (
-                                                <>
-                                                    {/*<div className="item client-carousel">*/}
-                                                    {/*    <div className="client-carousel-img">*/}
-                                                    <img style={{width: 200, height: 200}} src={i} alt=""/>
-                                                    {/*</div>*/}
-                                                    {/*</div>*/}
-                                                </>
-                                            )
+                                            if(i){
+                                                return (
+                                                    <>
+                                                        {/*<div className="item client-carousel">*/}
+                                                        {/*    <div className="client-carousel-img">*/}
+                                                        <img style={{width: 200, height: 200}} src={i} alt=""/>
+                                                        {/*</div>*/}
+                                                        {/*</div>*/}
+                                                    </>
+                                                )
+                                            }
+
                                         })
                                     }
                                 </Slider>
