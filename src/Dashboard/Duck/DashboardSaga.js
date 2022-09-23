@@ -17,11 +17,7 @@ function* fetchDashboard(action) {
         let response = yield call(fetchDashboardApi, action.payload);
         let resData = response?.data;
 
-        resData.pathname = action.payload?.pathname;
-        delete action.payload?.pathname;
-        resData.filter = action.payload;
-
-        if (resData?.meta?.success !== true || resData?.meta?.status !== 200) {
+        if (resData?.success !== true) {
             showNotification("error", resData?.meta?.message || resData?.message);
             yield put({ type: ACTIONS.FETCH_FAIL, payload: resData });
         } else {
@@ -32,26 +28,9 @@ function* fetchDashboard(action) {
     }
 }
 
-function* refreshCounter(action) {
-    try {
-        let response = yield call(fetchDashboardApi, action.payload);
-        let resData = response?.data;
-        resData.counter_key = action.payload?.counter_key;
-
-        if (resData?.meta?.success !== true || resData?.meta?.status !== 200) {
-            showNotification("error", resData?.meta?.message || resData?.message);
-            yield put({ type: ACTIONS.REFRESH_COUNTER_FAIL, payload: resData });
-        } else {
-            yield put({ type: ACTIONS.REFRESH_COUNTER_SUCCESS, payload: resData });
-        }
-    } catch (error) {
-        console.log("refresh counter ", error);
-    }
-}
 
 function* watchDashboard() {
-    yield takeLatest(ACTIONS.FETCH_REQUEST, fetchDashboard);
-    yield takeEvery(ACTIONS.REFRESH_COUNTER_REQUEST, refreshCounter);
+    yield takeLatest(ACTIONS.FETCH_REQUEST, fetchDashboard)
 }
 
 // ACTION WATCHER
