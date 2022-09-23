@@ -48,11 +48,11 @@ const UserModal = ({
             <>
                 <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="btn btn-danger"
                     data-dismiss="modal"
                     onClick={() => handleModal()}
                 >
-                    Close
+                    No
                 </button>
 
                 <button
@@ -81,6 +81,7 @@ const UserModal = ({
             show={show}
             handleClose={handleModal}
             title={title}
+            closeButton={false}
             footerComponent={renderFooter}
         >
             Are you sure to {isActive ? "deactivate" : "activate"} <b>{user?.name || user?.email}</b> ?

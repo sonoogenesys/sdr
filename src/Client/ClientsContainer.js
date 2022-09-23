@@ -26,18 +26,18 @@ class ClientsContainer extends Component {
     }
 
     renderTableRow = (client, index) => {
-        const tableCSS = {textAlign: 'center',verticalAlign: 'middle', width: 250, overflow: 'hidden', textOverflow: 'ellipsis',}
+        const tableCSS = {textAlign: 'center',verticalAlign: 'middle', width: 150, overflow: 'hidden', textOverflow: 'ellipsis',}
         const styleImage = {width: 100, height: 100}
         return (
             client && (
                 <tr key={`${client._id}_${index}`}>
                     <td style={tableCSS}>{client?.created_at ? moment(client.created_at).format("D MMM YYYY") : "-"}</td>
-                    <td style={tableCSS}>{client?.name}</td>
+                    <td style={{...tableCSS, width: 200}}>{client?.name}</td>
                     <td style={tableCSS}>{client?.email}</td>
-                    <td style={tableCSS}>{client?.address}</td>
+                    <td style={{...tableCSS, width: 400}}>{client?.address}</td>
                    <td style={tableCSS}>{client?.phone}</td>
                    <td style={tableCSS}>{client?.gstin}</td>
-                   <td style={tableCSS}><img src={client?.logo}  style={styleImage}/></td>
+                   <td style={tableCSS}>{client?.logo && <img src={client?.logo} style={styleImage}/>}</td>
                     <td className={client?.active ? "greenColor" : "redColor"} style={tableCSS}>
                         {client?.active ? "Active" : "Inactive"}
                     </td>

@@ -5,19 +5,20 @@ import InvoiceModal from "./invoiceModal";
 import InvoiceUpdateModal from "./invoiceUpdateModal";
 import {fetchAllClientsRequest} from "../Client/Duck/ClientsActions";
 import {fetchAllProductsRequest} from "../Product/Duck/ProductsActions";
-import {fetchAllInvoiceRequest} from "./Duck/InvoiceActions";
+import {fetchAllInvoiceRequest, deleteInvoiceRequest} from "./Duck/InvoiceActions";
 import {connect} from "react-redux";
-import BaseTable from "../Utils/BaseTable";
+import TableContainer from "../Utils/TableContainer";
 import Tippy from "@tippyjs/react";
 import TextInput from "../Utils/TextInput";
+import BaseModal from "../Utils/BaseModal";
 
 class OrderInvoice extends React.Component {
     state = {
         headingData: [
             "S. No.",
             "Invoice No",
-            "Shipped to",
-            "Billing to",
+            "Client Name",
+            // "Billing to",
             "Date",
             "Amount",
             "Status",
@@ -27,18 +28,23 @@ class OrderInvoice extends React.Component {
         previewInvoiceModal: false,
         invoiceId: null,
         screenHeight: 455,
-        editInvoiceModal: false
+        editInvoiceModal: false,
+        removeModal: false,
+        showToggleUserStatusModal: false,
+        searchText: "",
+        isLoading: false
     }
     handleHeight = (e) => {
         this.setState({screenHeight: e.target.value})
     }
 
-    handleModal = (show = false, show2 = false, invoiceId = null, edit = false) => {
+    handleModal = (show = false, show2 = false, invoiceId = null, edit = false, remove = false) => {
         this.setState({
             showInvoiceModal: show,
             previewInvoiceModal: show2,
             invoiceId: invoiceId,
-            editInvoiceModal: edit
+            editInvoiceModal: edit,
+            removeModal: remove
         });
     };
 
@@ -48,28 +54,99 @@ class OrderInvoice extends React.Component {
             fetchProduct();
             fetchInvoice();
     }
+    onSearch = (text = "") => {
+        this.setState({
+            searchText: text.trim(),
+        });
+    };
 
-    render() {
-        let { showInvoiceModal, previewInvoiceModal, invoiceId, screenHeight, editInvoiceModal  } = this.state;
-        let invoice = this.props.invoice && (Object.keys(this.props.invoice).length > 0 ? Object.values(this.props.invoice) : []);
+    deleteInvoice = () => {
+        let {invoiceId} = this.state;
+        this.setState({isLoading: true});
+        this.props.deleteInvoice(invoiceId)
+        setTimeout(()=>{
+            this.setState({isLoading: false})
+            this.handleModal();
+        }, 2000)
+    }
 
+    renderFooter = () => {
 
-        const renderRowItem = (item, index) => {
+        return (
+            <>
+                <button
+                    type="button"
+                    className="btn btn-danger"
+                    data-dismiss="modal"
+                    onClick={() => this.handleModal()}
+                >
+                    No
+                </button>
 
-            let amount = Object.values(item?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
-            amount = (amount + Number(item?.packing || 0) + Number(item?.insurance || 0) + Number(item?.freight || 0))  - Number(item?.discount || 0)
-            let grandTotal = parseFloat((amount * 18 / 100) + amount).toFixed(2)
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={this.deleteInvoice}
+                    disabled={this.state.isLoading}
+                >
+                    {
+                        this.state.isLoading
+                            ? (
+                                <>
+                                    <span className="spinner-border spinner-border-sm"></span>
+                                    <span className="visually-hidden"> Deleting...</span>
+                                </>
+                            )
+                            : "Yes"
+                    }
+                </button>
+            </>
+        );
+    };
 
-            return (
-                <tr key={index}>
-                    <td style={{textAlign:'center'}}>{index + 1}</td>
-                    <td style={{textAlign:'center'}}>{item?.invoice_number}</td>
-                    <td>{item?.shipping_address.name}</td>
-                    <td>{item?.billing_address.name}</td>
-                    <td>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
-                    <td style={{ width: "10%" }}>₹ {grandTotal}</td>
-                    <td>{item?.status}</td>
-                    <td>
+    getFilterUserOrder = () => {
+        let { searchText } = this.state;
+        let { invoice } = this.props;
+
+        let data = invoice && Object.values(invoice)
+
+        if(data){
+            data = data.filter(o=> o && o.status !== "deleted")
+        }
+
+        if (searchText) {
+            data = data.filter(o=> o && o.invoice_number.includes(searchText))
+        }
+
+        return data || [];
+    }
+
+    renderRowItem = (item, index) => {
+        let amount = Object.values(item?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
+        amount = (amount + Number(item?.packing || 0) + Number(item?.insurance || 0) + Number(item?.freight || 0))  - Number(item?.discount || 0)
+        let grandTotal = parseFloat((amount * 18 / 100) + amount).toFixed(2)
+        let color;
+        switch (item?.status) {
+            case 'pending':
+                color = 'orange'
+                break;
+            case 'completed':
+                color = 'green'
+                break;
+            case 'rejected':
+                color = 'red'
+                break;
+        }
+        return (
+            <tr key={index}>
+                <td className={'text-center'}>{index + 1}</td>
+                <td className={'text-center'}>{item?.invoice_number}</td>
+                <td className={'text-center'}>{item?.shipping_address.name}</td>
+                {/*<td>{item?.billing_address.name}</td>*/}
+                <td className={'text-center'}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
+                <td className={'text-center'} style={{ width: "10%" }}>₹ {grandTotal}</td>
+                <td className={'text-center'} style={{color}}>{item?.status}</td>
+                <td className={'text-center'}>
                     <span onClick={()=>this.handleModal(false, true, item?._id)}>
                        <Tippy content="Preview">
                             <i className="bx bxs-printer"></i>
@@ -80,11 +157,24 @@ class OrderInvoice extends React.Component {
                             <i className="bx bxs-edit"/>
                         </Tippy>
                     </span>
+                    <span className={'ml-2'} onClick={() => this.handleModal(false, false, item?._id, false, true)}>
+                       <Tippy content="Delete">
+                            <i className="fe fe-delete"/>
+                        </Tippy>
+                    </span>
 
-                    </td>
-                </tr>
-            );
-        };
+                </td>
+            </tr>
+        );
+    };
+
+    render() {
+        let { showInvoiceModal, previewInvoiceModal, invoiceId, screenHeight, editInvoiceModal, removeModal  } = this.state;
+        // let invoice = this.props.invoice && (Object.keys(this.props.invoice).length > 0 ? Object.values(this.props.invoice) : []);
+        let invoice = this.getFilterUserOrder();
+        let totalCount = invoice?.length
+
+
 
         return (
             <>
@@ -134,13 +224,26 @@ class OrderInvoice extends React.Component {
                 </div>
 
 
-                {previewInvoiceModal ?
+                {previewInvoiceModal &&
                     <TableComponent screenHeight={screenHeight} invoice={this.props.invoice[invoiceId]}/>
-                    :  <BaseTable
-                    headingData={this.state.headingData}
-                    rowData={invoice ? invoice : []}
-                    renderRowItem={renderRowItem}
-                />}
+                    //     :  <BaseTable
+                    //     headingData={this.state.headingData}
+                    //     rowData={invoice ? invoice : []}
+                    //     renderRowItem={renderRowItem}
+                    // />}
+                }
+                {
+                    !previewInvoiceModal &&
+                        <TableContainer
+                            title={"Invoice"}
+                            rowData={invoice ? invoice : []}
+                            renderRow={this.renderRowItem}
+                            filter={{ searchText: this.state.searchText }}
+                            onSearch={this.onSearch}
+                            searchPlaceholder={'Search by invoice number'}
+                            totalEntries={totalCount}
+                            headings={this.state.headingData}/>
+                }
                 <InvoiceModal
                     invoiceId={invoiceId}
                     show={showInvoiceModal}
@@ -151,6 +254,15 @@ class OrderInvoice extends React.Component {
                     show={editInvoiceModal}
                     handelModal={this.handleModal}
                 />
+                <BaseModal
+                    closeButton={false}
+                    title={"Delete Invoice"}
+                    show={removeModal}
+                    size={'md'}
+                    footerComponent={this.renderFooter}
+                >
+                    Are you sure to delete this <b>{invoice?.find(o=> o && o._id ===invoiceId)?.invoice_number} </b>?
+                </BaseModal>
 
 
 
@@ -176,6 +288,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchClient: (params) => dispatch(fetchAllClientsRequest(params)),
         fetchProduct: (params) => dispatch(fetchAllProductsRequest(params)),
         fetchInvoice: (params) => dispatch(fetchAllInvoiceRequest(params)),
+        deleteInvoice: (params) => dispatch(deleteInvoiceRequest(params)),
     };
 };
 

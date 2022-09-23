@@ -115,8 +115,9 @@ function* deleteInvoice(action) {
                 payload: resData,
             });
         } else {
+            showNotification("success", resData?.message);
             yield put({
-                type: ACTIONS.UPDATE_SUCCESS,
+                type: ACTIONS.DELETE_SUCCESS,
                 id: action.id,
             });
         }

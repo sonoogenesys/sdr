@@ -30,14 +30,14 @@ class ProductsContainer extends Component {
         return (
             product && (
                 <tr key={`${product._id}_${index}`}>
-                    <td style={{...tableCSS, width: 60}}>{index + 1}</td>
-                    <td style={tableCSS}>{product?.name}</td>
-                    <td style={tableCSS}>{product?.description}</td>
+                    <td style={{...tableCSS, width: 50}}>{index + 1}</td>
+                    <td style={{...tableCSS, width: 400}}>{product?.name}</td>
+                    <td style={{...tableCSS, width: 300}}>{product?.description}</td>
                     <td style={tableCSS}>{product?.hsn}</td>
                    <td style={tableCSS}>{product?.uom}</td>
                    <td style={tableCSS}>{product?.rate}</td>
                     <td style={tableCSS}>{product?.created_at ? moment(product.created_at).format("D MMM YYYY") : "-"}</td>
-                    <td style={tableCSS}><img src={product?.image} style={{width: 100, height: 100}}/></td>
+                    <td style={tableCSS}>{product?.image && <img src={product?.image} style={{width: 100, height: 100}}/>}</td>
                     <td className={product?.active ? "greenColor" : "redColor"} style={tableCSS}>
                         {product?.active ? "Active" : "Inactive"}
                     </td>

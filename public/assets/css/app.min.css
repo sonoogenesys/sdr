@@ -106,7 +106,7 @@
 	padding: 0px 12px;
 	top: 0;
 	color: #fff;
-    background: #a67d01;
+    background: #012d80;
     border-radius: 0px 6px 6px 0px;
 }
 .megamenu-list li {
@@ -4980,7 +4980,7 @@ input[switch=dark]:checked+label {
 		color: #9d14e2 !important;
 	}
 	.text-primary {
-		color: #a67d01!important;
+		color: #012d80!important;
 	}
 	.br-5{
 		border-radius: 5px;

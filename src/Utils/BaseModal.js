@@ -8,11 +8,13 @@ const BaseModal = ({
     footerComponent,
     children,
                        dialogClassName,
-                       size
+                       size,
+                       closeButton = true
 }) => {
+    console.log(closeButton)
     return (
         <Modal size={size} show={show} onHide={handleClose} backdrop={'static'}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton={closeButton}>
                 <Modal.Title>{title}</Modal.Title>
             </Modal.Header>
 
