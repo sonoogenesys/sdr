@@ -5,10 +5,8 @@ import NumToWords from "../Utils/NumToWords";
 import Line from "../Utils/Line";
 
 const TableComponent = React.forwardRef((props) => {
-    window.resizeTo(1200, 600);
     let invoice = props.invoice;
     let {screenHeight} = props
-    console.log(screenHeight)
 
 
     let headingData = [
@@ -28,7 +26,7 @@ const TableComponent = React.forwardRef((props) => {
         return (
             <tr key={index}>
                 <td style={{textAlign:'center'}}>{index + 1}</td>
-                <td>{item?.name + item?.description}</td>
+                <td>{item?.name + (item?.description? item?.description : "")}</td>
                 <td>{item?.hsn}</td>
                 <td>{item?.uom}</td>
                 <td>{item?.qty}</td>
@@ -42,6 +40,8 @@ const TableComponent = React.forwardRef((props) => {
     };
     let itemsData = invoice?.items ? Object.values(invoice?.items) : [];
     let amount = Object.values(invoice).length !== 0 && Object.values(invoice?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
+    amount = (amount + Number(invoice?.packing || 0) + Number(invoice?.insurance || 0) + Number(invoice?.freight || 0))  - Number(invoice?.discount || 0)
+
     return (
         <div key={screenHeight} className="col-md-12">
             <div className="card indivisual_invoice">
@@ -128,13 +128,13 @@ const TableComponent = React.forwardRef((props) => {
                 <div className="col-md-12">
                     <div className="row mt-3">
                         <div className="col-md-6 invoice_logo_wrapper">
-                            <h5>Billed To:</h5>
+                            <p className={"mb-1"}><b>Billed To:</b></p>
                             <p className="mb-1">{invoice?.billing_address?.name}</p>
                             <p className="mb-1">{invoice?.billing_address?.address}</p>
                             <p className="mb-1"><b>GSTIN: </b>{invoice?.billing_address?.gst}</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
-                            <h5>Shipped To:</h5>
+                            <p className={"mb-1"}><b>Shipped To:</b></p>
                             <p className="mb-1">{invoice?.shipping_address?.name}</p>
                             <p className="mb-1">{invoice?.shipping_address?.address}</p>
                             <p className="mb-1"><b>GSTIN: </b>{invoice?.shipping_address?.gst}</p>

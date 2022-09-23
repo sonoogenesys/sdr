@@ -26,7 +26,8 @@ class ClientsContainer extends Component {
     }
 
     renderTableRow = (client, index) => {
-        const tableCSS = {textAlign: 'center',verticalAlign: 'middle', width: 150, overflow: 'hidden', textOverflow: 'ellipsis',}
+        const tableCSS = {textAlign: 'center',verticalAlign: 'middle', width: 250, overflow: 'hidden', textOverflow: 'ellipsis',}
+        const styleImage = {width: 100, height: 100}
         return (
             client && (
                 <tr key={`${client._id}_${index}`}>
@@ -36,7 +37,7 @@ class ClientsContainer extends Component {
                     <td style={tableCSS}>{client?.address}</td>
                    <td style={tableCSS}>{client?.phone}</td>
                    <td style={tableCSS}>{client?.gstin}</td>
-                   <td style={tableCSS}><img src={client?.logo} style={{width: 100, height: 100}}/></td>
+                   <td style={tableCSS}><img src={client?.logo}  style={styleImage}/></td>
                     <td className={client?.active ? "greenColor" : "redColor"} style={tableCSS}>
                         {client?.active ? "Active" : "Inactive"}
                     </td>

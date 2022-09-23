@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import InvoicePreview from "./InvoicePreview";
 import TableComponent from "./tableComponent";
 import moment from 'moment'
 import InvoiceModal from "./invoiceModal";
+import InvoiceUpdateModal from "./invoiceUpdateModal";
 import {fetchAllClientsRequest} from "../Client/Duck/ClientsActions";
 import {fetchAllProductsRequest} from "../Product/Duck/ProductsActions";
 import {fetchAllInvoiceRequest} from "./Duck/InvoiceActions";
@@ -15,6 +15,7 @@ class OrderInvoice extends React.Component {
     state = {
         headingData: [
             "S. No.",
+            "Invoice No",
             "Shipped to",
             "Billing to",
             "Date",
@@ -25,17 +26,19 @@ class OrderInvoice extends React.Component {
         showInvoiceModal: false,
         previewInvoiceModal: false,
         invoiceId: null,
-        screenHeight: 455
+        screenHeight: 455,
+        editInvoiceModal: false
     }
     handleHeight = (e) => {
         this.setState({screenHeight: e.target.value})
     }
 
-    handleModal = (show = false, show2 = false, invoiceId = null) => {
+    handleModal = (show = false, show2 = false, invoiceId = null, edit = false) => {
         this.setState({
             showInvoiceModal: show,
             previewInvoiceModal: show2,
-            invoiceId: invoiceId
+            invoiceId: invoiceId,
+            editInvoiceModal: edit
         });
     };
 
@@ -47,19 +50,24 @@ class OrderInvoice extends React.Component {
     }
 
     render() {
-        let { showInvoiceModal, previewInvoiceModal, invoiceId, screenHeight  } = this.state;
+        let { showInvoiceModal, previewInvoiceModal, invoiceId, screenHeight, editInvoiceModal  } = this.state;
         let invoice = this.props.invoice && (Object.keys(this.props.invoice).length > 0 ? Object.values(this.props.invoice) : []);
 
 
         const renderRowItem = (item, index) => {
-            const price = Object.values(item?.items)?.map(o=>o.rate)
+
+            let amount = Object.values(item?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
+            amount = (amount + Number(item?.packing || 0) + Number(item?.insurance || 0) + Number(item?.freight || 0))  - Number(item?.discount || 0)
+            let grandTotal = parseFloat((amount * 18 / 100) + amount).toFixed(2)
+
             return (
                 <tr key={index}>
                     <td style={{textAlign:'center'}}>{index + 1}</td>
+                    <td style={{textAlign:'center'}}>{item?.invoice_number}</td>
                     <td>{item?.shipping_address.name}</td>
                     <td>{item?.billing_address.name}</td>
-                    <td>{moment(item?.invoiceDate).format('LLL')}</td>
-                    <td style={{ width: "10%" }}>₹ {parseFloat(  price || 0).toFixed(2)}</td>
+                    <td>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
+                    <td style={{ width: "10%" }}>₹ {grandTotal}</td>
                     <td>{item?.status}</td>
                     <td>
                     <span onClick={()=>this.handleModal(false, true, item?._id)}>
@@ -67,7 +75,7 @@ class OrderInvoice extends React.Component {
                             <i className="bx bxs-printer"></i>
                         </Tippy>
                     </span>
-                    <span className={'ml-2'} onClick={()=>this.handleModal(true, false, item?._id)}>
+                    <span className={'ml-2'} onClick={()=>this.handleModal(false, false, item?._id, true)}>
                        <Tippy content="Edit">
                             <i className="bx bxs-edit"/>
                         </Tippy>
@@ -136,6 +144,11 @@ class OrderInvoice extends React.Component {
                 <InvoiceModal
                     invoiceId={invoiceId}
                     show={showInvoiceModal}
+                    handelModal={this.handleModal}
+                />
+                <InvoiceUpdateModal
+                    invoiceId={invoiceId}
+                    show={editInvoiceModal}
                     handelModal={this.handleModal}
                 />
 

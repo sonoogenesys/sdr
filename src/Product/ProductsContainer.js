@@ -99,7 +99,7 @@ class ProductsContainer extends Component {
         let data = product && Object.values(product)
 
         if (searchText) {
-            data = data.filter(o=>o.name.includes(searchText) || o.description.includes(searchText))
+            data = data.filter(o=>o.name.includes(searchText))
         }
 
         return data || [];

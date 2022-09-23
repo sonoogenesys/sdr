@@ -50,7 +50,7 @@ class ProductModal extends Component {
         this.setState({
             name: currentProduct?.name || "",
             description: currentProduct?.description || "",
-            hsn: currentProduct?.phone || "",
+            hsn: currentProduct?.hsn || "",
             uom: currentProduct?.uom || "",
             rate: currentProduct?.rate || "",
             image: currentProduct?.image || "",
