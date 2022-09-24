@@ -256,7 +256,7 @@ const TableComponent = React.forwardRef((props) => {
 
                 <div className="col md-12">
                     <div className="row">
-                        <div className="col-md-6 invoice_logo_wrapper">
+                        <div className="col-md-6 invoice_logo_wrapper" style={{paddingRight: "1px"}}>
                             <p className="mb-2">Terms & conditions:</p>
                             <div className={'row invoice_logo_wrapper'}  style={{paddingRight: "2px"}}>
                                     <b style={{width: '5%'}}>1 </b>
