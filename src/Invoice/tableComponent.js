@@ -45,7 +45,7 @@ const TableComponent = React.forwardRef((props) => {
     return (
         <div key={screenHeight} className="col-md-12">
             <div className="card indivisual_invoice">
-                <div className="col-md-12 pt-5">
+                <div className="col-md-12">
                     <div className="col-md-12">
                         <img style={{width: '100%', height: 120}} src={"/img/logo1.png"}/>
                         <div className="row">
