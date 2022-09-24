@@ -52,7 +52,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p style={{letterSpacing: '0.7px', paddingLeft: "10px"}}><b>Distribution Transformers, LT Panels, HT Panel, CT, PT, HT/LT Cables, Cable Jointing Kit, Earthing Material, PCC Pole, Cable Tray etc.</b></p>
                         </div>
                     </div>
-                    <Line/>
+                    <Line left={"10px"}/>
                     <div className="col-md-12">
                         <div className="row" style={{flexWrap: "nowrap"}}>
                             {/*<div className="col-md-3 text-left">*/}
@@ -69,7 +69,7 @@ const TableComponent = React.forwardRef((props) => {
                             </div>
                         </div>
                     </div>
-                    <Line/>
+                    <Line left={"10px"}/>
 
                     <div className="pt-5 pb-2 d-flex justify-content-center">
                         <h5 className="">
@@ -206,7 +206,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">₹ {parseFloat(amount).toFixed(2)}</p>
                         </div>
                     </div>
-                    <Line/>
+                    <Line left={"10px"}/>
 
                     <div className="row">
                         <div className="col-md-8 invoice_logo_wrapper">
@@ -298,7 +298,7 @@ const TableComponent = React.forwardRef((props) => {
                 </div>
 
                 <div key={screenHeight} style={{marginTop: Number(screenHeight)}} className={'text-center'}>
-                    <Line/>
+                    <Line left={"10px"}/>
                     <p style={{letterSpacing:'0px'}}>360(old 79/4) 3rd Floor, Flat No 301,  Anamika Enclave, Behind Kalyani Hospital, Gurugram - 122001, Haryana<br/>
                         https://www.kcs-electrical.com</p>
                 </div>
