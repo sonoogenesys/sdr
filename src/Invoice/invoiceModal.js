@@ -45,7 +45,7 @@ class InvoiceModal extends Component {
 
     componentDidUpdate(preProps) {
         if(this.state.invoice_number === "00 /2022-23" && this.props.invoice && Object.keys(this.props.invoice).length > 0){
-            this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 2} /2022-23`})
+            this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 1} /2022-23`})
         }
         console.log(this.props.loading, preProps.loading, this.state.isLoading)
         if (!this.props.loading && preProps.loading && this.state.isLoading) {
