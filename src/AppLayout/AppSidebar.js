@@ -44,6 +44,12 @@ const AppSidebar = (props) => {
                                 <span key="t-invoice"> Invoice</span>
                             </Link>
                         </li>
+                        <li className={pathname === '/app/template' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
+                            <Link to="/app/template" className="waves-effect">
+                                <i className="ti ti-file"></i>
+                                <span key="t-invoice"> Template</span>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
             </div>

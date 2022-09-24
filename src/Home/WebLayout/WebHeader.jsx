@@ -34,7 +34,7 @@ const WebHeader = (props) => {
                             <div className="logo">
                                <NavLink to="/">
                                <img
-                                    src="/img/logo.jpeg"
+                                    src="/img/logo.png"
                                     alt="LOGO"
                                     className="mt-2"
                                 />

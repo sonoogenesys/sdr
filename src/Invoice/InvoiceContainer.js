@@ -15,13 +15,14 @@ import BaseModal from "../Utils/BaseModal";
 class OrderInvoice extends React.Component {
     state = {
         headingData: [
-            "S. No.",
+            // "S. No.",
             "Invoice No",
             "Client Name",
             // "Billing to",
             "Date",
             "Invoice Amount",
-            "Paid Amount",
+            "Advance Amount",
+            "Pending Amount",
             "Status",
             "Actions"
         ],
@@ -138,15 +139,17 @@ class OrderInvoice extends React.Component {
                 color = 'red'
                 break;
         }
+        let pending_amount = (item && item.total_amount) ? Number(item.total_amount- (item.paid_amount ? item.paid_amount : 0)) : 0
         return (
-            <tr key={index}>
-                <td className={'text-center'}>{index + 1}</td>
+            <tr key={item?._id}>
+                {/*<td className={'text-center'}>{index + 1}</td>*/}
                 <td className={'text-center'}>{item?.invoice_number}</td>
-                <td className={'text-center'}>{item?.shipping_address.name}</td>
+                <td>{item?.shipping_address.name}</td>
                 {/*<td>{item?.billing_address.name}</td>*/}
                 <td className={'text-center'}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
                 <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.total_amount}</td>
                 <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.paid_amount}</td>
+                <td className={'text-center'} style={{ width: "10%" }}>₹ {pending_amount}</td>
                 <td className={'text-center'} style={{color}}>{item?.status}</td>
                 <td className={'text-center'}>
                     <span onClick={()=>this.handleModal(false, true, item?._id)}>

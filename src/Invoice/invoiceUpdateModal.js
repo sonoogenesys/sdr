@@ -470,7 +470,7 @@ class InvoiceModal extends Component {
                         <div className="col-xl-3 col-3 col-md-3">
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Collected Amount"}
+                                labelText={"Advance Amount"}
                                 value={paid_amount}
                                 disabled={selectedStatus && selectedStatus.value === "completed"}
                                 onChange={this.handleChange("paid_amount")}

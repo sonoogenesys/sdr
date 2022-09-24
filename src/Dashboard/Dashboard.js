@@ -40,9 +40,7 @@ class Dashboard extends Component {
 
 
     getGraphData = () => {
-        let {invoice} = this.props
-        // const totalWeeks = getCurrentMonthOfWeek();
-        // const monthStartWeek = moment.utc().startOf("month").week() - 1;
+        let {invoice} = this.props;
         if(invoice && Object.keys(invoice).length > 0) {
             let allInvoice = Object.values(invoice).filter(o=> o.status !== "deleted");
             let data = {
@@ -50,19 +48,6 @@ class Dashboard extends Component {
                 completed: {},
                 rejected: {}
             };
-            // console.log(totalWeeks,monthStartWeek)
-            // let pending_data = allInvoice.map(o=>)
-            // allInvoice = allInvoice.map(item=> {
-            //     // let amount = Object.values(item?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
-            //     // amount = (amount + Number(item?.packing || 0) + Number(item?.insurance || 0) + Number(item?.freight || 0))  - Number(item?.discount || 0)
-            //     // let grandTotal = parseFloat((amount * 18 / 100) + amount).toFixed(2)
-            //     return {
-            //         date: item.invoiceDate,
-            //         amount: item.total_amount,
-            //         paid_amount: item.paid_amount,
-            //         status: item.status
-            //     }
-            // })
             allInvoice.length > 0 && allInvoice.map(item=>{
                 let date = moment.utc(item?.invoiceDate).format("DD-MMM")
                 if(data[item.status][date] === undefined) {
@@ -84,9 +69,7 @@ class Dashboard extends Component {
                 let completed = [];
                 let total = [];
                 let rejected = [];
-                console.log(data)
                 dates?.map(o=>{
-
                     let pending_amount = data?.pending[o]?.amount ? data?.pending[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
                     let completed_amount = data?.completed[o]?.amount ? data?.completed[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
                     let rejected_amount = data?.rejected[o]?.amount ? data?.rejected[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
@@ -195,8 +178,9 @@ class Dashboard extends Component {
                                             label: " Rejected",
                                             backgroundColor: "#0d1862",
                                             data: chartData?.rejected,
-                                        },
+                                        }
                                     ]}
+
                                 />
                             </div>
 

@@ -17,10 +17,10 @@ const AppHeader = (props) => {
                         <div className="navbar-brand-box">
                             <Link to="/app/dashboard" className="logo logo-dark d-inline-block">
                                 <span className="logo-sm">
-                                    <img src="/img/logo.jpeg" alt="" height="52" />
+                                    <img src="/img/logo.png" alt="" height="52" />
                                 </span>
                                 <span className="logo-lg">
-                                    <img src="/img/logo.jpeg" alt="" height="65" />
+                                    <img src="/img/logo.png" alt="" height="65" />
                                 </span>
                             </Link>
                         </div>
