@@ -49,16 +49,16 @@ const TableComponent = React.forwardRef((props) => {
                     <div className="col-md-12">
                         <img style={{width: '100%', height: 120}} src={"/img/logo1.png"}/>
                         <div className="row">
-                            <p style={{letterSpacing: '1.3px'}}><b>Distribution Transformers, LT Panels, HT Panel, CT, PT, HT/LT Cables, Cable Jointing Kit, Earthing Material, PCC Pole, Cable Tray etc.</b></p>
+                            <p style={{letterSpacing: '0.7px', paddingLeft: "10px"}}><b>Distribution Transformers, LT Panels, HT Panel, CT, PT, HT/LT Cables, Cable Jointing Kit, Earthing Material, PCC Pole, Cable Tray etc.</b></p>
                         </div>
                     </div>
                     <Line/>
                     <div className="col-md-12">
-                        <div className="row">
+                        <div className="row" style={{flexWrap: "nowrap"}}>
                             {/*<div className="col-md-3 text-left">*/}
-                            <p className="mb-1"><b>GST No:</b> 06ARFPS3941N1ZA</p>
+                            <p className="col-md-3 text-left"><b>GST No:</b> 06ARFPS3941N1ZA</p>
                             {/*</div>*/}
-                            <div className="col-md-4 text-center">
+                            <div className="col-md-3 text-center">
                                 <p className="mb-1"><b>PAN No:</b> ARFPS3941N</p>
                             </div>
                             <div className="col-md-4 text-center">
