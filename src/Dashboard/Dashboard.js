@@ -42,11 +42,11 @@ class Dashboard extends Component {
     getGraphData = () => {
         let {invoice} = this.props;
         if(invoice && Object.keys(invoice).length > 0) {
-            let allInvoice = Object.values(invoice).filter(o=> o.status !== "deleted");
+            let allInvoice = Object.values(invoice).filter(o=> o.status !== "rejected");
             let data = {
                 pending: {},
                 completed: {},
-                rejected: {}
+                // rejected: {}
             };
             allInvoice.length > 0 && allInvoice.map(item=>{
                 let date = moment.utc(item?.invoiceDate).format("DD-MMM")
@@ -57,8 +57,6 @@ class Dashboard extends Component {
 
                 if(item.status === "pending"){
                     data[item.status][date].amount.push(Number(item.total_amount) - Number(item.paid_amount))
-                } if(item.status === "rejected") {
-                    data[item.status][date].amount.push(Number(item.total_amount))
                 } else {
                     data[item.status][date].amount.push(Number(item.paid_amount))
                 }
@@ -68,17 +66,17 @@ class Dashboard extends Component {
                 let pending = [];
                 let completed = [];
                 let total = [];
-                let rejected = [];
+                // let rejected = [];
                 dates?.map(o=>{
                     let pending_amount = data?.pending[o]?.amount ? data?.pending[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
                     let completed_amount = data?.completed[o]?.amount ? data?.completed[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
-                    let rejected_amount = data?.rejected[o]?.amount ? data?.rejected[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
+                    // let rejected_amount = data?.rejected[o]?.amount ? data?.rejected[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
                     pending.push(pending_amount)
                     completed.push(completed_amount)
-                    rejected.push(rejected_amount)
-                    total.push(pending_amount + completed_amount + rejected_amount)
+                    // rejected.push(rejected_amount)
+                    total.push(pending_amount + completed_amount)
                 })
-            return {labels: dates ? dates : {}, pending,  total, completed, rejected}
+            return {labels: dates ? dates : {}, pending,  total, completed}
         }
 
     }
@@ -111,14 +109,14 @@ class Dashboard extends Component {
                     <CounterContainer
                         counter_key={"rejected_invoice"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Rejected Invoice"}
+                        name={"Cancelled Invoice"}
                         counter={dashboard ? Number(rejected_invoice) : 0}
                     />
                     <CounterContainer
                         counter_key={"total_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Total Amount"}
-                        counter={dashboard ? (Number(pending_amount) + Number(completed_amount) + Number(rejected_amount)).toFixed(2) : 0}
+                        name={"Billing Amount"}
+                        counter={dashboard ? (Number(pending_amount) + Number(completed_amount)).toFixed(2) : 0}
 
                     />
                     <CounterContainer
@@ -134,12 +132,12 @@ class Dashboard extends Component {
                         counter={dashboard ? (Number(completed_amount).toFixed(2)) : 0}
                     />
 
-                    <CounterContainer
-                        counter_key={"rejected_amount"}
-                        containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Rejected Amount"}
-                        counter={dashboard ? (Number(rejected_amount).toFixed(2)) : 0}
-                    />
+                    {/*<CounterContainer*/}
+                    {/*    counter_key={"rejected_amount"}*/}
+                    {/*    containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}*/}
+                    {/*    name={"Rejected Amount"}*/}
+                    {/*    counter={dashboard ? (Number(rejected_amount).toFixed(2)) : 0}*/}
+                    {/*/>*/}
                 </div>
 
 
@@ -160,7 +158,7 @@ class Dashboard extends Component {
                                     labels={chartData?.labels}
                                     datasets={[
                                         {
-                                            label: "Total",
+                                            label: "Billing",
                                             backgroundColor: "#1B98F5",
                                             data: chartData?.total,
                                         },
@@ -174,11 +172,11 @@ class Dashboard extends Component {
                                             backgroundColor: "#aa1f2f",
                                             data: chartData?.pending,
                                         },
-                                        {
-                                            label: " Rejected",
-                                            backgroundColor: "#0d1862",
-                                            data: chartData?.rejected,
-                                        }
+                                        // {
+                                        //     label: " Rejected",
+                                        //     backgroundColor: "#0d1862",
+                                        //     data: chartData?.rejected,
+                                        // }
                                     ]}
 
                                 />
