@@ -76,10 +76,12 @@ class Dashboard extends Component {
                 let completed = [];
                 let total = [];
                 let rejected = [];
+                console.log(data)
                 dates?.map(o=>{
-                    let pending_amount = data?.pending[o]?.amount ? data?.pending[o]?.amount?.reduce((a, b)=> a + b, 0) : 0
-                    let completed_amount = data?.completed[o]?.amount ? data?.completed[o]?.amount?.reduce((a, b)=> a + b, 0) : 0
-                    let rejected_amount = data?.rejected[o]?.amount ? data?.rejected[o]?.amount?.reduce((a, b)=> a + b, 0) : 0
+
+                    let pending_amount = data?.pending[o]?.amount ? data?.pending[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
+                    let completed_amount = data?.completed[o]?.amount ? data?.completed[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
+                    let rejected_amount = data?.rejected[o]?.amount ? data?.rejected[o]?.amount?.reduce((a, b)=> Number(a) + Number(b), 0) : 0
                     pending.push(pending_amount)
                     completed.push(completed_amount)
                     rejected.push(rejected_amount)
@@ -125,27 +127,27 @@ class Dashboard extends Component {
                         counter_key={"total_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Total Amount"}
-                        counter={dashboard ? (Number(pending_amount) + Number(completed_amount) + Number(rejected_amount)) : 0}
+                        counter={dashboard ? (Number(pending_amount) + Number(completed_amount) + Number(rejected_amount)).toFixed(2) : 0}
 
                     />
                     <CounterContainer
                         counter_key={"pending_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Pending Amount"}
-                        counter={dashboard ? (Number(pending_amount)) : 0}
+                        counter={dashboard ? (Number(pending_amount).toFixed(2)) : 0}
                     />
                     <CounterContainer
                         counter_key={"completed_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Completed Amount"}
-                        counter={dashboard ? (Number(completed_amount)) : 0}
+                        counter={dashboard ? (Number(completed_amount).toFixed(2)) : 0}
                     />
 
                     <CounterContainer
                         counter_key={"rejected_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Rejected Amount"}
-                        counter={dashboard ? (Number(rejected_amount)) : 0}
+                        counter={dashboard ? (Number(rejected_amount).toFixed(2)) : 0}
                     />
                 </div>
 

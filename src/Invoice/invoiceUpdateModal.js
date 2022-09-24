@@ -112,7 +112,7 @@ class InvoiceModal extends Component {
             selectedStatus: null
         });
 
-        handelModal(false, false, null, false);
+        handelModal();
     };
 
     onClickSave = () => {
