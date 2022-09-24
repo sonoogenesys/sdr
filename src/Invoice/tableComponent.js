@@ -131,13 +131,13 @@ const TableComponent = React.forwardRef((props) => {
                             <p className={"mb-1"}><b>Billed To:</b></p>
                             <p className="mb-1">{invoice?.billing_address?.name}</p>
                             <p className="mb-1">{invoice?.billing_address?.address}</p>
-                            <p className="mb-1"><b>GSTIN: </b>{invoice?.billing_address?.gst}</p>
+                            <p className="mb-1"><b>GSTIN: {invoice?.billing_address?.gst}</b></p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
                             <p className={"mb-1"}><b>Shipped To:</b></p>
                             <p className="mb-1">{invoice?.shipping_address?.name}</p>
                             <p className="mb-1">{invoice?.shipping_address?.address}</p>
-                            <p className="mb-1"><b>GSTIN: </b>{invoice?.shipping_address?.gst}</p>
+                            <p className="mb-1"><b>GSTIN: {invoice?.shipping_address?.gst}</b></p>
                         </div>
                     </div>
                 </div>
