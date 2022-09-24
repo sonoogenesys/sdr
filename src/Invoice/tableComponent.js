@@ -258,24 +258,24 @@ const TableComponent = React.forwardRef((props) => {
                     <div className="row">
                         <div className="col-md-6 invoice_logo_wrapper">
                             <p className="mb-2">Terms & conditions:</p>
-                            <div className={'row invoice_logo_wrapper'}>
+                            <div className={'row invoice_logo_wrapper'}  style={{paddingRight: "2px"}}>
                                     <b style={{width: '5%'}}>1 </b>
                                     <p style={{width: '95%'}}>24% interest will be charged on bills remaining unpaid after 7 days</p>
                             </div>
-                            <div className={'row invoice_logo_wrapper'}>
+                            <div className={'row invoice_logo_wrapper'}  style={{paddingRight: "2px"}}>
                                     <b style={{width: '5%'}}>2 </b>
                                     <p style={{width: '95%'}}>  Goods remains the property of <b>KCS Electrical Traders</b> till complete payment is not made.</p>
                             </div>
-                            <div className={'row invoice_logo_wrapper'}>
+                            <div className={'row invoice_logo_wrapper'} style={{paddingRight: "2px"}}>
                                     <b style={{width: '5%'}}>3 </b>
                                     <p style={{width: '95%'}}> All disputes are subject for GURUGRAM JURISDICTION only.</p>
                             </div>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-center border border-dark ">
                             <p className="mt-3" style={{textTransform: "capitalize"}}><b>₹ {NumToWords((amount * 18 / 100) + amount)}</b></p>
-                            <Line/>
+                            <Line left={"0px"}/>
                             <div className="row" >
-                                <div className="col-md-4 text-center border-right">
+                                <div className="col-md-3 text-center border-right">
                                     <b> </b>
                                     <br/>
                                     <br/>
@@ -283,7 +283,7 @@ const TableComponent = React.forwardRef((props) => {
                                     <br/>
                                     <p className="mb-1">Common Seal</p>
                                 </div>
-                                <div className="col-md-8 text-center border-left border-dark mt-2">
+                                <div className="col-md-9 text-center border-left border-dark mt-2">
                                     <b>For KCS ELECTRICAL TRADERS & ENGINEERING</b>
                                     <br/>
                                     <br/>
@@ -298,7 +298,7 @@ const TableComponent = React.forwardRef((props) => {
                 </div>
 
                 <div key={screenHeight} style={{marginTop: Number(screenHeight)}} className={'text-center'}>
-                    <Line left={"10px"}/>
+                    <Line />
                     <p style={{letterSpacing:'0px'}}>360(old 79/4) 3rd Floor, Flat No 301,  Anamika Enclave, Behind Kalyani Hospital, Gurugram - 122001, Haryana<br/>
                         https://www.kcs-electrical.com</p>
                 </div>
