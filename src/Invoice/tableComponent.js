@@ -271,7 +271,7 @@ const TableComponent = React.forwardRef((props) => {
                                     <p style={{width: '95%'}}> All disputes are subject for GURUGRAM JURISDICTION only.</p>
                             </div>
                         </div>
-                        <div className="col-md-6 invoice_logo_wrapper text-center border border-dark ">
+                        <div className="col-md-6 text-center border border-dark ">
                             <p className="mt-3" style={{textTransform: "capitalize"}}><b>₹ {NumToWords((amount * 18 / 100) + amount)}</b></p>
                             <Line left={"0px"}/>
                             <div className="row" >
