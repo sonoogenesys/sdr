@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import {createInvoiceRequest} from "./Duck/InvoiceActions";
 import {createProductRequest} from "../Product/Duck/ProductsActions";
 import {createClientRequest} from "../Client/Duck/ClientsActions";
+import moment from "moment";
 
 class InvoiceModal extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class InvoiceModal extends Component {
             lrNo: null,
             vehicle: null,
             supply: null,
-            invoiceDate: null,
+            invoiceDate: moment.utc().format("YYYY-MM-DD"),
             packing: null,
             insurance: null,
             freight: null,
@@ -43,6 +44,9 @@ class InvoiceModal extends Component {
 
 
     componentDidUpdate(preProps) {
+        if(this.state.invoice_number === "00 /2022-23" && this.props.invoice && Object.keys(this.props.invoice).length > 0){
+            this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 2} /2022-23`})
+        }
         console.log(this.props.loading, preProps.loading, this.state.isLoading)
         if (!this.props.loading && preProps.loading && this.state.isLoading) {
             if (!this.props.error) {
@@ -73,12 +77,12 @@ class InvoiceModal extends Component {
             lrNo: null,
             vehicle: null,
             supply: null,
-            invoiceDate: null,
+            invoiceDate: moment.utc().format("YYYY-MM-DD"),
             packing: null,
             insurance: null,
             freight: null,
             discount: null,
-            // invoice_number: null,
+            invoice_number: "00 /2022-23",
             items: {}
         });
 

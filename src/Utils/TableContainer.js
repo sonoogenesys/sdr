@@ -17,12 +17,10 @@ const TableContainer = ({
     searchPlaceholder='Search ...',
     loading = false,
     filter = {},
+    showFilter = false,
+    filterOption = [],
     loadMore = (offset = 0, limit = 100) => {},
-    actionBtnText = "Show Preview",
-    ThermalactionBtnText = "Thermal Label Preview",
-    showActionBtn,
-    onClickAction,
-    onClickDeselectAction,
+
     selectedList = [],
     onSelectAll = (data = [], isSelect = false) => {},
     defaultSearchText = "",
@@ -30,6 +28,7 @@ const TableContainer = ({
     const preProps = useRef({});
     const [state, setState] = useState({
         maxRowCount: entriesOptions[0],
+        selectFilter: filterOption[0]?.toLowerCase(),
         activePage: 1,
         searchText: defaultSearchText,
     });
@@ -53,7 +52,7 @@ const TableContainer = ({
         return () => (preProps.current = { filter, maxRowCount: state.maxRowCount });
     }, [filter, state.maxRowCount]);
 
-    let { maxRowCount, activePage, searchText } = state;
+    let { maxRowCount, activePage, searchText, selectFilter } = state;
 
     const handleChange = (name, isPageChange = false) => (event) => {
         // let oldState = state;
@@ -67,14 +66,25 @@ const TableContainer = ({
             [name]: isPageChange ? event : value,
         });
     };
+    let entries = rowData;
+    if(selectFilter && selectFilter.toLowerCase() !== "all"){
 
+        entries = entries.filter((e, index) => e.status === selectFilter.toLowerCase());
+        maxRowCount = entries.length
+        totalEntries = entries.length
+
+        console.log(selectFilter)
+    }
     let totalPage = Math.ceil(totalEntries / maxRowCount);
     let startRowIndex = Number.parseInt((activePage - 1) * maxRowCount);
     let endRowIndex = 0;
     let pageRangeDisplayed = totalPage > 6 ? 6 : totalPage;
 
-    let entries = rowData.slice(startRowIndex);
+
+    entries = entries.slice(startRowIndex);
     entries = entries.filter((e, index) => index < maxRowCount);
+
+
 
     if (rowData.length > 0) {
         endRowIndex = startRowIndex + entries.length;
@@ -144,38 +154,37 @@ const TableContainer = ({
                                         </div>
                                     </div>
 
-                                    {
-                                        !showSearch && showActionBtn &&
-                                        <div className="col-xl-8 text-right shipmentlblBtn">
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-secondary mt-3 mr-2"
-                                                onClick={onClickDeselectAction}
-                                            >
-                                            Deselect All ({selectedList?.length})
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary mt-3 mr-2"
-                                                onClick={() => onClickAction('thermarPrint')}
-                                            >
-                                                <i className="dripicons dripicons-print mr-2" />
-                                                {ThermalactionBtnText}
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary mt-3 mr-2"
-                                                onClick={() => onClickAction('regularPrint')}
-                                            >
-                                                <i className="dripicons dripicons-print mr-2" />
-                                                {actionBtnText}
-                                            </button>
+                                    {showFilter && <div className="col-xl-3">
+                                        <div className="d-flex align-items-center pt-3">
+                                            <p className="mb-0 pr-2">Pending Status </p>
+                                            <div>
+                                                <select
+                                                    className="custom-select"
+                                                    defaultValue={selectFilter}
+                                                    onChange={handleChange(
+                                                        "selectFilter"
+                                                    )}
+                                                >
+                                                    {filterOption.map(
+                                                        (value, index) => (
+                                                            <option
+                                                                key={index}
+                                                                value={value}
+                                                            >
+                                                                {value}
+                                                            </option>
+                                                        )
+                                                    )}
+                                                </select>
+                                            </div>
+                                            {/*<p className="mb-0">entries</p>*/}
                                         </div>
-                                    }
+                                    </div>}
+
 
                                     {
                                         showSearch &&
-                                        <div className="col-xl-4 offset-md-2">
+                                        <div className="col-xl-3 offset-md-2">
                                             <div className="app-search d-lg-block">
                                                 <div className="position-relative">
                                                     <input

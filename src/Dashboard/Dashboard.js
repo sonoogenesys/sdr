@@ -41,8 +41,8 @@ class Dashboard extends Component {
 
     getGraphData = () => {
         let {invoice} = this.props
-        const totalWeeks = getCurrentMonthOfWeek();
-        const monthStartWeek = moment.utc().startOf("month").week() - 1;
+        // const totalWeeks = getCurrentMonthOfWeek();
+        // const monthStartWeek = moment.utc().startOf("month").week() - 1;
         if(invoice && Object.keys(invoice).length > 0) {
             let allInvoice = Object.values(invoice).filter(o=> o.status !== "deleted");
             let data = {
@@ -50,28 +50,36 @@ class Dashboard extends Component {
                 completed: {},
                 rejected: {}
             };
-            console.log(totalWeeks,monthStartWeek)
-            allInvoice = allInvoice.map(item=> {
-                let amount = Object.values(item?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
-                amount = (amount + Number(item?.packing || 0) + Number(item?.insurance || 0) + Number(item?.freight || 0))  - Number(item?.discount || 0)
-                let grandTotal = parseFloat((amount * 18 / 100) + amount).toFixed(2)
-                return {
-                    date: item.invoiceDate,
-                    amount: grandTotal,
-                    status: item.status
-                }
-            })
+            // console.log(totalWeeks,monthStartWeek)
+            // let pending_data = allInvoice.map(o=>)
+            // allInvoice = allInvoice.map(item=> {
+            //     // let amount = Object.values(item?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
+            //     // amount = (amount + Number(item?.packing || 0) + Number(item?.insurance || 0) + Number(item?.freight || 0))  - Number(item?.discount || 0)
+            //     // let grandTotal = parseFloat((amount * 18 / 100) + amount).toFixed(2)
+            //     return {
+            //         date: item.invoiceDate,
+            //         amount: item.total_amount,
+            //         paid_amount: item.paid_amount,
+            //         status: item.status
+            //     }
+            // })
             allInvoice.length > 0 && allInvoice.map(item=>{
-                let date = moment.utc(item?.date).format("DD-MMM")
+                let date = moment.utc(item?.invoiceDate).format("DD-MMM")
                 if(data[item.status][date] === undefined) {
                     data[item.status][date] = {}
                     data[item.status][date].amount = []
                 }
 
+                if(item.status === "pending"){
+                    data[item.status][date].amount.push(Number(item.total_amount) - Number(item.paid_amount))
+                } if(item.status === "rejected") {
+                    data[item.status][date].amount.push(Number(item.total_amount))
+                } else {
+                    data[item.status][date].amount.push(Number(item.paid_amount))
+                }
 
-                data[item.status][date].amount.push(Number(item.amount))
             })
-                let dates = [... new Set(allInvoice.map(o=>moment.utc(o?.date).format("DD-MMM")))]
+                let dates = [... new Set(allInvoice.map(o=>moment.utc(o?.invoiceDate).format("DD-MMM")))]
                 let pending = [];
                 let completed = [];
                 let total = [];
@@ -139,7 +147,7 @@ class Dashboard extends Component {
                     <CounterContainer
                         counter_key={"completed_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
-                        name={"Completed Amount"}
+                        name={"Raised Amount"}
                         counter={dashboard ? (Number(completed_amount).toFixed(2)) : 0}
                     />
 
@@ -174,7 +182,7 @@ class Dashboard extends Component {
                                             data: chartData?.total,
                                         },
                                         {
-                                            label: "Completed",
+                                            label: "Raised",
                                             backgroundColor: "#1FAA59",
                                             data: chartData?.completed,
                                         },

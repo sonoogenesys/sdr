@@ -20,7 +20,8 @@ class OrderInvoice extends React.Component {
             "Client Name",
             // "Billing to",
             "Date",
-            "Amount",
+            "Invoice Amount",
+            "Paid Amount",
             "Status",
             "Actions"
         ],
@@ -122,9 +123,9 @@ class OrderInvoice extends React.Component {
     }
 
     renderRowItem = (item, index) => {
-        let amount = Object.values(item?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
-        amount = (amount + Number(item?.packing || 0) + Number(item?.insurance || 0) + Number(item?.freight || 0))  - Number(item?.discount || 0)
-        let grandTotal = parseFloat((amount * 18 / 100) + amount).toFixed(2)
+        // let amount = Object.values(item?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
+        // amount = (amount + Number(item?.packing || 0) + Number(item?.insurance || 0) + Number(item?.freight || 0))  - Number(item?.discount || 0)
+        // let grandTotal = parseFloat((amount * 18 / 100) + amount).toFixed(2)
         let color;
         switch (item?.status) {
             case 'pending':
@@ -144,7 +145,8 @@ class OrderInvoice extends React.Component {
                 <td className={'text-center'}>{item?.shipping_address.name}</td>
                 {/*<td>{item?.billing_address.name}</td>*/}
                 <td className={'text-center'}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
-                <td className={'text-center'} style={{ width: "10%" }}>₹ {grandTotal}</td>
+                <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.total_amount}</td>
+                <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.paid_amount}</td>
                 <td className={'text-center'} style={{color}}>{item?.status}</td>
                 <td className={'text-center'}>
                     <span onClick={()=>this.handleModal(false, true, item?._id)}>
@@ -226,11 +228,6 @@ class OrderInvoice extends React.Component {
 
                 {previewInvoiceModal &&
                     <TableComponent screenHeight={screenHeight} invoice={this.props.invoice[invoiceId]}/>
-                    //     :  <BaseTable
-                    //     headingData={this.state.headingData}
-                    //     rowData={invoice ? invoice : []}
-                    //     renderRowItem={renderRowItem}
-                    // />}
                 }
                 {
                     !previewInvoiceModal &&
@@ -242,14 +239,17 @@ class OrderInvoice extends React.Component {
                             onSearch={this.onSearch}
                             searchPlaceholder={'Search by invoice number'}
                             totalEntries={totalCount}
+                            showFilter={true}
+                            filterOption={["All", "Pending", "Completed", "Rejected"]}
                             headings={this.state.headingData}/>
                 }
                 <InvoiceModal
-                    invoiceId={invoiceId}
+                    // invoiceId={invoiceId}
                     show={showInvoiceModal}
                     handelModal={this.handleModal}
                 />
                 <InvoiceUpdateModal
+                    key={invoiceId}
                     invoiceId={invoiceId}
                     show={editInvoiceModal}
                     handelModal={this.handleModal}

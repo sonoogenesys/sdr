@@ -25,6 +25,7 @@ class InvoiceModal extends Component {
             billing_name: null,
             billing_address: null,
             billing_gst: null,
+            paid_amount: null,
             selectedTransport: null,
             selectedReverse: null,
             lrNo: null,
@@ -42,10 +43,15 @@ class InvoiceModal extends Component {
         };
     }
 
-
-    componentDidUpdate(preProps) {
+    componentDidMount() {
         let {invoiceId, invoice} = this.props;
-        let {_id} = this.state;
+        let {_id, paid_amount, selectedStatus} = this.state;
+        if(invoiceId && invoice && invoice[invoiceId]){
+            let currentInvoice = invoice[invoiceId]
+            if(currentInvoice.total_amount !== paid_amount && selectedStatus && selectedStatus.value === "completed"){
+                this.setState({paid_amount: currentInvoice.total_amount})
+            }
+        }
         if(invoiceId && invoice && invoice[invoiceId] && !_id) {
             let currentInvoice = invoice[invoiceId]
             this.setState({
@@ -59,8 +65,51 @@ class InvoiceModal extends Component {
                 billing_address: currentInvoice.billing_address.address,
                 billing_gst: currentInvoice.billing_address.gst,
                 selectedTransport: currentInvoice.selectedTransport,
-                selectedReverse: currentInvoice.selectedTransport,
+                selectedReverse: currentInvoice.selectedReverse,
                 lrNo: currentInvoice.lrNo,
+                paid_amount: currentInvoice.paid_amount,
+                vehicle: currentInvoice.vehicle,
+                supply: currentInvoice.supply,
+                invoiceDate: moment(currentInvoice.invoiceDate).format("YYYY-MM-DD"),
+                packing: currentInvoice.packing,
+                insurance: currentInvoice.insurance,
+                freight: currentInvoice.freight,
+                discount: currentInvoice.discount,
+                invoice_number: currentInvoice.invoice_number,
+                items: currentInvoice.items,
+                selectedStatus: { value: currentInvoice.status, label: currentInvoice.status },
+                selectedProduct: Object.keys(currentInvoice.items).map(o=>{
+                    return {value: o, label: currentInvoice.items[o].name}
+                })
+            })
+            console.log(currentInvoice)
+        }
+    }
+    componentDidUpdate(preProps) {
+        let {invoiceId, invoice} = this.props;
+        let {_id, paid_amount, selectedStatus} = this.state;
+        if(invoiceId && invoice && invoice[invoiceId]){
+            let currentInvoice = invoice[invoiceId]
+            if(currentInvoice.total_amount !== paid_amount && selectedStatus && selectedStatus.value === "completed"){
+                this.setState({paid_amount: currentInvoice.total_amount})
+            }
+        }
+        if(invoiceId && invoice && invoice[invoiceId] && !_id) {
+            let currentInvoice = invoice[invoiceId]
+            this.setState({
+                _id: currentInvoice._id,
+                selectedState: currentInvoice.selectedState,
+                selectedCity: currentInvoice.selectedCity,
+                shipping_name: currentInvoice.shipping_address.name,
+                shipping_address: currentInvoice.shipping_address.address,
+                shipping_gst: currentInvoice.shipping_address.gst,
+                billing_name: currentInvoice.billing_address.name,
+                billing_address: currentInvoice.billing_address.address,
+                billing_gst: currentInvoice.billing_address.gst,
+                selectedTransport: currentInvoice.selectedTransport,
+                selectedReverse: currentInvoice.selectedReverse,
+                lrNo: currentInvoice.lrNo,
+                paid_amount: currentInvoice.paid_amount,
                 vehicle: currentInvoice.vehicle,
                 supply: currentInvoice.supply,
                 invoiceDate: moment(currentInvoice.invoiceDate).format("YYYY-MM-DD"),
@@ -79,12 +128,11 @@ class InvoiceModal extends Component {
         }
     }
 
-
-
     onClickClose = () => {
         let { handelModal } = this.props;
         this.setState({
             _id: null,
+            paid_amount: null,
             isLoading: false,
             selectedShipping: null,
             selectedBilling: null,
@@ -111,8 +159,8 @@ class InvoiceModal extends Component {
             items: {},
             selectedStatus: null
         });
+        handelModal()
 
-        handelModal();
     };
 
     onClickSave = () => {
@@ -138,7 +186,8 @@ class InvoiceModal extends Component {
             discount,
             items,
             invoice_number,
-            selectedStatus
+            selectedStatus,
+            paid_amount
         }
          = this.state;
         let {updateInvoice, invoiceId} = this.props;
@@ -169,14 +218,15 @@ class InvoiceModal extends Component {
             discount: discount,
             items: items,
             invoice_number: invoice_number,
-            _id: invoiceId
+            _id: invoiceId,
+            paid_amount: paid_amount
         }
         console.log('params', params)
 
         updateInvoice(params)
+
+
         setTimeout(()=>this.onClickClose(), 5000)
-
-
     };
 
     renderFooter = () => {
@@ -308,7 +358,8 @@ class InvoiceModal extends Component {
         let {
             show,
             client,
-            product
+            product,
+            invoiceId
         } = this.props;
         let {
             selectedStatus,
@@ -332,7 +383,8 @@ class InvoiceModal extends Component {
             billing_name,
             billing_address,
             billing_gst,
-            invoice_number
+            invoice_number,
+            paid_amount
         } = this.state;
         let title = invoice_number + " (" +(moment.utc(invoiceDate).format("DD-MMM-YYYY")) + ")";
         console.log(selectedProduct, items)
@@ -340,12 +392,13 @@ class InvoiceModal extends Component {
             <BaseModal
                 show={show}
                 size={"xl"}
+                key={invoiceId}
                 // dialogClassName="modal-90w"
                 handleClose={this.onClickClose}
                 title={title}
                 footerComponent={this.renderFooter}
             >
-                <form>
+                <form key={invoiceId}>
 
                     <div className="row">
                         <div className="col-xl-3 col-3 col-md-3">
@@ -415,12 +468,21 @@ class InvoiceModal extends Component {
 
                     <div className="row">
                         <div className="col-xl-3 col-3 col-md-3">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"Collected Amount"}
+                                value={paid_amount}
+                                disabled={selectedStatus && selectedStatus.value === "completed"}
+                                onChange={this.handleChange("paid_amount")}
+                            />
+                        </div>
+                        <div className="col-xl-3 col-3 col-md-3">
                             <SelectBox onChange={this.handleChange("selectedReverse")} labelText={"Reverse Charge"} value={selectedReverse} options={[
                                 { value: 'yes', label: 'Yes' },
                                 { value: 'no', label: 'No' },
                             ]}/>
                         </div>
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"LR/GR No"}
@@ -428,7 +490,7 @@ class InvoiceModal extends Component {
                                 onChange={this.handleChange("lrNo")}
                             />
                         </div>
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Vehicle number"}
@@ -436,7 +498,7 @@ class InvoiceModal extends Component {
                                 onChange={this.handleChange("vehicle")}
                             />
                         </div>
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Place of Supply"}
