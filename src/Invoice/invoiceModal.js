@@ -318,7 +318,6 @@ class InvoiceModal extends Component {
             <BaseModal
                 show={show}
                 size={"xl"}
-                // dialogClassName="modal-90w"
                 handleClose={this.onClickClose}
                 title={title}
                 footerComponent={this.renderFooter}

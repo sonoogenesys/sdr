@@ -111,13 +111,8 @@ class OrderInvoice extends React.Component {
         let { invoice } = this.props;
 
         let data = invoice && Object.values(invoice)
-
-        if(data){
-            data = data.filter(o=> o && o.status !== "deleted")
-        }
-
         if (searchText) {
-            data = data.filter(o=> o && o.invoice_number.includes(searchText))
+            data = data.filter(o=> o && o.shipping_address.name.includes(searchText))
         }
 
         return data || [];
@@ -140,16 +135,15 @@ class OrderInvoice extends React.Component {
                 break;
         }
         let pending_amount = (item && item.total_amount) ? Number(item.total_amount- (item.paid_amount ? item.paid_amount : 0)) : 0
+        const textDecoration = color === 'red' ? {textDecoration: "line-through"} : {}
         return (
-            <tr key={item?._id}>
-                {/*<td className={'text-center'}>{index + 1}</td>*/}
+            <tr key={item?._id} style={{...textDecoration, color}}>
                 <td className={'text-center'}>{item?.invoice_number}</td>
                 <td>{item?.shipping_address.name}</td>
-                {/*<td>{item?.billing_address.name}</td>*/}
                 <td className={'text-center'}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
                 <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.total_amount}</td>
-                <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.paid_amount}</td>
-                <td className={'text-center'} style={{ width: "10%" }}>₹ {pending_amount}</td>
+                <td className={'text-center'} style={{ width: "10%"}}>₹ {item?.paid_amount}</td>
+                <td className={'text-center'} style={{ width: "10%"}}>₹ {pending_amount}</td>
                 <td className={'text-center'} style={{color}}>{item?.status}</td>
                 <td className={'text-center'}>
                     <span onClick={()=>this.handleModal(false, true, item?._id)}>
@@ -240,7 +234,7 @@ class OrderInvoice extends React.Component {
                             renderRow={this.renderRowItem}
                             filter={{ searchText: this.state.searchText }}
                             onSearch={this.onSearch}
-                            searchPlaceholder={'Search by invoice number'}
+                            searchPlaceholder={'Search by clients'}
                             totalEntries={totalCount}
                             showFilter={true}
                             filterOption={["All", "Pending", "Completed", "Rejected"]}

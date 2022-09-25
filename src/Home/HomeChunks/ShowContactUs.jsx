@@ -159,6 +159,7 @@ const ShowContactUs = ({
             <BaseModal
                 show={show}
                 title={'Contact Here'}
+                size={'lg'}
                 handleClose={handleClose}
             >
             <div className="row">

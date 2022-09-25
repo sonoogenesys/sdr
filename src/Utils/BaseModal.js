@@ -13,7 +13,7 @@ const BaseModal = ({
 }) => {
     console.log(closeButton)
     return (
-        <Modal size={size} show={show} onHide={handleClose} backdrop={'static'}>
+        <Modal size={size} show={show} onHide={handleClose}>
             <Modal.Header closeButton={closeButton}>
                 <Modal.Title>{title}</Modal.Title>
             </Modal.Header>

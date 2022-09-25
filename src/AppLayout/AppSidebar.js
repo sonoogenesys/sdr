@@ -14,6 +14,12 @@ const AppSidebar = (props) => {
                                     <span key="t-dashboards"> Dashboard</span>
                                 </Link>
                             </li>
+                        <li className={pathname === '/app/tally' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
+                                <Link to="/app/tally" className="waves-effect">
+                                    <i className="ti ti-tablet"></i>
+                                    <span key="t-tally"> Tally</span>
+                                </Link>
+                            </li>
                         <li className={pathname === '/app/about' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
                             <Link to="/app/about" className="waves-effect">
                                 <i className="ti ti-info"></i>
@@ -48,6 +54,13 @@ const AppSidebar = (props) => {
                             <Link to="/app/template" className="waves-effect">
                                 <i className="ti ti-file"></i>
                                 <span key="t-invoice"> Template</span>
+                            </Link>
+                        </li>
+
+                        <li className={pathname === '/app/query' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
+                            <Link to="/app/query" className="waves-effect">
+                                <i className="ti ti-cloud"></i>
+                                <span key="t-query"> Query</span>
                             </Link>
                         </li>
                     </ul>
