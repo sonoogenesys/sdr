@@ -29,7 +29,7 @@ const AboutUs = ({about}) => {
                                  {/*    where talent can be procreated. Client satisfaction is our motto and we are a perfect blend of employee*/}
                                  {/*    talent, technical expertise and modern technology.*/}
                                  {/*</p>*/}
-                                 <p style={{color:'#fff'}}>{about?.aboutUs}</p>
+                                 <p className={'text-justify text-white'}>{about?.aboutUs}</p>
                              </div>
                          </div>
                      </div>
@@ -51,7 +51,7 @@ const AboutUs = ({about}) => {
                              {/*    their business opportunities. And, above all, we work together with our Clients and*/}
                              {/*    transfer our knowledge and experience through comprehensive training courses.*/}
                              {/*</p>*/}
-                             <p>{about?.ourVision}</p>
+                             <p className={'text-justify'}>{about?.ourVision}</p>
                          </div>
                      </div>
                  </div>
@@ -64,7 +64,7 @@ const AboutUs = ({about}) => {
                          data-aos-duration="3000"
                      >
                          <div className="bannerText">
-                             <h1 style={{color:'#fff'}}>Client Satisfaction</h1>
+                             <h1 className={'text-justify text-white'}>Client Satisfaction</h1>
                              {/*<p>Your complete satisfaction is our mission. Our success will be measured in*/}
                              {/*    client satisfaction and in our ability to exceed our client&#39;s expectations. We*/}
                              {/*    strive to be a renowned name in the industry, through a continuous*/}
@@ -76,7 +76,7 @@ const AboutUs = ({about}) => {
                              {/*    of electrical goods from renowned suppliers and manufacturers, just to ensure the reliability*/}
                              {/*    of our products and client satisfaction*/}
                              {/*</p>*/}
-                             <p style={{color:'#fff'}}>{about?.clientSatisfaction}</p>
+                             <p className={'text-justify text-white'}>{about?.clientSatisfaction}</p>
                          </div>
                      </div>
                  </div>

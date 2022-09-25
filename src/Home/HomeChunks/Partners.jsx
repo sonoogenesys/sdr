@@ -40,7 +40,7 @@ const Partners = () => {
         slidesToShow: 5,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 3000,
         arrows: false,
         cssEase: "linear",
 		pauseOnHover: true,
@@ -88,7 +88,7 @@ const Partners = () => {
                                             return(
                                                 <div className="item client-carousel">
                                                     <div className="client-carousel-img">
-                                                        <img style={{height: 100, width: 200}} src={i} alt="" />
+                                                        <img style={{height: 120, width: 200}} src={i} alt="" />
                                                     </div>
                                                 </div>
                                             )

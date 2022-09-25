@@ -49,7 +49,7 @@ class Dashboard extends Component {
                 // rejected: {}
             };
             allInvoice.length > 0 && allInvoice.map(item=>{
-                let date = moment.utc(item?.invoiceDate).format("DD-MMM")
+                let date = moment(item?.invoiceDate).format("DD-MMM")
                 if(data[item.status][date] === undefined) {
                     data[item.status][date] = {}
                     data[item.status][date].amount = []

@@ -42,9 +42,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // aboutRequest: (params) => dispatch(fetchAboutRequest(params)),
-        // clientRequest: (params) => dispatch(fetchAllClientsRequest(params)),
-        // galleryRequest: (params) => dispatch(fetchAllGallerysRequest(params))
     }
 }
 

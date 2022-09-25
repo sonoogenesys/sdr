@@ -72,7 +72,6 @@ const ShowContactUs = ({
         let number_err = "";
         let email_err = "";
         let query_err = "";
-        let location_err = "";
 
         if (!name) {
             name_err = "Please enter your name";
@@ -100,11 +99,6 @@ const ShowContactUs = ({
             isErrorHit = true;
         }
 
-        if (!location) {
-            location_err = "Please enter your location";
-            isErrorHit = true;
-        }
-
         setState({
             ...state,
             name_err,
@@ -127,12 +121,12 @@ const ShowContactUs = ({
             const data = JSON.stringify({
                 "name": name,
                 "email": email,
-                "mobile_no": number,
+                "mobile": number,
                 "query": query
             });
-
+            console.log(data)
             axios({
-                url: "https://easycontent-dev.ibism.com/api/v1/mail",
+                url: "https://www.kcs-electrical.com/api/v1/mail",
                 method: "POST",
                 data: data,
                 headers: {
@@ -151,6 +145,8 @@ const ShowContactUs = ({
                     isLoading: false,
                 });
             });
+        } else {
+            console.log('-----')
         }
     }
 

@@ -13,7 +13,7 @@ const HomeBanner = () => {
         fade: true,
 		autoplay: true,
 		speed: 500,
-		autoplaySpeed: 4000,
+		autoplaySpeed: 2000,
 		cssEase: "linear",
 		pauseOnHover: true,
 		slidesToShow: 1,
@@ -21,7 +21,6 @@ const HomeBanner = () => {
 	  }
 
     return(
-		<>
         <Slider {...settings}>
                 <article className="home_banner common_banner banner1">
                     <div className="container">
@@ -77,7 +76,6 @@ const HomeBanner = () => {
                     </div>
                 </article>
             </Slider>
-	</>
 
 )
 }

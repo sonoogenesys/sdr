@@ -9,7 +9,7 @@ import ScrollToTop from '../../ScrollToTop'
 
 const WebBase = ({children}) => {
     return (
-        <div>
+        <div >
             <ScrollToTop>
                 <Header />
                 <div style={{paddingTop: 70}}>{children}</div>

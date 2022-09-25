@@ -386,7 +386,7 @@ class InvoiceModal extends Component {
             invoice_number,
             paid_amount
         } = this.state;
-        let title = invoice_number + " (" +(moment.utc(invoiceDate).format("DD-MMM-YYYY")) + ")";
+        let title = invoice_number + " (" +(moment(invoiceDate).format("DD-MMM-YYYY")) + ")";
         console.log(selectedProduct, items)
         return (
             <BaseModal
