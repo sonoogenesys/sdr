@@ -29,6 +29,8 @@ const WebFooter =  (props, ref) => {
                                             <div className="phoneIcon">
                                                 0981-0959039
                                                 <br></br>
+                                                0124-4113166
+                                                <br></br>
                                                 <span>(10:00 AM to 7:00 PM) - Monday to Saturday</span>
                                             </div>
                                         </div>
@@ -98,6 +100,7 @@ const WebFooter =  (props, ref) => {
                                 </ul>
                             </div>
                             <div className="col-lg-3 col-md-4 col-sm-4 col-12 mt-5 footer_add">
+                                <p><a href="tel:01244113166" className="text-white">0124 4113166</a></p>
                                 <p><a href="tel:09810959039" className="text-white">+91 9810959039</a></p>
                                 <p><a href="mailto:sales@kcs-electrical.com" className="text-white">sales@kcs-electrical.com</a></p>
                                 <div className="address text-white">

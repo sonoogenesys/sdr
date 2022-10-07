@@ -17,7 +17,7 @@ const TableComponent = React.forwardRef((props) => {
         "Qty",
         "Rate",
         "GST %",
-        "Amount",
+        "Item Amount",
         "Item Disc.",
         "Taxable Value"
     ]
