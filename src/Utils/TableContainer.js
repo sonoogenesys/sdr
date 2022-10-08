@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Pagination from "react-js-pagination";
-import { connect } from "react-redux";
 import BaseTable from "./BaseTable";
 
 const TableContainer = ({

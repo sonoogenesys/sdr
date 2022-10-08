@@ -5,12 +5,12 @@ import TextInput from "../Utils/TextInput";
 import SelectBox from '../Utils/SelectBox'
 import City from './city.json';
 import Form from "react-bootstrap/Form";
-import {createInvoiceRequest} from "./Duck/InvoiceActions";
+import {createPurchaseRequest} from "./Duck/PurchaseActions";
 import {createProductRequest} from "../Product/Duck/ProductsActions";
 import {createClientRequest} from "../Client/Duck/ClientsActions";
 import moment from "moment";
 
-class InvoiceModal extends Component {
+class PurchaseModal extends Component {
     constructor(props) {
         super(props);
 
@@ -44,9 +44,9 @@ class InvoiceModal extends Component {
 
 
     componentDidUpdate(preProps) {
-        if(this.state.invoice_number === "00 /2022-23" && this.props.invoice && Object.keys(this.props.invoice).length > 0){
-            this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 1} /2022-23`})
-        }
+        // if(this.state.invoice_number === "00 /2022-23" && this.props.invoice && Object.keys(this.props.invoice).length > 0){
+        //     this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 1} /2022-23`})
+        // }
         console.log(this.props.loading, preProps.loading, this.state.isLoading)
         if (!this.props.loading && preProps.loading && this.state.isLoading) {
             if (!this.props.error) {
@@ -148,6 +148,7 @@ class InvoiceModal extends Component {
                 createProduct(params)
             }
         })
+
         createInvoice(params)
         setTimeout(()=>this.onClickClose(), 5000)
 
@@ -188,9 +189,8 @@ class InvoiceModal extends Component {
 
     handleChange = (name) => (event) => {
         let { product, client } = this.props;
-        let {items, selectedProduct, selectedShipping, selectedBilling} = this.state;
+        let {items, selectedProduct} = this.state;
         let value;
-        console.log(event, items)
         if(Array.isArray(event)){
             value = event
         } else {
@@ -221,14 +221,12 @@ class InvoiceModal extends Component {
                 if(product[o.value] === undefined){
                     product[o.value] = {}
                 }
-                console.log('----->',selectedItems[o.value].gst)
 
-                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name;
+                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name + product[o.value].description;
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
                 selectedItems[o.value].rate = items[o.value].rate ? items[o.value].rate : product[o.value].rate;
-                selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
             })
             this.setState({items: selectedItems, selectedProduct: selectedProduct})
         }
@@ -243,12 +241,11 @@ class InvoiceModal extends Component {
                     product[o.value] = {}
                 }
                 // console.log(product[o.value])
-                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name;
+                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name + product[o.value].description;
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
                 selectedItems[o.value].rate = items[o.value].rate ? items[o.value].rate : product[o.value].rate;
-                selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
             })
             this.setState({items: selectedItems})
         }
@@ -265,22 +262,16 @@ class InvoiceModal extends Component {
                 items[index].qty = value
             } else if (name.includes("Rate")) {
                 items[index].rate = value
-            } else if (name.includes("GST")) {
-                items[index].gst = event.target.checked
             }
 
             this.setState({items})
         }
 
-        console.log(selectedBilling)
         if(name === "selectedShipping") {
             let shipping_name = client[event.value].name
             let shipping_address = client[event.value].address
             let shipping_gst = client[event.value].gstin
-            let billing_name = client[event.value].name
-            let billing_address = client[event.value].address
-            let billing_gst = client[event.value].gstin
-            this.setState({selectedBilling: event, shipping_name, shipping_address, shipping_gst, billing_name, billing_address, billing_gst})
+            this.setState({shipping_name, shipping_address, shipping_gst})
         }
         if(name === "selectedBilling") {
             let billing_name = client[event.value].name
@@ -321,7 +312,7 @@ class InvoiceModal extends Component {
             billing_gst,
             invoice_number
         } = this.state;
-        let title = "Add New Invoice";
+        let title = "Add New Purchase";
 
         return (
             <BaseModal
@@ -332,84 +323,84 @@ class InvoiceModal extends Component {
                 footerComponent={this.renderFooter}
             >
                 <form>
+                    {/*<div className="row">*/}
+                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
+                    {/*        <SelectBox searchable value={selectedState} onChange={this.handleChange("selectedState")} labelText={"State"} options={Object.keys(City).map(o=>{*/}
+                    {/*            return {*/}
+                    {/*                value: o, label: o*/}
+                    {/*            }*/}
+                    {/*        })}/>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
+                    {/*        <SelectBox searchable value={selectedCity} onChange={this.handleChange("selectedCity")} labelText={"City"} options={selectedState ? City[selectedState.value].map(o=>{*/}
+                    {/*            return {*/}
+                    {/*                value: o, label: o*/}
+                    {/*            }*/}
+                    {/*        }) : []}/>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
+                    {/*        <SelectBox searchable value={selectedTransport}*/}
+                    {/*                   onChange={this.handleChange("selectedTransport")}*/}
+                    {/*                   labelText={"Transport Mode"}*/}
+                    {/*                   options={[*/}
+                    {/*                       {*/}
+                    {/*                           value: "By Road (Bus)",*/}
+                    {/*                           label: "By Road (Bus)"*/}
+                    {/*                       },*/}
+                    {/*                       {*/}
+                    {/*                           value: "By Road (Rikshaw)",*/}
+                    {/*                           label: "By Road (Rikshaw)"*/}
+                    {/*                       },*/}
+                    {/*                       {*/}
+                    {/*                           value: "By Road (MotorCycle)",*/}
+                    {/*                           label: "By Road (MotorCycle)"*/}
+                    {/*                       },*/}
+                    {/*                       {*/}
+                    {/*                           value: "By Road (Car)",*/}
+                    {/*                           label: "By Road (Car)"*/}
+                    {/*                       },*/}
+                    {/*                       {*/}
+                    {/*                           value: "By Road (Truck)",*/}
+                    {/*                           label: "By Road (Truck)"*/}
+                    {/*                       },*/}
+                    {/*                       {*/}
+                    {/*                           value: "Train",*/}
+                    {/*                           label: "Train"*/}
+                    {/*                       },*/}
+                    {/*                       {*/}
+                    {/*                           value: "By Road (Crain)",*/}
+                    {/*                           label: "By Road (Crain)"*/}
+                    {/*                       }*/}
+
+                    {/*                   ]}*/}
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
+                    {/*        <SelectBox onChange={this.handleChange("selectedReverse")} labelText={"Reverse Charge"} value={selectedReverse} options={[*/}
+                    {/*            { value: 'yes', label: 'Yes' },*/}
+                    {/*            { value: 'no', label: 'No' },*/}
+                    {/*        ]}/>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
                     <div className="row">
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <SelectBox searchable value={selectedState} onChange={this.handleChange("selectedState")} labelText={"State"} options={Object.keys(City).map(o=>{
-                                return {
-                                    value: o, label: o
-                                }
-                            })}/>
-                        </div>
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <SelectBox searchable value={selectedCity} onChange={this.handleChange("selectedCity")} labelText={"City"} options={selectedState ? City[selectedState.value].map(o=>{
-                                return {
-                                    value: o, label: o
-                                }
-                            }) : []}/>
-                        </div>
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <SelectBox searchable value={selectedTransport}
-                                       onChange={this.handleChange("selectedTransport")}
-                                       labelText={"Transport Mode"}
-                                       options={[
-                                           {
-                                               value: "By Road (Bus)",
-                                               label: "By Road (Bus)"
-                                           },
-                                           {
-                                               value: "By Road (Rikshaw)",
-                                               label: "By Road (Rikshaw)"
-                                           },
-                                           {
-                                               value: "By Road (MotorCycle)",
-                                               label: "By Road (MotorCycle)"
-                                           },
-                                           {
-                                               value: "By Road (Car)",
-                                               label: "By Road (Car)"
-                                           },
-                                           {
-                                               value: "By Road (Truck)",
-                                               label: "By Road (Truck)"
-                                           },
-                                           {
-                                               value: "Train",
-                                               label: "Train"
-                                           },
-                                           {
-                                               value: "By Road (Crain)",
-                                               label: "By Road (Crain)"
-                                           }
 
-                                       ]}
-                            />
-                        </div>
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <SelectBox onChange={this.handleChange("selectedReverse")} labelText={"Reverse Charge"} value={selectedReverse} options={[
-                                { value: 'yes', label: 'Yes' },
-                                { value: 'no', label: 'No' },
-                            ]}/>
-                        </div>
-                    </div>
-
-                    <div className="row">
-
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"LR/GR No"}
-                                value={lrNo}
-                                onChange={this.handleChange("lrNo")}
-                            />
-                        </div>
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Vehicle number"}
-                                value={vehicle}
-                                onChange={this.handleChange("vehicle")}
-                            />
-                        </div>
+                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
+                        {/*    <TextInput*/}
+                        {/*        labelClassName={"text-capitalize"}*/}
+                        {/*        labelText={"LR/GR No"}*/}
+                        {/*        value={lrNo}*/}
+                        {/*        onChange={this.handleChange("lrNo")}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
+                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
+                        {/*    <TextInput*/}
+                        {/*        labelClassName={"text-capitalize"}*/}
+                        {/*        labelText={"Vehicle number"}*/}
+                        {/*        value={vehicle}*/}
+                        {/*        onChange={this.handleChange("vehicle")}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
                         <div className="col-xl-3 col-3 col-md-3">
                             <label className={"text-capitalize"}>Invoice Date</label>
                             <Form.Control value={invoiceDate} onChange={this.handleChange("invoiceDate")} type="date" name='date_of_birth' className={"text-capitalize"} />
@@ -424,69 +415,70 @@ class InvoiceModal extends Component {
 
                             />
                         </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-xl-2 col-2 col-md-2">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Place of Supply"}
-                                value={supply}
-                                onChange={this.handleChange("supply")}
-                            />
-                        </div>
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Packing & Forwarding"}
-                                onChange={this.handleChange("packing")}
-                                value={packing}
-                            />
-                        </div>
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Insurance charges"}
-                                onChange={this.handleChange("insurance")}
-                                value={insurance}
-                            />
-                        </div>
-                        <div className="col-xl-2 col-2 col-md-2">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Freight"}
-                                onChange={this.handleChange("freight")}
-                                value={freight}
-                            />
-                        </div>
-                        <div className="col-xl-2 col-2 col-md-2">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Discount"}
-                                onChange={this.handleChange("discount")}
-                                value={discount}
-                            />
-                        </div>
-                    </div>
-
-                    <div className={'row'}>
                         <div className="col-xl-6 col-6 col-md-6">
-                            <SelectBox searchable labelText={"Shipping To"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {
+                            <SelectBox searchable labelText={"Purchase from"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {
                                 return {
                                     value: o._id,
                                     label: o.name + o.address
                                 }
                             })} value={selectedShipping} onChange={this.handleChange("selectedShipping")}/>
                         </div>
-                        <div className="col-xl-6 col-6 col-md-6">
-                            <SelectBox searchable labelText={"Billing to"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {
-                                return {
-                                    value: o._id,
-                                    label: o.name + o.address
-                                }
-                            })} value={selectedBilling} onChange={this.handleChange("selectedBilling")}/>
-                        </div>
                     </div>
+
+                    {/*<div className="row">*/}
+                        {/*<div className="col-xl-2 col-2 col-md-2">*/}
+                        {/*    <TextInput*/}
+                        {/*        labelClassName={"text-capitalize"}*/}
+                        {/*        labelText={"Place of Supply"}*/}
+                        {/*        value={supply}*/}
+                        {/*        onChange={this.handleChange("supply")}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
+                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
+                        {/*    <TextInput*/}
+                        {/*        labelClassName={"text-capitalize"}*/}
+                        {/*        labelText={"Packing & Forwarding"}*/}
+                        {/*        onChange={this.handleChange("packing")}*/}
+                        {/*        value={packing}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
+                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
+                        {/*    <TextInput*/}
+                        {/*        labelClassName={"text-capitalize"}*/}
+                        {/*        labelText={"Insurance charges"}*/}
+                        {/*        onChange={this.handleChange("insurance")}*/}
+                        {/*        value={insurance}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
+                        {/*<div className="col-xl-2 col-2 col-md-2">*/}
+                        {/*    <TextInput*/}
+                        {/*        labelClassName={"text-capitalize"}*/}
+                        {/*        labelText={"Freight"}*/}
+                        {/*        onChange={this.handleChange("freight")}*/}
+                        {/*        value={freight}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
+                        {/*<div className="col-xl-2 col-2 col-md-2">*/}
+                        {/*    <TextInput*/}
+                        {/*        labelClassName={"text-capitalize"}*/}
+                        {/*        labelText={"Discount"}*/}
+                        {/*        onChange={this.handleChange("discount")}*/}
+                        {/*        value={discount}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+
+                    {/*<div className={'row'}>*/}
+
+                        {/*<div className="col-xl-6 col-6 col-md-6">*/}
+                        {/*    <SelectBox searchable labelText={"Billing to"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {*/}
+                        {/*        return {*/}
+                        {/*            value: o._id,*/}
+                        {/*            label: o.name + o.address*/}
+                        {/*        }*/}
+                        {/*    })} value={selectedBilling} onChange={this.handleChange("selectedBilling")}/>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
 
                     { selectedShipping && <div className={'row'}>
                             <div className={"col-xl-4 col-4 col-md-4"}>
@@ -519,32 +511,32 @@ class InvoiceModal extends Component {
                     {/*    */}
                     {/*</div>*/}
 
-                    { selectedBilling && <div className={'row'}>
-                            <div className={"col-xl-4 col-4 col-md-4"}>
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Billing Name"}
-                                value={billing_name}
-                                onChange={this.handleChange("billing_name")}
-                            />
-                            </div>
-                            <div className={"col-xl-4 col-4 col-md-4"}>
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Billing Address"}
-                                value={billing_address}
-                                onChange={this.handleChange("billing_address")}
-                            />
-                            </div>
-                            <div className={"col-xl-4 col-4 col-md-4"}>
-                                <TextInput
-                                    labelClassName={"text-capitalize"}
-                                    labelText={"Billing GST"}
-                                    value={billing_gst}
-                                    onChange={this.handleChange("billing_gst")}
-                                />
-                            </div>
-                    </div> }
+                    {/*{ selectedBilling && <div className={'row'}>*/}
+                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
+                    {/*        <TextInput*/}
+                    {/*            labelClassName={"text-capitalize"}*/}
+                    {/*            labelText={"Billing Name"}*/}
+                    {/*            value={billing_name}*/}
+                    {/*            onChange={this.handleChange("billing_name")}*/}
+                    {/*        />*/}
+                    {/*        </div>*/}
+                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
+                    {/*        <TextInput*/}
+                    {/*            labelClassName={"text-capitalize"}*/}
+                    {/*            labelText={"Billing Address"}*/}
+                    {/*            value={billing_address}*/}
+                    {/*            onChange={this.handleChange("billing_address")}*/}
+                    {/*        />*/}
+                    {/*        </div>*/}
+                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
+                    {/*            <TextInput*/}
+                    {/*                labelClassName={"text-capitalize"}*/}
+                    {/*                labelText={"Billing GST"}*/}
+                    {/*                value={billing_gst}*/}
+                    {/*                onChange={this.handleChange("billing_gst")}*/}
+                    {/*            />*/}
+                    {/*        </div>*/}
+                    {/*</div> }*/}
 
                     <div className={"row"}>
                         <div className="col-xl-11 col-11 col-md-11">
@@ -570,7 +562,7 @@ class InvoiceModal extends Component {
                     {selectedProduct && Array.isArray(selectedProduct) && selectedProduct.map((o, i)=>{
                         return (
                             <div className={'row'} key={o.value}>
-                                <div className={"col-xl-3 col-3 col-md-3 text-center"}>
+                                <div className={"col-xl-4 col-4 col-md-4 text-center"}>
                                     <TextInput
                                         labelClassName={"text-capitalize"}
                                         labelText={i === 0 && "Description"}
@@ -597,7 +589,7 @@ class InvoiceModal extends Component {
                                         onChange={this.handleChange(`itemUom-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-1 col-1 col-md-1 text-center"}>
+                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
                                     <TextInput
                                         labelText={ i === 0 && "Qty"}
                                         style={{textAlign:'center'}}
@@ -612,16 +604,6 @@ class InvoiceModal extends Component {
                                         value={items[o.value].rate}
                                         onChange={this.handleChange(`itemRate-${o.value}`)}
                                     />
-                                </div>
-                                <div className={"col-xl-2 col-2 col-md-2 align-self-center text-center mt-3"}>
-                                <Form.Check
-                                    type="switch"
-                                    onChange={this.handleChange(`itemGST-${o.value}`)}
-                                    id={o.value}
-                                    label={"Non GST"}
-                                    // label="non GST"
-                                    // onClick={(event)=>console.log(event.target)}
-                                />
                                 </div>
                             </div>
                         )
@@ -645,8 +627,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createClient: (params) => dispatch(createClientRequest(params)),
         createProduct: (params) => dispatch(createProductRequest(params)),
-        createInvoice: (params) => dispatch(createInvoiceRequest(params))
+        createInvoice: (params) => dispatch(createPurchaseRequest(params))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InvoiceModal);
+export default connect(mapStateToProps, mapDispatchToProps)(PurchaseModal);

@@ -3,12 +3,10 @@ import { connect } from "react-redux";
 import BaseModal from "../Utils/BaseModal";
 import TextInput from "../Utils/TextInput";
 import SelectBox from '../Utils/SelectBox'
-import City from './city.json';
-import Form from "react-bootstrap/Form";
-import {createInvoiceRequest} from "./Duck/InvoiceActions";
-import {createProductRequest} from "../Product/Duck/ProductsActions";
-import {createClientRequest} from "../Client/Duck/ClientsActions";
 import moment from "moment";
+import City from './city.json';
+import {updateInvoiceRequest} from "./Duck/PurchaseActions";
+import Form from "react-bootstrap/Form";
 
 class InvoiceModal extends Component {
     constructor(props) {
@@ -19,53 +17,128 @@ class InvoiceModal extends Component {
             selectedShipping: null,
             selectedBilling: null,
             selectedProduct: null,
-            selectedState: {value: "Haryana", label: "Haryana"},
-            selectedCity: {value: "Gurugram", label: "Gurugram"},
+            selectedState: null,
+            selectedCity: null,
             shipping_name: null,
             shipping_address: null,
             shipping_gst: null,
             billing_name: null,
             billing_address: null,
             billing_gst: null,
+            paid_amount: null,
             selectedTransport: null,
-            selectedReverse: {value: "no", label: "no"},
+            selectedReverse: null,
             lrNo: null,
             vehicle: null,
             supply: null,
-            invoiceDate: moment().format("YYYY-MM-DD"),
+            invoiceDate: null,
             packing: null,
             insurance: null,
             freight: null,
             discount: null,
-            invoice_number: "00 /2022-23",
-            items: {}
+            invoice_number: null,
+            items: {},
+            _id: null,
+            selectedStatus: null
         };
     }
 
-
-    componentDidUpdate(preProps) {
-        if(this.state.invoice_number === "00 /2022-23" && this.props.invoice && Object.keys(this.props.invoice).length > 0){
-            this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 1} /2022-23`})
-        }
-        console.log(this.props.loading, preProps.loading, this.state.isLoading)
-        if (!this.props.loading && preProps.loading && this.state.isLoading) {
-            if (!this.props.error) {
-                this.onClickClose();
+    componentDidMount() {
+        let {invoiceId, invoice} = this.props;
+        let {_id, paid_amount, selectedStatus} = this.state;
+        if(invoiceId && invoice && invoice[invoiceId]){
+            let currentInvoice = invoice[invoiceId]
+            if(currentInvoice.total_amount !== paid_amount && selectedStatus && selectedStatus.value === "completed"){
+                this.setState({paid_amount: currentInvoice.total_amount})
             }
         }
+        if(invoiceId && invoice && invoice[invoiceId] && !_id) {
+            let currentInvoice = invoice[invoiceId]
+            this.setState({
+                _id: currentInvoice._id,
+                selectedState: currentInvoice.selectedState,
+                selectedCity: currentInvoice.selectedCity,
+                shipping_name: currentInvoice.shipping_address.name,
+                shipping_address: currentInvoice.shipping_address.address,
+                shipping_gst: currentInvoice.shipping_address.gst,
+                billing_name: currentInvoice.billing_address.name,
+                billing_address: currentInvoice.billing_address.address,
+                billing_gst: currentInvoice.billing_address.gst,
+                selectedTransport: currentInvoice.selectedTransport,
+                selectedReverse: currentInvoice.selectedReverse,
+                lrNo: currentInvoice.lrNo,
+                paid_amount: currentInvoice.paid_amount,
+                vehicle: currentInvoice.vehicle,
+                supply: currentInvoice.supply,
+                invoiceDate: moment(currentInvoice.invoiceDate).format("YYYY-MM-DD"),
+                packing: currentInvoice.packing,
+                insurance: currentInvoice.insurance,
+                freight: currentInvoice.freight,
+                discount: currentInvoice.discount,
+                invoice_number: currentInvoice.invoice_number,
+                items: currentInvoice.items,
+                selectedStatus: { value: currentInvoice.status, label: currentInvoice.status },
+                selectedProduct: Object.keys(currentInvoice.items).map(o=>{
+                    return {value: o, label: currentInvoice.items[o].name}
+                })
+            })
+            console.log(currentInvoice)
+        }
     }
-
-
+    componentDidUpdate(preProps) {
+        let {invoiceId, invoice} = this.props;
+        let {_id, paid_amount, selectedStatus} = this.state;
+        if(invoiceId && invoice && invoice[invoiceId]){
+            let currentInvoice = invoice[invoiceId]
+            if(currentInvoice.total_amount !== paid_amount && selectedStatus && selectedStatus.value === "completed"){
+                this.setState({paid_amount: currentInvoice.total_amount})
+            }
+        }
+        if(invoiceId && invoice && invoice[invoiceId] && !_id) {
+            let currentInvoice = invoice[invoiceId]
+            this.setState({
+                _id: currentInvoice._id,
+                selectedState: currentInvoice.selectedState,
+                selectedCity: currentInvoice.selectedCity,
+                shipping_name: currentInvoice.shipping_address.name,
+                shipping_address: currentInvoice.shipping_address.address,
+                shipping_gst: currentInvoice.shipping_address.gst,
+                billing_name: currentInvoice.billing_address.name,
+                billing_address: currentInvoice.billing_address.address,
+                billing_gst: currentInvoice.billing_address.gst,
+                selectedTransport: currentInvoice.selectedTransport,
+                selectedReverse: currentInvoice.selectedReverse,
+                lrNo: currentInvoice.lrNo,
+                paid_amount: currentInvoice.paid_amount,
+                vehicle: currentInvoice.vehicle,
+                supply: currentInvoice.supply,
+                invoiceDate: moment(currentInvoice.invoiceDate).format("YYYY-MM-DD"),
+                packing: currentInvoice.packing,
+                insurance: currentInvoice.insurance,
+                freight: currentInvoice.freight,
+                discount: currentInvoice.discount,
+                invoice_number: currentInvoice.invoice_number,
+                items: currentInvoice.items,
+                selectedStatus: { value: currentInvoice.status, label: currentInvoice.status },
+                selectedProduct: Object.keys(currentInvoice.items).map(o=>{
+                    return {value: o, label: currentInvoice.items[o].name}
+                })
+            })
+            console.log(currentInvoice)
+        }
+    }
 
     onClickClose = () => {
         let { handelModal } = this.props;
         this.setState({
+            _id: null,
+            paid_amount: null,
             isLoading: false,
             selectedShipping: null,
             selectedBilling: null,
             selectedProduct: null,
-            // selectedState: null,
-            // selectedCity: null,
+            selectedState: null,
+            selectedCity: null,
             shipping_name: null,
             shipping_address: null,
             shipping_gst: null,
@@ -73,20 +146,21 @@ class InvoiceModal extends Component {
             billing_address: null,
             billing_gst: null,
             selectedTransport: null,
-            // selectedReverse: null,
+            selectedReverse: null,
             lrNo: null,
             vehicle: null,
             supply: null,
-            invoiceDate: moment().format("YYYY-MM-DD"),
+            invoiceDate: null,
             packing: null,
             insurance: null,
             freight: null,
             discount: null,
-            invoice_number: "00 /2022-23",
-            items: {}
+            invoice_number: null,
+            items: {},
+            selectedStatus: null
         });
+        handelModal()
 
-        handelModal(false, false, null);
     };
 
     onClickSave = () => {
@@ -111,12 +185,15 @@ class InvoiceModal extends Component {
             freight,
             discount,
             items,
-            invoice_number
+            invoice_number,
+            selectedStatus,
+            paid_amount
         }
          = this.state;
-        let {createInvoice, createProduct} = this.props;
+        let {updateInvoice, invoiceId} = this.props;
 
         let params = {
+            status: selectedStatus.value,
             selectedState: selectedState,
             selectedCity: selectedCity,
             shipping_address: {
@@ -140,22 +217,20 @@ class InvoiceModal extends Component {
             freight: freight,
             discount: discount,
             items: items,
-            invoice_number: invoice_number
+            invoice_number: invoice_number,
+            _id: invoiceId,
+            paid_amount: paid_amount
         }
-        Object.keys(items).map(o=>{
-            if(o.includes("sel")){
-                let params = items[o]
-                createProduct(params)
-            }
-        })
-        createInvoice(params)
+        console.log('params', params)
+
+        updateInvoice(params)
+
+
         setTimeout(()=>this.onClickClose(), 5000)
-
-
     };
 
     renderFooter = () => {
-        let { isLoading } = this.state;
+        let { isLoading, selectedStatus  } = this.state;
 
         return (
             <>
@@ -179,8 +254,7 @@ class InvoiceModal extends Component {
                             <span className="spinner-border spinner-border-sm"></span>
                             <span className="visually-hidden"> Saving...</span>
                         </>
-                    ) : "Generate Invoice"
-                    }
+                    ) : "Save changes"}
                 </button>
             </>
         );
@@ -188,9 +262,8 @@ class InvoiceModal extends Component {
 
     handleChange = (name) => (event) => {
         let { product, client } = this.props;
-        let {items, selectedProduct, selectedShipping, selectedBilling} = this.state;
+        let {items, selectedProduct} = this.state;
         let value;
-        console.log(event, items)
         if(Array.isArray(event)){
             value = event
         } else {
@@ -221,14 +294,12 @@ class InvoiceModal extends Component {
                 if(product[o.value] === undefined){
                     product[o.value] = {}
                 }
-                console.log('----->',selectedItems[o.value].gst)
 
-                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name;
+                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name + product[o.value].description;
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
                 selectedItems[o.value].rate = items[o.value].rate ? items[o.value].rate : product[o.value].rate;
-                selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
             })
             this.setState({items: selectedItems, selectedProduct: selectedProduct})
         }
@@ -243,12 +314,11 @@ class InvoiceModal extends Component {
                     product[o.value] = {}
                 }
                 // console.log(product[o.value])
-                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name;
+                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name + product[o.value].description;
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
                 selectedItems[o.value].rate = items[o.value].rate ? items[o.value].rate : product[o.value].rate;
-                selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
             })
             this.setState({items: selectedItems})
         }
@@ -265,22 +335,16 @@ class InvoiceModal extends Component {
                 items[index].qty = value
             } else if (name.includes("Rate")) {
                 items[index].rate = value
-            } else if (name.includes("GST")) {
-                items[index].gst = event.target.checked
             }
 
             this.setState({items})
         }
 
-        console.log(selectedBilling)
         if(name === "selectedShipping") {
             let shipping_name = client[event.value].name
             let shipping_address = client[event.value].address
             let shipping_gst = client[event.value].gstin
-            let billing_name = client[event.value].name
-            let billing_address = client[event.value].address
-            let billing_gst = client[event.value].gstin
-            this.setState({selectedBilling: event, shipping_name, shipping_address, shipping_gst, billing_name, billing_address, billing_gst})
+            this.setState({shipping_name, shipping_address, shipping_gst})
         }
         if(name === "selectedBilling") {
             let billing_name = client[event.value].name
@@ -294,12 +358,12 @@ class InvoiceModal extends Component {
         let {
             show,
             client,
-            product
+            product,
+            invoiceId
         } = this.props;
         let {
-            selectedShipping,
+            selectedStatus,
             selectedProduct,
-            selectedBilling,
             selectedState,
             selectedCity,
             selectedTransport,
@@ -319,20 +383,40 @@ class InvoiceModal extends Component {
             billing_name,
             billing_address,
             billing_gst,
-            invoice_number
+            invoice_number,
+            paid_amount
         } = this.state;
-        let title = "Add New Invoice";
-
+        let title = invoice_number + " (" +(moment(invoiceDate).format("DD-MMM-YYYY")) + ")";
+        console.log(selectedProduct, items)
         return (
             <BaseModal
                 show={show}
                 size={"xl"}
+                key={invoiceId}
+                // dialogClassName="modal-90w"
                 handleClose={this.onClickClose}
                 title={title}
                 footerComponent={this.renderFooter}
             >
-                <form>
+                <form key={invoiceId}>
+
                     <div className="row">
+                        <div className="col-xl-3 col-3 col-md-3">
+                        <SelectBox labelText={"Payment Status"} onChange={this.handleChange("selectedStatus")} value={selectedStatus}
+                                   options={[
+                                       {
+                                           value: "pending", label: "pending"
+                                       },
+                                       {
+                                           value: "rejected", label: "rejected"
+                                       },
+                                       {
+                                           value: "completed", label: "completed"
+                                       }
+                                   ]}
+                        />
+                        </div>
+
                         <div className="col-xl-3 col-3 col-md-3">
                             <SelectBox searchable value={selectedState} onChange={this.handleChange("selectedState")} labelText={"State"} options={Object.keys(City).map(o=>{
                                 return {
@@ -375,13 +459,21 @@ class InvoiceModal extends Component {
                                            {
                                                value: "Train",
                                                label: "Train"
-                                           },
-                                           {
-                                               value: "By Road (Crain)",
-                                               label: "By Road (Crain)"
                                            }
 
                                        ]}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-xl-3 col-3 col-md-3">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"Advance Amount"}
+                                value={paid_amount}
+                                disabled={selectedStatus && selectedStatus.value === "completed"}
+                                onChange={this.handleChange("paid_amount")}
                             />
                         </div>
                         <div className="col-xl-3 col-3 col-md-3">
@@ -390,11 +482,7 @@ class InvoiceModal extends Component {
                                 { value: 'no', label: 'No' },
                             ]}/>
                         </div>
-                    </div>
-
-                    <div className="row">
-
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"LR/GR No"}
@@ -402,7 +490,7 @@ class InvoiceModal extends Component {
                                 onChange={this.handleChange("lrNo")}
                             />
                         </div>
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Vehicle number"}
@@ -410,23 +498,6 @@ class InvoiceModal extends Component {
                                 onChange={this.handleChange("vehicle")}
                             />
                         </div>
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <label className={"text-capitalize"}>Invoice Date</label>
-                            <Form.Control value={invoiceDate} onChange={this.handleChange("invoiceDate")} type="date" name='date_of_birth' className={"text-capitalize"} />
-                        </div>
-
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Invoice Number"}
-                                value={invoice_number}
-                                onChange={this.handleChange("invoice_number")}
-
-                            />
-                        </div>
-                    </div>
-
-                    <div className="row">
                         <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
@@ -435,7 +506,23 @@ class InvoiceModal extends Component {
                                 onChange={this.handleChange("supply")}
                             />
                         </div>
-                        <div className="col-xl-3 col-3 col-md-3">
+                    </div>
+
+                    <div className={"row"}>
+                        <div className="col-xl-2 col-2 col-md-2">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"Invoice Number"}
+                                value={invoice_number}
+                                onChange={this.handleChange("invoice_number")}
+
+                            />
+                        </div>
+                        <div className="col-xl-2 col-2 col-md-2">
+                            <label className={"text-capitalize"}>Invoice Date</label>
+                            <Form.Control value={invoiceDate} onChange={this.handleChange("invoiceDate")} type="date" name='date_of_birth' className={"text-capitalize"} />
+                        </div>
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Packing & Forwarding"}
@@ -443,7 +530,7 @@ class InvoiceModal extends Component {
                                 value={packing}
                             />
                         </div>
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Insurance charges"}
@@ -469,30 +556,28 @@ class InvoiceModal extends Component {
                         </div>
                     </div>
 
-                    <div className={'row'}>
-                        <div className="col-xl-6 col-6 col-md-6">
-                            <SelectBox searchable labelText={"Shipping To"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {
-                                return {
-                                    value: o._id,
-                                    label: o.name + o.address
-                                }
-                            })} value={selectedShipping} onChange={this.handleChange("selectedShipping")}/>
-                        </div>
-                        <div className="col-xl-6 col-6 col-md-6">
-                            <SelectBox searchable labelText={"Billing to"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {
-                                return {
-                                    value: o._id,
-                                    label: o.name + o.address
-                                }
-                            })} value={selectedBilling} onChange={this.handleChange("selectedBilling")}/>
-                        </div>
-                    </div>
+                    {/*<div className="row">*/}
 
-                    { selectedShipping && <div className={'row'}>
+                    {/*    <div className="col-xl-4 col-4 col-md-4">*/}
+                    {/*        <TextInput*/}
+                    {/*            labelClassName={"text-capitalize"}*/}
+                    {/*            labelText={"Invoice Number"}*/}
+                    {/*            value={invoice_number}*/}
+                    {/*            onChange={this.handleChange("invoice_number")}*/}
+
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="col-xl-4 col-4 col-md-4">*/}
+                    {/*        <label className={"text-capitalize"}>Invoice Date</label>*/}
+                    {/*        <Form.Control value={invoiceDate} onChange={this.handleChange("invoiceDate")} type="date" name='date_of_birth' className={"text-capitalize"} />*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    <p>Shipping To: </p>
+                    <div className={'row'}>
                             <div className={"col-xl-4 col-4 col-md-4"}>
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Shipping Name"}
+                                labelText={"Name"}
                                 value={shipping_name}
                                 onChange={this.handleChange("shipping_name")}
                             />
@@ -500,7 +585,7 @@ class InvoiceModal extends Component {
                             <div className={"col-xl-4 col-4 col-md-4"}>
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Shipping Address"}
+                                labelText={"Address"}
                                 value={shipping_address}
                                 onChange={this.handleChange("shipping_address")}
                             />
@@ -508,22 +593,18 @@ class InvoiceModal extends Component {
                             <div className={"col-xl-4 col-4 col-md-4"}>
                                 <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Shipping GST"}
+                                labelText={"GST"}
                                 value={shipping_gst}
                                 onChange={this.handleChange("shipping_gst")}
                             />
                             </div>
-                    </div> }
-
-                    {/*<div className="row">*/}
-                    {/*    */}
-                    {/*</div>*/}
-
-                    { selectedBilling && <div className={'row'}>
+                    </div>
+                    <p>Billing To: </p>
+                    <div className={'row'}>
                             <div className={"col-xl-4 col-4 col-md-4"}>
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Billing Name"}
+                                labelText={"Name"}
                                 value={billing_name}
                                 onChange={this.handleChange("billing_name")}
                             />
@@ -531,7 +612,7 @@ class InvoiceModal extends Component {
                             <div className={"col-xl-4 col-4 col-md-4"}>
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Billing Address"}
+                                labelText={"Address"}
                                 value={billing_address}
                                 onChange={this.handleChange("billing_address")}
                             />
@@ -539,24 +620,24 @@ class InvoiceModal extends Component {
                             <div className={"col-xl-4 col-4 col-md-4"}>
                                 <TextInput
                                     labelClassName={"text-capitalize"}
-                                    labelText={"Billing GST"}
+                                    labelText={"GST"}
                                     value={billing_gst}
                                     onChange={this.handleChange("billing_gst")}
                                 />
                             </div>
-                    </div> }
+                    </div>
 
                     <div className={"row"}>
                         <div className="col-xl-11 col-11 col-md-11">
-                            <SelectBox searchable onChange={this.handleChange("selectedProduct")} multiple={true} value={selectedProduct} labelText={"Product"} options={product && Object.values(product).length > 0 && Object.values(product).map(o=> {
+                            <SelectBox onChange={this.handleChange("selectedProduct")} multiple={true} value={selectedProduct} labelText={"Product"} options={product && Object.values(product).length > 0 && Object.values(product).map(o=> {
                                 return {
                                     value: o._id,
-                                    label: o.name + (o.description ? o.description : "")
+                                    label: o.name + o.description
                                 }
                             })}/>
 
                         </div>
-                        <div className={'col-xl-1 col-1 col-md-1 align-self-center text-align-right mt-3'}>
+                        <div className={'col-xl-1 col-1 col-md-1 align-self-center mt-3'}>
                             <button
                                 type="button"
                                 className="btn border btn-icon-text "
@@ -570,37 +651,36 @@ class InvoiceModal extends Component {
                     {selectedProduct && Array.isArray(selectedProduct) && selectedProduct.map((o, i)=>{
                         return (
                             <div className={'row'} key={o.value}>
-                                <div className={"col-xl-3 col-3 col-md-3 text-center"}>
+                                <div className={"col-xl-5 col-5 col-md-5 text-center"}>
                                     <TextInput
                                         labelClassName={"text-capitalize"}
                                         labelText={i === 0 && "Description"}
-
                                         value={items[o.value]?.name}
                                         onChange={this.handleChange(`itemName-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
+                                <div className={"col-xl-2 col-2 col-md-2"}>
                                     <TextInput
                                         labelClassName={"text-capitalize"}
                                         labelText={ i === 0 && "HSN / SAC"}
-                                        style={{textAlign:'center'}}
+                                        // style={{textAlign:'center'}}
                                         value={items[o.value]?.hsn}
                                         onChange={this.handleChange(`itemHsn-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
+                                <div className={"col-xl-2 col-2 col-md-2"}>
                                     <TextInput
                                         labelClassName={"text-capitalize"}
                                         labelText={ i === 0 && "UOM"}
-                                        style={{textAlign:'center'}}
+                                        // style={{textAlign:'center'}}
                                         value={items[o.value].uom}
                                         onChange={this.handleChange(`itemUom-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-1 col-1 col-md-1 text-center"}>
+                                <div className={"col-xl-1 col-1 col-md-1"}>
                                     <TextInput
                                         labelText={ i === 0 && "Qty"}
-                                        style={{textAlign:'center'}}
+                                        // style={{textAlign:'center'}}
                                         value={items[o.value].qty}
                                         onChange={this.handleChange(`itemQty-${o.value}`)}
                                     />
@@ -613,19 +693,11 @@ class InvoiceModal extends Component {
                                         onChange={this.handleChange(`itemRate-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-2 col-2 col-md-2 align-self-center text-center mt-3"}>
-                                <Form.Check
-                                    type="switch"
-                                    onChange={this.handleChange(`itemGST-${o.value}`)}
-                                    id={o.value}
-                                    label={"Non GST"}
-                                    // label="non GST"
-                                    // onClick={(event)=>console.log(event.target)}
-                                />
-                                </div>
                             </div>
                         )
                     })}
+
+
                 </form>
             </BaseModal>
         );
@@ -643,9 +715,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        createClient: (params) => dispatch(createClientRequest(params)),
-        createProduct: (params) => dispatch(createProductRequest(params)),
-        createInvoice: (params) => dispatch(createInvoiceRequest(params))
+        updateInvoice: (params) => dispatch(updateInvoiceRequest(params))
     };
 };
 

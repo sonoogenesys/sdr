@@ -82,7 +82,7 @@ class Dashboard extends Component {
     }
     render() {
         let { dashboard } = this.props;
-        let {pending_invoice, completed_invoice, rejected_invoice, total_amount, pending_amount, completed_amount, rejected_amount} = dashboard
+        let {pending_invoice, completed_invoice, rejected_invoice, total_amount, pending_amount, completed_amount, rejected_amount, query} = dashboard
         let chartData = this.getGraphData()
         return (
             <>
@@ -131,12 +131,34 @@ class Dashboard extends Component {
                         name={"Raised Amount"}
                         counter={dashboard ? (Number(completed_amount).toFixed(2)) : 0}
                     />
-
                     {/*<CounterContainer*/}
-                    {/*    counter_key={"rejected_amount"}*/}
+                    {/*    counter_key={"query"}*/}
                     {/*    containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}*/}
-                    {/*    name={"Rejected Amount"}*/}
-                    {/*    counter={dashboard ? (Number(rejected_amount).toFixed(2)) : 0}*/}
+                    {/*    name={"Total Query"}*/}
+                    {/*    counter={dashboard && query ? (Number(query).toFixed(2)) : 0}*/}
+                    {/*/>*/}
+                    <CounterContainer
+                        counter_key={"purchase_amount"}
+                        containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
+                        name={"Purchase Amount"}
+                        counter={dashboard && query ? (Number(query).toFixed(2)) : 0}
+                    />
+                    <CounterContainer
+                        counter_key={"purchase_pending_amount"}
+                        containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
+                        name={"Purchase Pending Amount"}
+                        counter={dashboard && query ? (Number(query).toFixed(2)) : 0}
+                    /><CounterContainer
+                        counter_key={"query"}
+                        containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
+                        name={"Purchase Paid Amount"}
+                        counter={dashboard && query ? (Number(query).toFixed(2)) : 0}
+                    />
+                    {/*<CounterContainer*/}
+                    {/*    counter_key={"query"}*/}
+                    {/*    containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}*/}
+                    {/*    name={"Total Query"}*/}
+                    {/*    counter={dashboard && query ? (Number(query).toFixed(2)) : 0}*/}
                     {/*/>*/}
                 </div>
 

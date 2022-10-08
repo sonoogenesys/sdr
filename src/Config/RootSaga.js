@@ -7,6 +7,7 @@ import gallerySaga from "../Gallery/Duck/GallerySaga";
 import aboutSaga from "../About/Duck/AboutSaga";
 import productSaga from "../Product/Duck/ProductsSaga";
 import invoiceSaga from "../Invoice/Duck/InvoiceSaga";
+import purchaseSaga from "../Purchase/Duck/PurchaseSaga";
 
 function* RootSaga() {
     yield all([
@@ -17,7 +18,8 @@ function* RootSaga() {
         gallerySaga(),
         aboutSaga(),
         productSaga(),
-        invoiceSaga()
+        invoiceSaga(),
+        purchaseSaga()
     ]);
 }
 

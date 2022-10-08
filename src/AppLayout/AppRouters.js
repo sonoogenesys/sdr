@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom'
 import ClientContainer from '../Client/ClientsContainer'
 import GalleryContainer from '../Gallery/GalleryContainer'
 import Invoice from "../Invoice/InvoiceContainer"
+import Purchase from "../Purchase/PurchaseContainer"
 import Dashboard from '../Dashboard/Dashboard';
 import EditProfile from '../Profile/EditProfile.jsx'
 import AboutContainer from '../About/AboutContainer'
@@ -24,6 +25,7 @@ const AppRouters = (props) => {
 			<Route path='/app/product' exact component={ProductContainer} />
 			<Route path='/app/client' exact component={ClientContainer} />
 			<Route path='/app/invoice' exact component={Invoice} />
+			<Route path='/app/purchase' exact component={Purchase} />
 			<Route path='/app/gallery' exact component={GalleryContainer} />
 			<Route path='/app/editProfile' exact component={EditProfile} />
 			<Route path='/app/tally' exact component={TallyContainer} />

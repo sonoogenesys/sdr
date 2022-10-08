@@ -5,7 +5,7 @@ import NumToWords from "../Utils/NumToWords";
 import Line from "../Utils/Line";
 
 const TableComponent = React.forwardRef((props) => {
-    let invoice = props.invoice;
+    let purchase = props.purchase;
     let {screenHeight} = props
 
 
@@ -23,8 +23,6 @@ const TableComponent = React.forwardRef((props) => {
     ]
 
     const renderRowItem = (item, index) => {
-        let gst = item?.gst ? (item?.gst === true ? 0 : item?.gst) : 18
-        let taxAmount = gst ? (item?.rate || 0) * Number(item?.qty) : 0
         return (
             <tr key={index}>
                 <td style={{textAlign:'center'}}>{index + 1}</td>
@@ -33,19 +31,17 @@ const TableComponent = React.forwardRef((props) => {
                 <td>{item?.uom}</td>
                 <td>{item?.qty}</td>
                 <td style={{ width: "10%" }}>₹ {parseFloat((item?.rate) || 0).toFixed(2)}</td>
-                <td style={{ width: "10%" }}>{parseFloat(gst).toFixed(2)}</td>
+                <td style={{ width: "10%" }}>{parseFloat(item?.gst || 18).toFixed(2)}</td>
                 <td style={{textAlign:'center', width: "10%"}}>₹ {parseFloat((item?.rate || 0) * Number(item?.qty)).toFixed(2)}</td>
                 <td>{item?.desc ? item.desc : "-"}</td>
-                <td>₹ {parseFloat(taxAmount).toFixed(2)}</td>
+                <td>₹ {parseFloat((item?.rate || 0) * Number(item?.qty)).toFixed(2)}</td>
             </tr>
         );
     };
-    let itemsData = invoice?.items ? Object.values(invoice?.items) : [];
-    let nonGSTItems = itemsData ? itemsData.filter(o=> o.gst === true) : [];
-    let nonGSTAmount = nonGSTItems.reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)) , 0);
-    let amount = Object.values(invoice).length !== 0 && Object.values(invoice?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
-    amount = (amount + Number(invoice?.packing || 0) + Number(invoice?.insurance || 0) + Number(invoice?.freight || 0))  - Number(invoice?.discount || 0)
-    let GSTAmount = amount > nonGSTAmount ? amount - nonGSTAmount : nonGSTAmount - amount;
+    let itemsData = purchase?.items ? Object.values(purchase?.items) : [];
+    let amount = Object.values(purchase).length !== 0 && Object.values(purchase?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
+    amount = (amount + Number(purchase?.packing || 0) + Number(purchase?.insurance || 0) + Number(purchase?.freight || 0))  - Number(purchase?.discount || 0)
+
     return (
         <div key={screenHeight} className="col-md-12">
             <div className="card indivisual_invoice">
@@ -77,7 +73,7 @@ const TableComponent = React.forwardRef((props) => {
 
                     <div className="pt-5 pb-2 d-flex justify-content-center">
                         <h5 className="">
-                            <span>Tax Invoice</span>
+                            <span>Tax Purchase</span>
                         </h5>
                     </div>
                 </div>
@@ -86,7 +82,7 @@ const TableComponent = React.forwardRef((props) => {
                 <div className="col-md-12">
                     <div className="row mt-3" >
                         <div className="col-md-6 invoice_logo_wrapper" >
-                            <p className="mb-1"><b>Ship from Location: </b>{invoice?.selectedCity?.value}</p>
+                            <p className="mb-1"><b>Ship from Location: </b>{purchase?.selectedCity?.value}</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
                             <p className="mb-1"></p>
@@ -95,34 +91,34 @@ const TableComponent = React.forwardRef((props) => {
 
                     <div className="row mt-1">
                         <div className="col-md-6 invoice_logo_wrapper">
-                            <p className="mb-1"><b>Invoice No: </b>{invoice?.invoice_number}</p>
+                            <p className="mb-1"><b>Purchase No: </b>{purchase?.invoice_number}</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
-                            <p className="mb-1"><b>Transport Mode: </b>{invoice?.selectedTransport?.value}</p>
+                            <p className="mb-1"><b>Transport Mode: </b>{purchase?.selectedTransport?.value}</p>
                         </div>
                     </div>
                     <div className="row mt-1">
                         <div className="col-md-6 invoice_logo_wrapper">
-                            <p className="mb-1" style={{ letterSpacing: 1 }}><b>Invoice Date: </b> {moment(invoice?.invoiceDate).format("DD-MMM-YYYY")}</p>
+                            <p className="mb-1" style={{ letterSpacing: 1 }}><b>Invoice Date: </b> {moment(purchase?.invoiceDate).format("DD-MMM-YYYY")}</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
-                            <p className="mb-1"><b>Vehicle number:</b>{invoice?.vehicle}</p>
+                            <p className="mb-1"><b>Vehicle number:</b>{purchase?.vehicle}</p>
                         </div>
                     </div>
                     <div className="row mt-1">
                         <div className="col-md-6 invoice_logo_wrapper">
-                            <p className="mb-1"><b>Reverse Charge (Y/N):</b> {invoice?.selectedReverse?.value}</p>
+                            <p className="mb-1"><b>Reverse Charge (Y/N):</b> {purchase?.selectedReverse?.value}</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
-                            <p className="mb-1"><b>LR/GR No: </b>{invoice?.lrNo}</p>
+                            <p className="mb-1"><b>LR/GR No: </b>{purchase?.lrNo}</p>
                         </div>
                     </div>
                     <div className="row mt-1">
                         <div className="col-md-6 invoice_logo_wrapper">
-                            <p className="mb-1"><b>State:</b> {invoice?.selectedState?.value}</p>
+                            <p className="mb-1"><b>State:</b> {purchase?.selectedState?.value}</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
-                            <p className="mb-1"><b>Place of Supply:</b>{invoice?.supply}</p>
+                            <p className="mb-1"><b>Place of Supply:</b>{purchase?.supply}</p>
                         </div>
                     </div>
                 </div>
@@ -133,15 +129,15 @@ const TableComponent = React.forwardRef((props) => {
                     <div className="row mt-3">
                         <div className="col-md-6 invoice_logo_wrapper">
                             <p className={"mb-1"}><b>Billed To:</b></p>
-                            <p className="mb-1">{invoice?.billing_address?.name}</p>
-                            <p className="mb-1">{invoice?.billing_address?.address}</p>
-                            <p className="mb-1"><b>GSTIN: {invoice?.billing_address?.gst}</b></p>
+                            <p className="mb-1">{purchase?.billing_address?.name}</p>
+                            <p className="mb-1">{purchase?.billing_address?.address}</p>
+                            <p className="mb-1"><b>GSTIN: {purchase?.billing_address?.gst}</b></p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
                             <p className={"mb-1"}><b>Shipped To:</b></p>
-                            <p className="mb-1">{invoice?.shipping_address?.name}</p>
-                            <p className="mb-1">{invoice?.shipping_address?.address}</p>
-                            <p className="mb-1"><b>GSTIN: {invoice?.shipping_address?.gst}</b></p>
+                            <p className="mb-1">{purchase?.shipping_address?.name}</p>
+                            <p className="mb-1">{purchase?.shipping_address?.address}</p>
+                            <p className="mb-1"><b>GSTIN: {purchase?.shipping_address?.gst}</b></p>
                         </div>
                     </div>
                 </div>
@@ -159,7 +155,7 @@ const TableComponent = React.forwardRef((props) => {
                 </div>
 
                 <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>
-                    <p className="mb-1 fa-1x"><b>Total Items Amount:</b> ₹ {parseFloat(amount).toFixed(2)}</p>
+                    <p className="mb-1 fa-1x"><b>Total:</b> ₹ {parseFloat(amount).toFixed(2)}</p>
                 </div>
 
                 <Line/>
@@ -171,7 +167,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Add: Packing & Forwarding</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-right">
-                            <p className="mb-1">{invoice?.packing}</p>
+                            <p className="mb-1">{purchase?.packing}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -180,7 +176,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Add: Insurance charges</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-right">
-                            <p className="mb-1">{invoice?.insurance}</p>
+                            <p className="mb-1">{purchase?.insurance}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -189,7 +185,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Add: Freight</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-right">
-                            <p className="mb-1">{invoice?.freight}</p>
+                            <p className="mb-1">{purchase?.freight}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -198,16 +194,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Less: Discount(Cash/quantity/turnover etc.)</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-right">
-                            <p className="mb-1">{invoice?.discount}</p>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-6 invoice_logo_wrapper"/>
-                        <div className="col-md-4 invoice_logo_wrapper">
-                            <p className="mb-1">Net Non Taxable Amount:-</p>
-                        </div>
-                        <div className="col-md-2 invoice_logo_wrapper text-right">
-                            <p className="mb-1">₹ {parseFloat(nonGSTAmount).toFixed(2)}</p>
+                            <p className="mb-1">{purchase?.discount}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -216,7 +203,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Net Taxable Amount:-</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-right">
-                            <p className="mb-1">₹ {parseFloat(GSTAmount).toFixed(2)}</p>
+                            <p className="mb-1">₹ {parseFloat(amount).toFixed(2)}</p>
                         </div>
                     </div>
                     <Line left={"10px"}/>
@@ -229,7 +216,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Add: CGST : 9%</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-right">
-                            <p className="mb-1">{GSTAmount * 9 / 100}</p>
+                            <p className="mb-1">{amount * 9 / 100}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -240,7 +227,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Add: SGST : 9%</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-right">
-                            <p className="mb-1">{GSTAmount * 9 / 100}</p>
+                            <p className="mb-1">{amount * 9 / 100}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -262,7 +249,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Grand Total</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-right">
-                            <p className="mb-1">₹ {parseFloat((GSTAmount * 18 / 100) + nonGSTAmount + GSTAmount).toFixed(2)}</p>
+                            <p className="mb-1">₹ {parseFloat((amount * 18 / 100) + amount).toFixed(2)}</p>
                         </div>
                     </div>
                 </div>
