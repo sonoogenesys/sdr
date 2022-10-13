@@ -485,7 +485,7 @@ class InvoiceModal extends Component {
                         <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"LR/GR No"}
+                                labelText={"PO No"}
                                 value={lrNo}
                                 onChange={this.handleChange("lrNo")}
                             />

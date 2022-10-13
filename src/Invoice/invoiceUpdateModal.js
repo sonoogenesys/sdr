@@ -295,7 +295,7 @@ class InvoiceModal extends Component {
                     product[o.value] = {}
                 }
 
-                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name + product[o.value].description;
+                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name;
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
@@ -314,7 +314,7 @@ class InvoiceModal extends Component {
                     product[o.value] = {}
                 }
                 // console.log(product[o.value])
-                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name + product[o.value].description;
+                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name;
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
@@ -485,7 +485,7 @@ class InvoiceModal extends Component {
                         <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"LR/GR No"}
+                                labelText={"PO No"}
                                 value={lrNo}
                                 onChange={this.handleChange("lrNo")}
                             />
@@ -632,7 +632,7 @@ class InvoiceModal extends Component {
                             <SelectBox onChange={this.handleChange("selectedProduct")} multiple={true} value={selectedProduct} labelText={"Product"} options={product && Object.values(product).length > 0 && Object.values(product).map(o=> {
                                 return {
                                     value: o._id,
-                                    label: o.name + o.description
+                                    label: o.name
                                 }
                             })}/>
 

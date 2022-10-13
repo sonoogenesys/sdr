@@ -110,7 +110,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1"><b>Reverse Charge (Y/N):</b> {purchase?.selectedReverse?.value}</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
-                            <p className="mb-1"><b>LR/GR No: </b>{purchase?.lrNo}</p>
+                            <p className="mb-1"><b>PO No: </b>{purchase?.lrNo}</p>
                         </div>
                     </div>
                     <div className="row mt-1">

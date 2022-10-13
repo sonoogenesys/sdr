@@ -139,24 +139,30 @@ class OrderPurchase extends React.Component {
         return (
             <tr key={item?._id} style={{...textDecoration, color}}>
                 <td className={'text-center'}>{item?.invoice_number}</td>
-                <td>{item?.shipping_address.name}</td>
+                <td>{item?.party_address?.name}</td>
                 <td className={'text-center'}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
                 <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.total_amount}</td>
                 <td className={'text-center'} style={{ width: "10%"}}>₹ {item?.paid_amount}</td>
                 <td className={'text-center'} style={{ width: "10%"}}>₹ {pending_amount}</td>
                 <td className={'text-center'} style={{color}}>{item?.status}</td>
                 <td className={'text-center'}>
-                    <span onClick={()=>this.handleModal(false, true, item?._id)}>
+                    <span
+                        // onClick={()=>this.handleModal(false, true, item?._id)}
+                    >
                        <Tippy content="Preview">
                             <i className="bx bxs-printer"></i>
                         </Tippy>
                     </span>
-                    <span className={'ml-2'} onClick={()=>this.handleModal(false, false, item?._id, true)}>
+                    <span className={'ml-2'}
+                          // onClick={()=>this.handleModal(false, false, item?._id, true)}
+                    >
                        <Tippy content="Edit">
                             <i className="bx bxs-edit"/>
                         </Tippy>
                     </span>
-                    <span className={'ml-2'} onClick={() => this.handleModal(false, false, item?._id, false, true)}>
+                    <span className={'ml-2'}
+                          // onClick={() => this.handleModal(false, false, item?._id, false, true)}
+                    >
                        <Tippy content="Delete">
                             <i className="fe fe-delete"/>
                         </Tippy>

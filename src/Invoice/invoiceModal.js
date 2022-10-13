@@ -397,7 +397,7 @@ class InvoiceModal extends Component {
                         <div className="col-xl-3 col-3 col-md-3">
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"LR/GR No"}
+                                labelText={"PO No"}
                                 value={lrNo}
                                 onChange={this.handleChange("lrNo")}
                             />
@@ -551,7 +551,7 @@ class InvoiceModal extends Component {
                             <SelectBox searchable onChange={this.handleChange("selectedProduct")} multiple={true} value={selectedProduct} labelText={"Product"} options={product && Object.values(product).length > 0 && Object.values(product).map(o=> {
                                 return {
                                     value: o._id,
-                                    label: o.name + (o.description ? o.description : "")
+                                    label: o.name
                                 }
                             })}/>
 

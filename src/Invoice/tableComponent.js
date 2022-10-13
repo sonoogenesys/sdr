@@ -28,7 +28,7 @@ const TableComponent = React.forwardRef((props) => {
         return (
             <tr key={index}>
                 <td style={{textAlign:'center'}}>{index + 1}</td>
-                <td>{item?.name + (item?.description? item?.description : "")}</td>
+                <td>{item?.name}</td>
                 <td>{item?.hsn}</td>
                 <td>{item?.uom}</td>
                 <td>{item?.qty}</td>
@@ -114,7 +114,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1"><b>Reverse Charge (Y/N):</b> {invoice?.selectedReverse?.value}</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
-                            <p className="mb-1"><b>LR/GR No: </b>{invoice?.lrNo}</p>
+                            <p className="mb-1"><b>PO No: </b>{invoice?.lrNo}</p>
                         </div>
                     </div>
                     <div className="row mt-1">

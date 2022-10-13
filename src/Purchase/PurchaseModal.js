@@ -37,7 +37,7 @@ class PurchaseModal extends Component {
             insurance: null,
             freight: null,
             discount: null,
-            invoice_number: "00 /2022-23",
+            invoice_number: null,
             items: {}
         };
     }
@@ -82,7 +82,7 @@ class PurchaseModal extends Component {
             insurance: null,
             freight: null,
             discount: null,
-            invoice_number: "00 /2022-23",
+            invoice_number: null,
             items: {}
         });
 
@@ -117,28 +117,23 @@ class PurchaseModal extends Component {
         let {createInvoice, createProduct} = this.props;
 
         let params = {
-            selectedState: selectedState,
-            selectedCity: selectedCity,
-            shipping_address: {
+            // selectedState: selectedState,
+            // selectedCity: selectedCity,
+            party_address: {
                 name: shipping_name,
                 address: shipping_address,
                 gst: shipping_gst,
             },
-            billing_address: {
-                name: billing_name,
-                address: billing_address,
-                gst: billing_gst,
-            },
-            selectedTransport: selectedTransport,
-            selectedReverse: selectedReverse,
-            lrNo: lrNo,
-            vehicle: vehicle,
-            supply: supply,
+            // selectedTransport: selectedTransport,
+            // selectedReverse: selectedReverse,
+            // lrNo: lrNo,
+            // vehicle: vehicle,
+            // supply: supply,
             invoiceDate: invoiceDate,
-            packing: packing,
-            insurance: insurance,
-            freight: freight,
-            discount: discount,
+            // packing: packing,
+            // insurance: insurance,
+            // freight: freight,
+            // discount: discount,
             items: items,
             invoice_number: invoice_number
         }
@@ -484,7 +479,7 @@ class PurchaseModal extends Component {
                             <div className={"col-xl-4 col-4 col-md-4"}>
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Shipping Name"}
+                                labelText={"Party Name"}
                                 value={shipping_name}
                                 onChange={this.handleChange("shipping_name")}
                             />
@@ -492,7 +487,7 @@ class PurchaseModal extends Component {
                             <div className={"col-xl-4 col-4 col-md-4"}>
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Shipping Address"}
+                                labelText={"Party Address"}
                                 value={shipping_address}
                                 onChange={this.handleChange("shipping_address")}
                             />
@@ -500,7 +495,7 @@ class PurchaseModal extends Component {
                             <div className={"col-xl-4 col-4 col-md-4"}>
                                 <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Shipping GST"}
+                                labelText={"Party GST"}
                                 value={shipping_gst}
                                 onChange={this.handleChange("shipping_gst")}
                             />
