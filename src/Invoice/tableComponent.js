@@ -159,7 +159,7 @@ const TableComponent = React.forwardRef((props) => {
                 </div>
 
                 <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>
-                    <p className="mb-1 fa-1x"><b>Total Items Amount:</b> ₹ {parseFloat(amount).toFixed(2)}</p>
+                    <p className="mb-1 fa-1x"><b>Total Amount:</b> ₹ {parseFloat(amount).toFixed(2)}</p>
                 </div>
 
                 <Line/>

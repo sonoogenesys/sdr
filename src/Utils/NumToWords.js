@@ -1,4 +1,7 @@
 const NumToWords = (num) => {
+    // let decimal_part = Number((num.toFixed(2) + "").split(".")[1]); //(num - Math.floor(num)).toFixed(2).s;
+    num = num.toFixed(0);
+
     let a = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
     let b = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
 
@@ -13,6 +16,6 @@ const NumToWords = (num) => {
         str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : 'only';
         return str;
     }
-    return inWords(num)
+    return inWords(num) // + '' + inWords(decimal_part)
 }
 export default NumToWords;
