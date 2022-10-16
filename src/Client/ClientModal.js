@@ -6,6 +6,11 @@ import {
     createClientRequest,
     updateClientRequest
 } from "./Duck/ClientsActions";
+import axios from 'axios';
+import {showNotification} from "../Utils/CommonFunctions";
+import Spinner from 'react-bootstrap/Spinner';
+
+// 4a83aadb1d2e4f58bc6da050c35779fe
 
 class UserModal extends Component {
     constructor(props) {
@@ -22,7 +27,8 @@ class UserModal extends Component {
             // nameErr: "",
             // mobileErr: "",
             // addressErr: "",
-            isLoading: false
+            isLoading: false,
+            loading: false
         };
     }
 
@@ -178,6 +184,9 @@ class UserModal extends Component {
         if (name === "mobile") {
             value = value.replace(/[^0-9]/g, "");
         }
+        if(name === "gstin" && value.length === 15) {
+            this.getDataFromGST(value);
+        }
         console.log([name], value)
         this.setState({
             [name]: value,
@@ -198,6 +207,26 @@ class UserModal extends Component {
         console.log(url) // Would see a path?
     }
 
+    getDataFromGST = (gst) => {
+        // let {gst} = this.state;
+        this.setState({loading: true})
+        const api_key = '4a83aadb1d2e4f58bc6da050c35779fe'
+        axios.get(`https://sheet.gstincheck.co.in/check/${api_key}/${gst}`).then(response=>{
+            if(response?.data?.flag){
+                showNotification('success', 'GST Verified')
+                let data = response.data.data;
+                data && this.setState({address: data.pradr?.adr, name: (data.tradeNam || data.lgnm)})
+            } else {
+                showNotification('error', response?.data?.message)
+            }
+            this.setState({loading: false})
+
+        }).catch(err=>{
+            showNotification('error', 'Something went wrong')
+            this.setState({loading: false})
+        })
+    }
+
     render() {
         let {
             show,
@@ -214,17 +243,25 @@ class UserModal extends Component {
             nameErr,
             addressErr,
             mobileErr,
+            loading
         } = this.state;
         let title = !userId ? "Add New Client" : "Edit Client";
 
         return (
+
+
             <BaseModal
                 show={show}
                 handleClose={this.onClickClose}
                 title={title}
                 footerComponent={this.renderFooter}
             >
+
                 <form>
+                    {loading && <div style={{position:'absolute', zIndex: 10, opacity: 0.5, width: 470, height: 370, backgroundColor:'white'}}>
+                        <Spinner size={'lg'} animation={'border'} role={'status'} style={{position:'absolute',top: '35%', left: '40%', width: 70, height:70}} />
+                    </div>}
+
                     <div className="row">
                         <div className="col-xl-6 col-6 col-md-6">
                             <TextInput
@@ -258,6 +295,7 @@ class UserModal extends Component {
                                 labelClassName={"text-capitalize"}
                                 labelText={"GST No"}
                                 value={gstin}
+                                maxLength={15}
                                 onChange={this.handelChange("gstin")}
                             />
                         </div>

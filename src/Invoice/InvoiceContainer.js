@@ -137,7 +137,7 @@ class OrderInvoice extends React.Component {
         let pending_amount = (item && item.total_amount) ? Number(item.total_amount- (item.paid_amount ? item.paid_amount : 0)) : 0
         const textDecoration = color === 'red' ? {textDecoration: "line-through"} : {}
         return (
-            <tr key={item?._id} style={{...textDecoration, color}}>
+            <tr key={item?._id} style={{...textDecoration, color}} onClick={()=>this.handleModal(false, true, item?._id)}>
                 <td className={'text-center'}>{item?.invoice_number}</td>
                 <td>{item?.shipping_address.name}</td>
                 <td className={'text-center'}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>

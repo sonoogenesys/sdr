@@ -18,7 +18,8 @@ const TextInput = ({
     cols = "",
     rows = "",
     autoFocus = false,
-    onKeyUp
+    onKeyUp,
+    maxLength
 }) => {
     let inputType = isPasswordText ? "password" : "text";
     let hasError = !!errorText;
@@ -56,6 +57,7 @@ const TextInput = ({
                     disabled={disabled}
                     autoFocus={autoFocus}
                     onKeyUp={onKeyUp}
+                    maxLength={maxLength}
                 />
             )}
 

@@ -19,6 +19,7 @@ const Home = (props) => {
     return (
         <>
             <WebBase>
+                {/*<div className="featuresbg" style={{height: 1500, width:'100%'}}/>*/}
                 <HomeBanner/>
                 <LogisticSection aboutItem={aboutItem}/>
                 <Features />
