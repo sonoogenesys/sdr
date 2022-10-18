@@ -82,7 +82,7 @@ class Dashboard extends Component {
     }
     render() {
         let { dashboard } = this.props;
-        let {pending_invoice, completed_invoice, rejected_invoice, total_amount, pending_amount, completed_amount, rejected_amount, query} = dashboard
+        let {pending_invoice, completed_invoice, rejected_invoice, pending_amount, completed_amount, query_count, total_purchase_amount, paid_purchase_amount, purchase_count} = dashboard
         let chartData = this.getGraphData()
         return (
             <>
@@ -131,35 +131,35 @@ class Dashboard extends Component {
                         name={"Raised Amount"}
                         counter={dashboard ? (Number(completed_amount).toFixed(2)) : 0}
                     />
-                    {/*<CounterContainer*/}
-                    {/*    counter_key={"query"}*/}
-                    {/*    containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}*/}
-                    {/*    name={"Total Query"}*/}
-                    {/*    counter={dashboard && query ? (Number(query).toFixed(2)) : 0}*/}
-                    {/*/>*/}
+                    <CounterContainer
+                        counter_key={"purchase_count"}
+                        containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
+                        name={"Total Purchase Invoice"}
+                        counter={dashboard && purchase_count ? purchase_count : 0}
+                    />
                     <CounterContainer
                         counter_key={"purchase_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Purchase Amount"}
-                        counter={dashboard && query ? (Number(query).toFixed(2)) : 0}
+                        counter={dashboard && total_purchase_amount ? (Number(total_purchase_amount).toFixed(2)) : 0}
                     />
                     <CounterContainer
                         counter_key={"purchase_pending_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Purchase Pending Amount"}
-                        counter={dashboard && query ? (Number(query).toFixed(2)) : 0}
+                        counter={dashboard && total_purchase_amount ? (Number(total_purchase_amount- (paid_purchase_amount || 0)).toFixed(2)) : 0}
                     /><CounterContainer
                         counter_key={"query"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Purchase Paid Amount"}
-                        counter={dashboard && query ? (Number(query).toFixed(2)) : 0}
+                        counter={dashboard && paid_purchase_amount ? (Number(paid_purchase_amount).toFixed(2)) : 0}
                     />
-                    {/*<CounterContainer*/}
-                    {/*    counter_key={"query"}*/}
-                    {/*    containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}*/}
-                    {/*    name={"Total Query"}*/}
-                    {/*    counter={dashboard && query ? (Number(query).toFixed(2)) : 0}*/}
-                    {/*/>*/}
+                    <CounterContainer
+                        counter_key={"query"}
+                        containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
+                        name={"Total Query"}
+                        counter={dashboard && query_count ? (Number(query_count)) : 0}
+                    />
                 </div>
                 <div  style={{background:'#E5F2FF',borderBottom:'1px solid #B4BBC4',padding:20}}>
                     Current Month Report
