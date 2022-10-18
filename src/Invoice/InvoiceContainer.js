@@ -137,26 +137,26 @@ class OrderInvoice extends React.Component {
         let pending_amount = (item && item.total_amount) ? Number(item.total_amount- (item.paid_amount ? item.paid_amount : 0)) : 0
         const textDecoration = color === 'red' ? {textDecoration: "line-through"} : {}
         return (
-            <tr key={item?._id} style={{...textDecoration, color}} onClick={()=>this.handleModal(false, true, item?._id)}>
-                <td className={'text-center'}>{item?.invoice_number}</td>
-                <td>{item?.shipping_address.name}</td>
-                <td className={'text-center'}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
-                <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.total_amount}</td>
-                <td className={'text-center'} style={{ width: "10%"}}>₹ {item?.paid_amount}</td>
-                <td className={'text-center'} style={{ width: "10%"}}>₹ {pending_amount}</td>
-                <td className={'text-center'} style={{color}}>{item?.status}</td>
+            <tr key={item?._id} style={{...textDecoration, color}}>
+                <td className={'text-center'} onClick={()=>this.handleModal(false, true, item?._id)}>{item?.invoice_number}</td>
+                <td onClick={()=>this.handleModal(false, true, item?._id)}>{item?.shipping_address.name}</td>
+                <td className={'text-center'} onClick={()=>this.handleModal(false, true, item?._id)}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
+                <td className={'text-center'} style={{ width: "10%" }} onClick={()=>this.handleModal(false, true, item?._id)}>₹ {item?.total_amount}</td>
+                <td className={'text-center'} style={{ width: "10%"}} onClick={()=>this.handleModal(false, true, item?._id)}>₹ {item?.paid_amount}</td>
+                <td className={'text-center'} style={{ width: "10%"}} onClick={()=>this.handleModal(false, true, item?._id)}>₹ {pending_amount}</td>
+                <td className={'text-center'} style={{color}} onClick={()=>this.handleModal(false, true, item?._id)}>{item?.status}</td>
                 <td className={'text-center'}>
                     <span onClick={()=>this.handleModal(false, true, item?._id)}>
                        <Tippy content="Preview">
                             <i className="bx bxs-printer"></i>
                         </Tippy>
                     </span>
-                    <span className={'ml-2'} onClick={()=>this.handleModal(false, false, item?._id, true)}>
+                    <span className={'ml-2 z-5'} onClick={()=>this.handleModal(false, false, item?._id, true)}>
                        <Tippy content="Edit">
                             <i className="bx bxs-edit"/>
                         </Tippy>
                     </span>
-                    <span className={'ml-2'} onClick={() => this.handleModal(false, false, item?._id, false, true)}>
+                    <span className={'ml-2 z-5'} onClick={() => this.handleModal(false, false, item?._id, false, true)}>
                        <Tippy content="Delete">
                             <i className="fe fe-delete"/>
                         </Tippy>

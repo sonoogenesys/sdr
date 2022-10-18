@@ -7,7 +7,7 @@ import moment from 'moment';
 import { Badge } from 'react-bootstrap';
 // import FilePreviewModal from '../FilePreview/filePreviewModal';
 // import FilePreviewWrapper from '../FilePreview/filePreviewWrapper';
-// import {Tab,Tabs} from 'react-bootstrap';
+import {Tab,Tabs, Row, Col } from 'react-bootstrap';
 import CounterContainer from './Components/CounterContainer';
 import DashboardChart from './Components/DashboardChart';
 import { getCurrentMonthOfWeek } from '../Utils/CommonFunctions';
@@ -161,16 +161,71 @@ class Dashboard extends Component {
                     {/*    counter={dashboard && query ? (Number(query).toFixed(2)) : 0}*/}
                     {/*/>*/}
                 </div>
+                <div  style={{background:'#E5F2FF',borderBottom:'1px solid #B4BBC4',padding:20}}>
+                    Current Month Report
+                </div>
 
+                <div className={'mt-20'} style={{boxShadow: '0px 8px 16px rgba(169, 194, 209, 0.1), 0px 32px 32px rgba(169, 194, 209, 0.15)'}}>
+                    <div style={{background:'#fff'}}>
+                        <Row style={{padding:20,borderBottom:'1px solid #ECEEF0'}}>
+                            <Col style={{color:'#44830e'}}>
+                                <b>A.</b> Total tax amount
+                            </Col>
+
+                            <Col className={'text-right'}>
+                                <b>{0.00}</b>
+                            </Col>
+                        </Row>
+                        <Row style={{padding:20,borderBottom:'1px solid #ECEEF0'}}>
+                            <Col style={{color:'#d2691e'}}>
+                                <b>B.</b> Paid tax amount
+                            </Col>
+                            <Col className={'text-right'}>
+                                <b>{0.00}</b>
+                            </Col>
+                        </Row>
+                        <Row style={{padding:20,borderBottom:'1px solid #ECEEF0'}}>
+                            <Col style={{color:'#DB1F48'}}>
+                                <b>C.</b> Pending tax amount
+                            </Col>
+                            <Col className={'text-right'}>
+                                <b>{0.00}</b>
+                            </Col>
+                        </Row>
+                        <Row style={{padding:20,borderBottom:'1px solid #ECEEF0'}}>
+                            <Col style={{color:'#145da0'}}>
+                                <b>D.</b> Previous month total tax amount
+                            </Col>
+                            <Col className={'text-right'}>
+                                <b>{0.00}</b>
+                            </Col>
+                        </Row>
+
+                        <Row style={{padding:20,borderBottom:'1px solid #ECEEF0'}}>
+                            <Col style={{color:'#DB1F48'}}>
+                                <b>E.</b> Previous month pending tax amount
+                            </Col>
+                            <Col className={'text-right'}>
+                                <b>{0.00}</b>
+                            </Col>
+                        </Row>
+                    </div>
+
+                </div>
+
+                <div style={{background:'#E5F2FF',borderBottom:'1px solid #B4BBC4',padding:20, marginTop: 20}}>
+                    Invoice Summary
+                </div>
 
                 <div className="row">
                     <div className="col-md-12 mb-4">
                         <div className="card">
-                            <div className="d-flex card-title">
-                                <h4 className="">
-                                    Invoice Summary
-                                </h4>
-                            </div>
+
+                            {/*<div className="d-flex card-title">*/}
+                            {/*    <h4 className="">*/}
+                            {/*        Invoice Summary*/}
+                            {/*    </h4>*/}
+                            {/*</div>*/}
 
                             <div
                                 className="border-0 m-4 justify-content-end"
