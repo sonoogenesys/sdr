@@ -30,6 +30,8 @@ class PurchaseModal extends Component {
             selectedTransport: null,
             selectedReverse: {value: "no", label: "no"},
             lrNo: null,
+            total_amount: null,
+            paid_amount: null,
             vehicle: null,
             supply: null,
             invoiceDate: moment().format("YYYY-MM-DD"),
@@ -72,6 +74,8 @@ class PurchaseModal extends Component {
             billing_name: null,
             billing_address: null,
             billing_gst: null,
+            total_amount: null,
+            paid_amount: null,
             selectedTransport: null,
             // selectedReverse: null,
             lrNo: null,
@@ -105,12 +109,14 @@ class PurchaseModal extends Component {
             lrNo,
             vehicle,
             supply,
+            total_amount,
+            paid_amount,
             invoiceDate,
             packing,
             insurance,
             freight,
             discount,
-            items,
+            // items,
             invoice_number
         }
          = this.state;
@@ -134,19 +140,20 @@ class PurchaseModal extends Component {
             // insurance: insurance,
             // freight: freight,
             // discount: discount,
-            items: items,
+            // items: items,
+            total_amount: total_amount,
+            paid_amount: paid_amount,
             invoice_number: invoice_number
         }
-        Object.keys(items).map(o=>{
-            if(o.includes("sel")){
-                let params = items[o]
-                createProduct(params)
-            }
-        })
+        // Object.keys(items).map(o=>{
+        //     if(o.includes("sel")){
+        //         let params = items[o]
+        //         createProduct(params)
+            // }
+        // })
 
         createInvoice(params)
         setTimeout(()=>this.onClickClose(), 5000)
-
 
     };
 
@@ -183,8 +190,7 @@ class PurchaseModal extends Component {
     };
 
     handleChange = (name) => (event) => {
-        let { product, client } = this.props;
-        let {items, selectedProduct} = this.state;
+        let { client } = this.props;
         let value;
         if(Array.isArray(event)){
             value = event
@@ -197,82 +203,12 @@ class PurchaseModal extends Component {
         if(name === "addShipping"){
             this.setState({selectedShipping: {}})
         }
-        if(name === "addBilling"){
-            this.setState({selectedBilling: {}})
-        }
-        if(name === "addProduct") {
-            selectedProduct = selectedProduct ? selectedProduct : []
-            let selectedItems = {};
-            let o = {
-                value: "sel_" + selectedProduct.length
-            }
-            selectedProduct.push({value: o.value, label: "Product-" + selectedProduct.length})
-
-            selectedProduct.map(o=>{
-                selectedItems[o.value] = {};
-                if(items[o.value] === undefined){
-                    items[o.value] = {};
-                }
-                if(product[o.value] === undefined){
-                    product[o.value] = {}
-                }
-
-                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name + product[o.value].description;
-                selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
-                selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
-                selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
-                selectedItems[o.value].rate = items[o.value].rate ? items[o.value].rate : product[o.value].rate;
-            })
-            this.setState({items: selectedItems, selectedProduct: selectedProduct})
-        }
-        if(name === "selectedProduct") {
-            let selectedItems = {};
-            event.map((o)=>{
-                selectedItems[o.value] = {};
-                if(items[o.value] === undefined){
-                    items[o.value] = {};
-                }
-                if(product[o.value] === undefined){
-                    product[o.value] = {}
-                }
-                // console.log(product[o.value])
-                selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name + product[o.value].description;
-                selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
-                selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
-                selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
-                selectedItems[o.value].rate = items[o.value].rate ? items[o.value].rate : product[o.value].rate;
-            })
-            this.setState({items: selectedItems})
-        }
-        if(name.includes("item")){
-            console.log('+++>',name)
-            let index = name.split("-")[1];
-            if(name.includes("Name")){
-                items[index].name = value
-            } else if (name.includes("Hsn")) {
-                items[index].hsn = value
-            } else if (name.includes("Uom")) {
-                items[index].uom = value
-            } else if (name.includes("Qty")) {
-                items[index].qty = value
-            } else if (name.includes("Rate")) {
-                items[index].rate = value
-            }
-
-            this.setState({items})
-        }
 
         if(name === "selectedShipping") {
             let shipping_name = client[event.value].name
             let shipping_address = client[event.value].address
             let shipping_gst = client[event.value].gstin
             this.setState({shipping_name, shipping_address, shipping_gst})
-        }
-        if(name === "selectedBilling") {
-            let billing_name = client[event.value].name
-            let billing_address = client[event.value].address
-            let billing_gst = client[event.value].gstin
-            this.setState({billing_name, billing_address, billing_gst})
         }
     };
 
@@ -284,28 +220,13 @@ class PurchaseModal extends Component {
         } = this.props;
         let {
             selectedShipping,
-            selectedProduct,
-            selectedBilling,
-            selectedState,
-            selectedCity,
-            selectedTransport,
-            selectedReverse,
-            lrNo,
-            vehicle,
-            supply,
             invoiceDate,
-            packing,
-            insurance,
-            freight,
-            discount,
-            items,
             shipping_name,
             shipping_address,
             shipping_gst,
-            billing_name,
-            billing_address,
-            billing_gst,
-            invoice_number
+            invoice_number,
+            total_amount,
+            paid_amount
         } = this.state;
         let title = "Add New Purchase";
 
@@ -318,84 +239,7 @@ class PurchaseModal extends Component {
                 footerComponent={this.renderFooter}
             >
                 <form>
-                    {/*<div className="row">*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <SelectBox searchable value={selectedState} onChange={this.handleChange("selectedState")} labelText={"State"} options={Object.keys(City).map(o=>{*/}
-                    {/*            return {*/}
-                    {/*                value: o, label: o*/}
-                    {/*            }*/}
-                    {/*        })}/>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <SelectBox searchable value={selectedCity} onChange={this.handleChange("selectedCity")} labelText={"City"} options={selectedState ? City[selectedState.value].map(o=>{*/}
-                    {/*            return {*/}
-                    {/*                value: o, label: o*/}
-                    {/*            }*/}
-                    {/*        }) : []}/>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <SelectBox searchable value={selectedTransport}*/}
-                    {/*                   onChange={this.handleChange("selectedTransport")}*/}
-                    {/*                   labelText={"Transport Mode"}*/}
-                    {/*                   options={[*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (Bus)",*/}
-                    {/*                           label: "By Road (Bus)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (Rikshaw)",*/}
-                    {/*                           label: "By Road (Rikshaw)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (MotorCycle)",*/}
-                    {/*                           label: "By Road (MotorCycle)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (Car)",*/}
-                    {/*                           label: "By Road (Car)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (Truck)",*/}
-                    {/*                           label: "By Road (Truck)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "Train",*/}
-                    {/*                           label: "Train"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (Crain)",*/}
-                    {/*                           label: "By Road (Crain)"*/}
-                    {/*                       }*/}
-
-                    {/*                   ]}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <SelectBox onChange={this.handleChange("selectedReverse")} labelText={"Reverse Charge"} value={selectedReverse} options={[*/}
-                    {/*            { value: 'yes', label: 'Yes' },*/}
-                    {/*            { value: 'no', label: 'No' },*/}
-                    {/*        ]}/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
                     <div className="row">
-
-                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
-                        {/*    <TextInput*/}
-                        {/*        labelClassName={"text-capitalize"}*/}
-                        {/*        labelText={"LR/GR No"}*/}
-                        {/*        value={lrNo}*/}
-                        {/*        onChange={this.handleChange("lrNo")}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
-                        {/*    <TextInput*/}
-                        {/*        labelClassName={"text-capitalize"}*/}
-                        {/*        labelText={"Vehicle number"}*/}
-                        {/*        value={vehicle}*/}
-                        {/*        onChange={this.handleChange("vehicle")}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
                         <div className="col-xl-3 col-3 col-md-3">
                             <label className={"text-capitalize"}>Invoice Date</label>
                             <Form.Control value={invoiceDate} onChange={this.handleChange("invoiceDate")} type="date" name='date_of_birth' className={"text-capitalize"} />
@@ -410,7 +254,29 @@ class PurchaseModal extends Component {
 
                             />
                         </div>
-                        <div className="col-xl-6 col-6 col-md-6">
+                        <div className="col-xl-3 col-3 col-md-3">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"Invoice Amount With GST"}
+                                value={total_amount}
+                                onChange={this.handleChange("total_amount")}
+
+                            />
+                        </div>
+                        <div className="col-xl-3 col-3 col-md-3">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"Paid Amount"}
+                                value={paid_amount}
+                                onChange={this.handleChange("paid_amount")}
+
+                            />
+                        </div>
+
+                    </div>
+
+                    <div className="row">
+                        <div className="col-xl-12 col-12 col-md-12">
                             <SelectBox searchable labelText={"Purchase from"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {
                                 return {
                                     value: o._id,
@@ -419,61 +285,6 @@ class PurchaseModal extends Component {
                             })} value={selectedShipping} onChange={this.handleChange("selectedShipping")}/>
                         </div>
                     </div>
-
-                    {/*<div className="row">*/}
-                        {/*<div className="col-xl-2 col-2 col-md-2">*/}
-                        {/*    <TextInput*/}
-                        {/*        labelClassName={"text-capitalize"}*/}
-                        {/*        labelText={"Place of Supply"}*/}
-                        {/*        value={supply}*/}
-                        {/*        onChange={this.handleChange("supply")}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
-                        {/*    <TextInput*/}
-                        {/*        labelClassName={"text-capitalize"}*/}
-                        {/*        labelText={"Packing & Forwarding"}*/}
-                        {/*        onChange={this.handleChange("packing")}*/}
-                        {/*        value={packing}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
-                        {/*    <TextInput*/}
-                        {/*        labelClassName={"text-capitalize"}*/}
-                        {/*        labelText={"Insurance charges"}*/}
-                        {/*        onChange={this.handleChange("insurance")}*/}
-                        {/*        value={insurance}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                        {/*<div className="col-xl-2 col-2 col-md-2">*/}
-                        {/*    <TextInput*/}
-                        {/*        labelClassName={"text-capitalize"}*/}
-                        {/*        labelText={"Freight"}*/}
-                        {/*        onChange={this.handleChange("freight")}*/}
-                        {/*        value={freight}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                        {/*<div className="col-xl-2 col-2 col-md-2">*/}
-                        {/*    <TextInput*/}
-                        {/*        labelClassName={"text-capitalize"}*/}
-                        {/*        labelText={"Discount"}*/}
-                        {/*        onChange={this.handleChange("discount")}*/}
-                        {/*        value={discount}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className={'row'}>*/}
-
-                        {/*<div className="col-xl-6 col-6 col-md-6">*/}
-                        {/*    <SelectBox searchable labelText={"Billing to"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {*/}
-                        {/*        return {*/}
-                        {/*            value: o._id,*/}
-                        {/*            label: o.name + o.address*/}
-                        {/*        }*/}
-                        {/*    })} value={selectedBilling} onChange={this.handleChange("selectedBilling")}/>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
 
                     { selectedShipping && <div className={'row'}>
                             <div className={"col-xl-4 col-4 col-md-4"}>
@@ -501,108 +312,6 @@ class PurchaseModal extends Component {
                             />
                             </div>
                     </div> }
-
-                    {/*<div className="row">*/}
-                    {/*    */}
-                    {/*</div>*/}
-
-                    {/*{ selectedBilling && <div className={'row'}>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Billing Name"}*/}
-                    {/*            value={billing_name}*/}
-                    {/*            onChange={this.handleChange("billing_name")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Billing Address"}*/}
-                    {/*            value={billing_address}*/}
-                    {/*            onChange={this.handleChange("billing_address")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*            <TextInput*/}
-                    {/*                labelClassName={"text-capitalize"}*/}
-                    {/*                labelText={"Billing GST"}*/}
-                    {/*                value={billing_gst}*/}
-                    {/*                onChange={this.handleChange("billing_gst")}*/}
-                    {/*            />*/}
-                    {/*        </div>*/}
-                    {/*</div> }*/}
-
-                    <div className={"row"}>
-                        <div className="col-xl-11 col-11 col-md-11">
-                            <SelectBox searchable onChange={this.handleChange("selectedProduct")} multiple={true} value={selectedProduct} labelText={"Product"} options={product && Object.values(product).length > 0 && Object.values(product).map(o=> {
-                                return {
-                                    value: o._id,
-                                    label: o.name + (o.description ? o.description : "")
-                                }
-                            })}/>
-
-                        </div>
-                        <div className={'col-xl-1 col-1 col-md-1 align-self-center text-align-right mt-3'}>
-                            <button
-                                type="button"
-                                className="btn border btn-icon-text "
-                                onClick={this.handleChange("addProduct")}
-                            >
-                                <i className="fe fe-plus mr-2"></i>
-                            </button>
-                        </div>
-
-                    </div>
-                    {selectedProduct && Array.isArray(selectedProduct) && selectedProduct.map((o, i)=>{
-                        return (
-                            <div className={'row'} key={o.value}>
-                                <div className={"col-xl-4 col-4 col-md-4 text-center"}>
-                                    <TextInput
-                                        labelClassName={"text-capitalize"}
-                                        labelText={i === 0 && "Description"}
-
-                                        value={items[o.value]?.name}
-                                        onChange={this.handleChange(`itemName-${o.value}`)}
-                                    />
-                                </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
-                                    <TextInput
-                                        labelClassName={"text-capitalize"}
-                                        labelText={ i === 0 && "HSN / SAC"}
-                                        style={{textAlign:'center'}}
-                                        value={items[o.value]?.hsn}
-                                        onChange={this.handleChange(`itemHsn-${o.value}`)}
-                                    />
-                                </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
-                                    <TextInput
-                                        labelClassName={"text-capitalize"}
-                                        labelText={ i === 0 && "UOM"}
-                                        style={{textAlign:'center'}}
-                                        value={items[o.value].uom}
-                                        onChange={this.handleChange(`itemUom-${o.value}`)}
-                                    />
-                                </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
-                                    <TextInput
-                                        labelText={ i === 0 && "Qty"}
-                                        style={{textAlign:'center'}}
-                                        value={items[o.value].qty}
-                                        onChange={this.handleChange(`itemQty-${o.value}`)}
-                                    />
-                                </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
-                                    <TextInput
-                                        style={{textAlign:'center'}}
-                                        labelText={ i === 0 && "Rate"}
-                                        value={items[o.value].rate}
-                                        onChange={this.handleChange(`itemRate-${o.value}`)}
-                                    />
-                                </div>
-                            </div>
-                        )
-                    })}
                 </form>
             </BaseModal>
         );

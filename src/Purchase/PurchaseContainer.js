@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import TableComponent from "./tableComponent";
 import moment from 'moment'
 import PurchaseModal from "./PurchaseModal";
-// import InvoiceUpdateModal from "./PurchaseUpdateModal";
+import PurchaseUpdateModal from "./PurchaseUpdateModal";
 import {fetchAllClientsRequest} from "../Client/Duck/ClientsActions";
 import {fetchAllProductsRequest} from "../Product/Duck/ProductsActions";
 import {fetchAllPurchaseRequest, deletePurchaseRequest} from "./Duck/PurchaseActions";
@@ -154,14 +154,14 @@ class OrderPurchase extends React.Component {
                         </Tippy>
                     </span>
                     <span className={'ml-2'}
-                          // onClick={()=>this.handleModal(false, false, item?._id, true)}
+                          onClick={()=>this.handleModal(false, false, item?._id, true)}
                     >
                        <Tippy content="Edit">
                             <i className="bx bxs-edit"/>
                         </Tippy>
                     </span>
                     <span className={'ml-2'}
-                          // onClick={() => this.handleModal(false, false, item?._id, false, true)}
+                          onClick={() => this.handleModal(false, false, item?._id, false, true)}
                     >
                        <Tippy content="Delete">
                             <i className="fe fe-delete"/>
@@ -247,12 +247,12 @@ class OrderPurchase extends React.Component {
                     show={showPurchaseModal}
                     handelModal={this.handleModal}
                 />
-                {/*<InvoiceUpdateModal*/}
-                {/*    key={purchaseId}*/}
-                {/*    purchaseId={purchaseId}*/}
-                {/*    show={editPurchaseModal}*/}
-                {/*    handelModal={this.handleModal}*/}
-                {/*/>*/}
+                <PurchaseUpdateModal
+                    key={purchaseId}
+                    invoiceId={purchaseId}
+                    show={editPurchaseModal}
+                    handelModal={this.handleModal}
+                />
                 <BaseModal
                     closeButton={false}
                     title={"Delete Purchase"}
