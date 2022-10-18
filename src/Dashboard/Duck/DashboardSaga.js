@@ -5,6 +5,7 @@ import axios from "axios";
 import { showNotification } from "../../Utils/CommonFunctions";
 
 const fetchDashboardApi = (data) => {
+    console.log(data)
     return axios({
         method: "GET",
         url: APP_URL.GLOBAL_DASHBOARD_URL,

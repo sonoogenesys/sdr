@@ -4,14 +4,17 @@ import BreadCrumb from "../Utils/BreadCrumb";
 import BaseTable from '../Utils/BaseTable';
 import { fetchDashboardRequest } from './Duck/DashboardActions';
 import moment from 'moment';
-import { Badge } from 'react-bootstrap';
+import { Badge, Form } from 'react-bootstrap';
+
 // import FilePreviewModal from '../FilePreview/filePreviewModal';
 // import FilePreviewWrapper from '../FilePreview/filePreviewWrapper';
 import {Tab,Tabs, Row, Col } from 'react-bootstrap';
 import CounterContainer from './Components/CounterContainer';
 import DashboardChart from './Components/DashboardChart';
+import { Pie } from "react-chartjs-2";
 import { getCurrentMonthOfWeek } from '../Utils/CommonFunctions';
 import {fetchAllInvoiceRequest} from "../Invoice/Duck/InvoiceActions";
+
 
 class Dashboard extends Component {
 
@@ -22,6 +25,7 @@ class Dashboard extends Component {
         showPreviewOfFileId: null,
         fromDate: null,
         toDate: null,
+        date: null // moment.utc().format('YYYY-MM')
     }
    }
     componentDidMount() {
@@ -80,14 +84,68 @@ class Dashboard extends Component {
         }
 
     }
+
+    setDate = (event) => {
+        this.setState({date: event.target.value})
+        let { fetchDashboard } = this.props;
+        fetchDashboard && fetchDashboard({month: event.target.value});
+    }
+
     render() {
         let { dashboard } = this.props;
+        let {date} = this.state;
         let {pending_invoice, completed_invoice, rejected_invoice, pending_amount, completed_amount, query_count, total_purchase_amount, paid_purchase_amount, purchase_count} = dashboard
-        let chartData = this.getGraphData()
+        let chartData = this.getGraphData(date)
+        // let chartData = {
+        //     labels: ['Billing'],
+        //     total: [(Number(pending_amount) + Number(completed_amount))],
+        //     completed: [Number(pending_amount)],
+        //     pending: [Number(completed_amount)]
+        // }
+
+        // const chartData = {
+        //     labels: ['Billing','Pending' , 'Raised'],
+        //     datasets: [
+        //         {
+        //             label: '# of Votes',
+        //             data: [12, 19, 3],
+        //             backgroundColor: [
+        //                 'rgba(54, 162, 235, 0.2)',
+        //                 'rgba(255, 99, 132, 0.2)',
+        //                 // 'rgba(255, 206, 86, 0.2)',
+        //                 'rgba(75, 192, 192, 0.2)',
+        //                 // 'rgba(153, 102, 255, 0.2)',
+        //                 // 'rgba(255, 159, 64, 0.2)',
+        //             ],
+        //             borderColor: [
+        //                 'rgba(54, 162, 235, 1)',
+        //                 'rgba(255, 99, 132, 1)',
+        //
+        //                 // 'rgba(255, 206, 86, 1)',
+        //                 'rgba(75, 192, 192, 1)',
+        //                 // 'rgba(153, 102, 255, 1)',
+        //                 // 'rgba(255, 159, 64, 1)',
+        //             ],
+        //             borderWidth: 1,
+        //         },
+        //     ],
+        // };
         return (
             <>
-                <div className="row align-items-start dashboard-grid">
+                <div style={{background:'#E5F2FF',borderBottom:'1px solid #B4BBC4',padding:10}}>
+                    <Row style={{borderBottom:'1px solid #ECEEF0'}}>
+                        <Col style={{color:'#44830e', paddingTop:10}}>
+                            <b>Monthly Wise Report</b>
+                        </Col>
 
+                        <Col className={'text-right'}>
+                            <Form.Control type="month" name='month' onChange={(e)=>this.setDate(e)}/>
+                        </Col>
+                    </Row>
+
+
+                </div>
+                <div className="row align-items-start dashboard-grid mt-3">
                     <CounterContainer
                         counter_key={"total_invoice"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
@@ -173,7 +231,7 @@ class Dashboard extends Component {
                             </Col>
 
                             <Col className={'text-right'}>
-                                <b>{0.00}</b>
+                                <b>{dashboard ? dashboard?.invoice_tax_amount?.toFixed(2) : 0}</b>
                             </Col>
                         </Row>
                         <Row style={{padding:20,borderBottom:'1px solid #ECEEF0'}}>
@@ -181,7 +239,7 @@ class Dashboard extends Component {
                                 <b>B.</b> Paid tax amount
                             </Col>
                             <Col className={'text-right'}>
-                                <b>{0.00}</b>
+                                <b>{dashboard ? dashboard?.purchase_tax_amount?.toFixed(2) : 0}</b>
                             </Col>
                         </Row>
                         <Row style={{padding:20,borderBottom:'1px solid #ECEEF0'}}>
@@ -189,24 +247,7 @@ class Dashboard extends Component {
                                 <b>C.</b> Pending tax amount
                             </Col>
                             <Col className={'text-right'}>
-                                <b>{0.00}</b>
-                            </Col>
-                        </Row>
-                        <Row style={{padding:20,borderBottom:'1px solid #ECEEF0'}}>
-                            <Col style={{color:'#145da0'}}>
-                                <b>D.</b> Previous month total tax amount
-                            </Col>
-                            <Col className={'text-right'}>
-                                <b>{0.00}</b>
-                            </Col>
-                        </Row>
-
-                        <Row style={{padding:20,borderBottom:'1px solid #ECEEF0'}}>
-                            <Col style={{color:'#DB1F48'}}>
-                                <b>E.</b> Previous month pending tax amount
-                            </Col>
-                            <Col className={'text-right'}>
-                                <b>{0.00}</b>
+                                <b>{dashboard ? (dashboard?.invoice_tax_amount - dashboard?.purchase_tax_amount).toFixed(2) : 0}</b>
                             </Col>
                         </Row>
                     </div>
@@ -226,11 +267,14 @@ class Dashboard extends Component {
                             {/*        Invoice Summary*/}
                             {/*    </h4>*/}
                             {/*</div>*/}
-
+                            {/*<div className={'justify-center'} style={{ width: 500, height: 300 }}>*/}
+                            {/*    <Pie data={chartData} />*/}
+                            {/*</div>*/}
                             <div
                                 className="border-0 m-4 justify-content-end"
                                 style={{ height: 250 }}
                             >
+
                                 <DashboardChart
                                     labels={chartData?.labels}
                                     datasets={[

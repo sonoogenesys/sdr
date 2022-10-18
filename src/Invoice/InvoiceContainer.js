@@ -23,7 +23,7 @@ class OrderInvoice extends React.Component {
             "Invoice Amount",
             "Advance Amount",
             "Pending Amount",
-            "Status",
+            "GST Amount",
             "Actions"
         ],
         showInvoiceModal: false,
@@ -144,13 +144,13 @@ class OrderInvoice extends React.Component {
                 <td className={'text-center'} style={{ width: "10%" }} onClick={()=>this.handleModal(false, true, item?._id)}>₹ {item?.total_amount}</td>
                 <td className={'text-center'} style={{ width: "10%"}} onClick={()=>this.handleModal(false, true, item?._id)}>₹ {item?.paid_amount}</td>
                 <td className={'text-center'} style={{ width: "10%"}} onClick={()=>this.handleModal(false, true, item?._id)}>₹ {pending_amount}</td>
-                <td className={'text-center'} style={{color}} onClick={()=>this.handleModal(false, true, item?._id)}>{item?.status}</td>
+                <td className={'text-center'} style={{color}} onClick={()=>this.handleModal(false, true, item?._id)}>{item?.gst_amount}</td>
                 <td className={'text-center'}>
-                    <span onClick={()=>this.handleModal(false, true, item?._id)}>
-                       <Tippy content="Preview">
-                            <i className="bx bxs-printer"></i>
-                        </Tippy>
-                    </span>
+                    {/*<span onClick={()=>this.handleModal(false, true, item?._id)}>*/}
+                    {/*   <Tippy content="Preview">*/}
+                    {/*        <i className="bx bxs-printer"></i>*/}
+                    {/*    </Tippy>*/}
+                    {/*</span>*/}
                     <span className={'ml-2 z-5'} onClick={()=>this.handleModal(false, false, item?._id, true)}>
                        <Tippy content="Edit">
                             <i className="bx bxs-edit"/>

@@ -23,7 +23,7 @@ class OrderPurchase extends React.Component {
             "Invoice Amount",
             "Paid Amount",
             "Pending Amount",
-            "Status",
+            "GST",
             "Actions"
         ],
         showPurchaseModal: false,
@@ -112,28 +112,20 @@ class OrderPurchase extends React.Component {
 
         let data = purchase && Object.values(purchase)
         if (searchText) {
-            data = data.filter(o=> o && o.shipping_address.name.includes(searchText))
+            data = data.filter(o=> o && o.party_address.name.toLowerCase().includes(searchText.toLowerCase()))
         }
 
         return data || [];
     }
 
     renderRowItem = (item, index) => {
-        // let amount = Object.values(item?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
-        // amount = (amount + Number(item?.packing || 0) + Number(item?.insurance || 0) + Number(item?.freight || 0))  - Number(item?.discount || 0)
-        // let grandTotal = parseFloat((amount * 18 / 100) + amount).toFixed(2)
         let color;
-        switch (item?.status) {
-            case 'pending':
-                color = 'orange'
-                break;
-            case 'completed':
-                color = 'green'
-                break;
-            case 'rejected':
-                color = 'red'
-                break;
+        if(item?.total_amount <= item?.paid_amount){
+            color = 'green'
+        } else {
+            color = 'orange'
         }
+
         let pending_amount = (item && item.total_amount) ? Number(item.total_amount- (item.paid_amount ? item.paid_amount : 0)) : 0
         const textDecoration = color === 'red' ? {textDecoration: "line-through"} : {}
         return (
@@ -141,18 +133,18 @@ class OrderPurchase extends React.Component {
                 <td className={'text-center'}>{item?.invoice_number}</td>
                 <td>{item?.party_address?.name}</td>
                 <td className={'text-center'}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
-                <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.total_amount}</td>
-                <td className={'text-center'} style={{ width: "10%"}}>₹ {item?.paid_amount}</td>
-                <td className={'text-center'} style={{ width: "10%"}}>₹ {pending_amount}</td>
-                <td className={'text-center'} style={{color}}>{item?.status}</td>
+                <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.total_amount || 0}</td>
+                <td className={'text-center'} style={{ width: "10%"}}>₹ {item?.paid_amount || 0}</td>
+                <td className={'text-center'} style={{ width: "10%"}}>₹ {pending_amount || 0}</td>
+                <td className={'text-center'} style={{color}}>{item?.gst_amount.toFixed(2)}</td>
                 <td className={'text-center'}>
-                    <span
-                        // onClick={()=>this.handleModal(false, true, item?._id)}
-                    >
-                       <Tippy content="Preview">
-                            <i className="bx bxs-printer"></i>
-                        </Tippy>
-                    </span>
+                    {/*<span*/}
+                    {/*    // onClick={()=>this.handleModal(false, true, item?._id)}*/}
+                    {/*>*/}
+                    {/*   <Tippy content="Preview">*/}
+                    {/*        <i className="bx bxs-printer"></i>*/}
+                    {/*    </Tippy>*/}
+                    {/*</span>*/}
                     <span className={'ml-2'}
                           onClick={()=>this.handleModal(false, false, item?._id, true)}
                     >
@@ -237,10 +229,10 @@ class OrderPurchase extends React.Component {
                             renderRow={this.renderRowItem}
                             filter={{ searchText: this.state.searchText }}
                             onSearch={this.onSearch}
-                            searchPlaceholder={'Search by products'}
+                            searchPlaceholder={'Search by party'}
                             totalEntries={totalCount}
-                            showFilter={true}
-                            filterOption={["All", "Pending", "Completed", "Rejected"]}
+                            showFilter={false}
+                            // filterOption={["All", "Pending", "Completed", "Rejected"]}
                             headings={this.state.headingData}/>
                 }
                 <PurchaseModal

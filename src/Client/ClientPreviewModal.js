@@ -7,7 +7,7 @@ import Tippy from "@tippyjs/react";
 
 const ClientPreviewModal = React.forwardRef((props) => {
     let {invoice, userId} = props;
-    let currentUserInvoice = invoice && Object.keys(invoice).length > 0 ? (Object.values(invoice).filter(o=> o.billing_address.gst ===userId)) : [];
+    let currentUserInvoice = invoice && Object.keys(invoice).length > 0 ? (Object.values(invoice).filter(o=> o.billing_address.gst ===userId && o.status !== "rejected")) : [];
     let length = currentUserInvoice?.length;
     let totalAmount = currentUserInvoice?.reduce((accumulator, currentValue)=>accumulator + Number(currentValue.total_amount) , 0);
     let paidAmount = currentUserInvoice?.reduce((accumulator, currentValue)=>accumulator + Number(currentValue.paid_amount) , 0);

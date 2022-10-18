@@ -47,8 +47,9 @@ const TableComponent = React.forwardRef((props) => {
     amount = (amount + Number(invoice?.packing || 0) + Number(invoice?.insurance || 0) + Number(invoice?.freight || 0))  - Number(invoice?.discount || 0)
     let GSTAmount = amount > nonGSTAmount ? amount - nonGSTAmount : nonGSTAmount - amount;
     return (
-        <div key={screenHeight} className="col-md-12">
-            <div className="card indivisual_invoice">
+        <>
+        <div className="col-md-12">
+            <div   className="card indivisual_invoice">
                 <div className="col-md-12">
                     <div className="col-md-12">
                         <img style={{width: '100%', height: 120}} src={"/img/logo1.png"}/>
@@ -309,15 +310,16 @@ const TableComponent = React.forwardRef((props) => {
 
                     </div>
                 </div>
-
-                <div key={screenHeight} style={{marginTop: Number(screenHeight)}} className={'text-center'}>
-                    <Line />
-                    <p style={{letterSpacing:'0px'}}>360(old 79/4) 3rd Floor, Flat No 301,  Anamika Enclave, Behind Kalyani Hospital, Gurugram - 122001, Haryana<br/>
-                        https://www.kcs-electrical.com</p>
-                </div>
-
             </div>
+
         </div>
+
+            {screenHeight !== "0" && <div style={{position:'absolute', bottom: 10, left:0, right: 0, textAlign:'center'}} >
+                <Line />
+                <p style={{letterSpacing:'0px'}}>360(old 79/4) 3rd Floor, Flat No 301,  Anamika Enclave, Behind Kalyani Hospital, Gurugram - 122001, Haryana<br/>
+                    https://www.kcs-electrical.com</p>
+            </div>}
+        </>
     );
 })
 
