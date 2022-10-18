@@ -32,15 +32,15 @@ class ProductsContainer extends Component {
                 <tr key={`${product._id}_${index}`}>
                     <td style={{...tableCSS, width: 50}}>{index + 1}</td>
                     <td style={{...tableCSS, width: 400}}>{product?.name}</td>
-                    <td style={{...tableCSS, width: 300}}>{product?.description}</td>
+                    {/*<td style={{...tableCSS, width: 300}}>{product?.description}</td>*/}
                     <td style={tableCSS}>{product?.hsn}</td>
                    <td style={tableCSS}>{product?.uom}</td>
                    <td style={tableCSS}>{product?.rate}</td>
                     <td style={tableCSS}>{product?.created_at ? moment(product.created_at).format("D MMM YYYY") : "-"}</td>
-                    <td style={tableCSS}>{product?.image && <img src={product?.image} style={{width: 100, height: 100}}/>}</td>
-                    <td className={product?.active ? "greenColor" : "redColor"} style={tableCSS}>
-                        {product?.active ? "Active" : "Inactive"}
-                    </td>
+                    {/*<td style={tableCSS}>{product?.image && <img src={product?.image} style={{width: 100, height: 100}}/>}</td>*/}
+                    {/*<td className={product?.active ? "greenColor" : "redColor"} style={tableCSS}>*/}
+                    {/*    {product?.active ? "Active" : "Inactive"}*/}
+                    {/*</td>*/}
                     <td style={{...tableCSS}}>
                         <span
                             onClick={() =>
@@ -54,17 +54,17 @@ class ProductsContainer extends Component {
                                 <i className="bx bxs-pencil"></i>
                             </Tippy>
                         </span>
-                        <span
-                            className='ml-2'
-                            onClick={() => this.handleToggleStatusModal(true, product?._id || product?.id)}
-                        ><Tippy content={(product?.active) ? 'Click to deactivate' : 'Click to activate'}>
-                            {
-                                product?.active
-                                    ? <i className="fas fa-product greenColor"></i>
-                                    : <i className="fas fa-product-slash"></i>
-                            }
-                            </Tippy>
-                        </span>
+                        {/*<span*/}
+                        {/*    className='ml-2'*/}
+                        {/*    onClick={() => this.handleToggleStatusModal(true, product?._id || product?.id)}*/}
+                        {/*><Tippy content={(product?.active) ? 'Click to deactivate' : 'Click to activate'}>*/}
+                        {/*    {*/}
+                        {/*        product?.active*/}
+                        {/*            ? <i className="fas fa-product greenColor"></i>*/}
+                        {/*            : <i className="fas fa-product-slash"></i>*/}
+                        {/*    }*/}
+                        {/*    </Tippy>*/}
+                        {/*</span>*/}
                     </td>
                 </tr>
             )
@@ -140,13 +140,13 @@ class ProductsContainer extends Component {
                     headings={[
                         "S. No.",
                         "Name",
-                        "Description",
+                        // "Description",
                         "HSN/SAC",
                         "UOM",
                         "Rate",
                         "Created at",
-                        "Image",
-                        "Status",
+                        // "Image",
+                        // "Status",
                         "Actions"
                     ]}
                     rowData={products ? products : []}

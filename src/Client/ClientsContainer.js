@@ -47,7 +47,7 @@ class ClientsContainer extends Component {
                     <td onClick={click} style={{...tableCSS, width: 400}}>{client?.address}</td>
                    <td onClick={click} style={tableCSS}>{client?.phone}</td>
                    <td onClick={click} style={tableCSS}>{client?.gstin}</td>
-                   <td onClick={click} style={tableCSS}>{client?.logo && <img src={client?.logo} style={styleImage}/>}</td>
+                   {/*<td onClick={click} style={tableCSS}>{client?.logo && <img src={client?.logo} style={styleImage}/>}</td>*/}
                     <td onClick={click} className={client?.active ? "greenColor" : "redColor"} style={tableCSS}>
                         {client?.active ? "Active" : "Inactive"}
                     </td>
@@ -198,7 +198,7 @@ class ClientsContainer extends Component {
                         "Address",
                         "Phone No",
                         "GST No",
-                        "Logo",
+                        // "Logo",
                         "Status",
                         "Actions"
                     ]}

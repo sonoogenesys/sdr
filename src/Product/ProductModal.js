@@ -266,12 +266,12 @@ class ProductModal extends Component {
                         </div>
                     </div>
 
-                    <div className="row">
-                        <div className="col-xl-12 col-12 col-md-12">
-                            <input ref="file" type="file" onChange={this.onChange}/>
-                            {image && <img src={image} style={{width:'100%', height: 150}}/>}
-                        </div>
-                    </div>
+                    {/*<div className="row">*/}
+                    {/*    <div className="col-xl-12 col-12 col-md-12">*/}
+                    {/*        <input ref="file" type="file" onChange={this.onChange}/>*/}
+                    {/*        {image && <img src={image} style={{width:'100%', height: 150}}/>}*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </form>
             </BaseModal>
         );
