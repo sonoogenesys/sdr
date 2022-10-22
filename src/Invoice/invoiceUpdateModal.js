@@ -39,7 +39,8 @@ class InvoiceModal extends Component {
             invoice_number: null,
             items: {},
             _id: null,
-            selectedStatus: null
+            selectedStatus: null,
+            igst_tax: null
         };
     }
 
@@ -80,7 +81,8 @@ class InvoiceModal extends Component {
                 selectedStatus: { value: currentInvoice.status, label: currentInvoice.status },
                 selectedProduct: Object.keys(currentInvoice.items).map(o=>{
                     return {value: o, label: currentInvoice.items[o].name}
-                })
+                }),
+                igst_tax: currentInvoice.igst_tax
             })
             console.log(currentInvoice)
         }
@@ -157,7 +159,8 @@ class InvoiceModal extends Component {
             discount: null,
             invoice_number: null,
             items: {},
-            selectedStatus: null
+            selectedStatus: null,
+            igst_tax: null
         });
         handelModal()
 
@@ -187,7 +190,8 @@ class InvoiceModal extends Component {
             items,
             invoice_number,
             selectedStatus,
-            paid_amount
+            paid_amount,
+            igst_tax
         }
          = this.state;
         let {updateInvoice, invoiceId} = this.props;
@@ -219,7 +223,8 @@ class InvoiceModal extends Component {
             items: items,
             invoice_number: invoice_number,
             _id: invoiceId,
-            paid_amount: paid_amount
+            paid_amount: paid_amount,
+            igst_tax: igst_tax
         }
         console.log('params', params)
 
@@ -384,7 +389,8 @@ class InvoiceModal extends Component {
             billing_address,
             billing_gst,
             invoice_number,
-            paid_amount
+            paid_amount,
+            igst_tax
         } = this.state;
         let title = invoice_number + " (" +(moment(invoiceDate).format("DD-MMM-YYYY")) + ")";
         console.log(selectedProduct, items)
@@ -401,7 +407,7 @@ class InvoiceModal extends Component {
                 <form key={invoiceId}>
 
                     <div className="row">
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                         <SelectBox labelText={"Payment Status"} onChange={this.handleChange("selectedStatus")} value={selectedStatus}
                                    options={[
                                        {
@@ -417,7 +423,7 @@ class InvoiceModal extends Component {
                         />
                         </div>
 
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <SelectBox searchable value={selectedState} onChange={this.handleChange("selectedState")} labelText={"State"} options={Object.keys(City).map(o=>{
                                 return {
                                     value: o, label: o
@@ -462,6 +468,15 @@ class InvoiceModal extends Component {
                                            }
 
                                        ]}
+                            />
+                        </div>
+                        <div className="col-xl-2 col-2 col-md-2">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"IGST Tax"}
+                                value={igst_tax}
+                                // disabled={selectedStatus && selectedStatus.value === "completed"}
+                                onChange={this.handleChange("igst_tax")}
                             />
                         </div>
                     </div>

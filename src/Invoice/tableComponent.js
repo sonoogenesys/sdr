@@ -46,6 +46,7 @@ const TableComponent = React.forwardRef((props) => {
     let amount = Object.values(invoice).length !== 0 && Object.values(invoice?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
     amount = (amount + Number(invoice?.packing || 0) + Number(invoice?.insurance || 0) + Number(invoice?.freight || 0))  - Number(invoice?.discount || 0)
     let GSTAmount = amount > nonGSTAmount ? amount - nonGSTAmount : nonGSTAmount - amount;
+    let igst_tax = invoice?.igst_tax ? Number(invoice.igst_tax) : undefined;
     return (
         <>
         <div className="col-md-12">
@@ -227,10 +228,10 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Bank Details</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-left">
-                            <p className="mb-1">Add: CGST : 9%</p>
+                            <p className="mb-1">Add: CGST : {igst_tax? "" : "9%"}</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-right">
-                            <p className="mb-1">{GSTAmount * 9 / 100}</p>
+                            <p className="mb-1">{igst_tax ? "--" : GSTAmount * 9 / 100}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -238,10 +239,10 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1"><b>Current Account: 41270364532</b></p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-left">
-                            <p className="mb-1">Add: SGST : 9%</p>
+                            <p className="mb-1">Add: SGST : {igst_tax ? "" : "9%"}</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-right">
-                            <p className="mb-1">{GSTAmount * 9 / 100}</p>
+                            <p className="mb-1">{igst_tax ? "--" : GSTAmount * 9 / 100}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -249,10 +250,10 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">State Bank of India, Sector - 14 Branch, Gurugram. 122001</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-left">
-                            <p className="mb-1">Add: IGST :</p>
+                            <p className="mb-1">Add: IGST : {igst_tax ? igst_tax + "%" : ""}</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-right">
-                            <p className="mb-1">--</p>
+                            <p className="mb-1">{igst_tax ? GSTAmount * igst_tax / 100 : "--"}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -263,7 +264,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1">Grand Total</p>
                         </div>
                         <div className="col-md-2 invoice_logo_wrapper text-right">
-                            <p className="mb-1">₹ {parseFloat((GSTAmount * 18 / 100) + nonGSTAmount + GSTAmount).toFixed(2)}</p>
+                            <p className="mb-1">₹ {parseFloat((GSTAmount * (igst_tax ? igst_tax : 18) / 100) + nonGSTAmount + GSTAmount).toFixed(2)}</p>
                         </div>
                     </div>
                 </div>
