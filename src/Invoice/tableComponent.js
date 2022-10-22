@@ -32,9 +32,9 @@ const TableComponent = React.forwardRef((props) => {
                 <td>{item?.hsn}</td>
                 <td>{item?.uom}</td>
                 <td>{item?.qty}</td>
-                <td style={{ width: "10%" }}>₹ {parseFloat((item?.rate) || 0).toFixed(2)}</td>
-                <td style={{ width: "10%" }}>{parseFloat(gst).toFixed(2)}</td>
-                <td style={{textAlign:'center', width: "10%"}}>₹ {parseFloat((item?.rate || 0) * Number(item?.qty)).toFixed(2)}</td>
+                <td>₹ {parseFloat((item?.rate) || 0).toFixed(2)}</td>
+                <td>{parseFloat(gst).toFixed(2)}</td>
+                <td style={{textAlign:'center'}}>₹ {parseFloat((item?.rate || 0) * Number(item?.qty)).toFixed(2)}</td>
                 <td>{item?.desc ? item.desc : "-"}</td>
                 <td>₹ {parseFloat(taxAmount).toFixed(2)}</td>
             </tr>
