@@ -10,6 +10,7 @@ import AboutContainer from '../About/AboutContainer'
 import TallyContainer from '../Tally/TallyContainer'
 import ProductContainer from '../Product/ProductsContainer'
 import QueryContainer from "../Query/QueryContainer";
+import QuotationContainer from "../Quotation/QuotationContainer";
 
 const scrollToTop = () => {
 	document.documentElement.scrollTop = 0
@@ -30,6 +31,7 @@ const AppRouters = (props) => {
 			<Route path='/app/editProfile' exact component={EditProfile} />
 			<Route path='/app/tally' exact component={TallyContainer} />
 			<Route path='/app/query' exact component={QueryContainer} />
+			<Route path='/app/quotation' exact component={QuotationContainer} />
 
 		</React.Fragment>
 	)

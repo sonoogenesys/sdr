@@ -56,10 +56,10 @@ const AppSidebar = (props) => {
                                 <span key="t-purchase"> Purchase</span>
                             </Link>
                         </li>
-                        <li className={pathname === '/app/template' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
-                            <Link to="/app/template" className="waves-effect">
+                        <li className={pathname === '/app/quotation' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
+                            <Link to="/app/quotation" className="waves-effect">
                                 <i className="ti ti-file"></i>
-                                <span key="t-template"> Template</span>
+                                <span key="t-quotation"> Quotation</span>
                             </Link>
                         </li>
 

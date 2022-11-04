@@ -7,6 +7,7 @@ import gallerySaga from "../Gallery/Duck/GallerySaga";
 import aboutSaga from "../About/Duck/AboutSaga";
 import productSaga from "../Product/Duck/ProductsSaga";
 import invoiceSaga from "../Invoice/Duck/InvoiceSaga";
+import quotationSaga from "../Quotation/Duck/QuotationSaga";
 import purchaseSaga from "../Purchase/Duck/PurchaseSaga";
 
 function* RootSaga() {
@@ -19,7 +20,8 @@ function* RootSaga() {
         aboutSaga(),
         productSaga(),
         invoiceSaga(),
-        purchaseSaga()
+        purchaseSaga(),
+        quotationSaga()
     ]);
 }
 

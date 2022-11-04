@@ -32,6 +32,7 @@ let appUrl = {
     ABOUT_URL: API_BASE_URL + "/about",
     PRODUCT_URL: API_BASE_URL + "/product",
     INVOICE_URL: API_BASE_URL + "/invoice",
+    QUOTATION_URL: API_BASE_URL + "/quotation",
     PURCHASE_URL: API_BASE_URL + "/purchase",
     USERS_USAGE_URL: API_BASE_URL + "/users/usage",
     USERS_PICKUP_ADDRESS: API_BASE_URL + "/users/add_pickup_address",

@@ -7,6 +7,7 @@ import galleryReducer from "../Gallery/Duck/GalleryReducer";
 import aboutReducer from "../About/Duck/AboutReducer";
 import productReducer from "../Product/Duck/ProductsReducer";
 import invoiceReducer from "../Invoice/Duck/InvoiceReducer";
+import quotationReducer from "../Quotation/Duck/QuotationReducer";
 import purchaseReducer from "../Purchase/Duck/PurchaseReducer";
 
 const appReducer = combineReducers({
@@ -18,6 +19,7 @@ const appReducer = combineReducers({
     about: aboutReducer,
     product: productReducer,
     invoice: invoiceReducer,
+    quotation: quotationReducer,
     purchase: purchaseReducer,
 
 });
