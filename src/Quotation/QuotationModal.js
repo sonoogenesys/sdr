@@ -465,7 +465,7 @@ class QuotationModal extends Component {
                                         onChange={this.handleChange(`itemUom-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-1 col-1 col-md-1 text-center"}>
+                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
                                     <TextInput
                                         labelText={ i === 0 && "Qty"}
                                         style={{textAlign:'center'}}
@@ -473,7 +473,7 @@ class QuotationModal extends Component {
                                         onChange={this.handleChange(`itemQty-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
+                                <div className={"col-xl-3 col-3 col-md-3 text-center"}>
                                     <TextInput
                                         style={{textAlign:'center'}}
                                         labelText={ i === 0 && "Rate"}
@@ -481,16 +481,16 @@ class QuotationModal extends Component {
                                         onChange={this.handleChange(`itemRate-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-2 col-2 col-md-2 align-self-center text-center mt-3"}>
-                                <Form.Check
-                                    type="switch"
-                                    onChange={this.handleChange(`itemGST-${o.value}`)}
-                                    id={o.value}
-                                    label={"Non GST"}
-                                    // label="non GST"
-                                    // onClick={(event)=>console.log(event.target)}
-                                />
-                                </div>
+                                {/*<div className={"col-xl-2 col-2 col-md-2 align-self-center text-center mt-3"}>*/}
+                                {/*<Form.Check*/}
+                                {/*    type="switch"*/}
+                                {/*    onChange={this.handleChange(`itemGST-${o.value}`)}*/}
+                                {/*    id={o.value}*/}
+                                {/*    label={"Non GST"}*/}
+                                {/*    // label="non GST"*/}
+                                {/*    // onClick={(event)=>console.log(event.target)}*/}
+                                {/*/>*/}
+                                {/*</div>*/}
                             </div>
                         )
                     })}

@@ -83,7 +83,7 @@ const PreviewQuotation = React.forwardRef((props) => {
                 <div className="col-md-12">
                     <div className="row mt-3">
                     <div className="col-md-6 invoice_logo_wrapper text-left">
-                        <p className="mb-1"><b>Quotation no: </b>{invoice?.invoice_number}</p>
+                        <p className="mb-1"><b>Quotation No: </b>{invoice?.invoice_number}</p>
                     </div>
                     </div>
                     <div className="row mt-1">
