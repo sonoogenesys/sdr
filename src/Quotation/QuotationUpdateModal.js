@@ -65,6 +65,7 @@ class QuotationUpdateModal extends Component {
                 items: currentquotation.items,
                 subject: currentquotation.subject,
                 name: currentquotation.name,
+                site_address: currentquotation.site_address,
                 selectedProduct: Object.keys(currentquotation.items).map(o=>{
                     return {value: o, label: currentquotation.items[o].name}
                 }),
