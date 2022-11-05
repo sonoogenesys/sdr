@@ -97,6 +97,7 @@ const PreviewQuotation = React.forwardRef((props) => {
                             <p className="mb-1"><b>{invoice?.billing_address?.name}</b></p>
                             <p className="mb-1"><b>{invoice?.billing_address?.address}</b></p>
                             <p className="mb-1"><b>GST No: {invoice?.billing_address?.gst}</b></p>
+                            {invoice?.site_address && <p className="mb-1"><b>Site address: {invoice?.site_address}</b></p>}
                             <p className="mt-3"><b>Kind Attn. {invoice?.name}</b></p>
                             <p className="mt-3"><b>Sub:- {invoice?.subject}</b></p>
                             <p className="mt-3"><b>Dear Sir,</b></p>

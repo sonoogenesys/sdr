@@ -3,17 +3,13 @@ import { connect } from "react-redux";
 import BaseModal from "../Utils/BaseModal";
 import TextInput from "../Utils/TextInput";
 import SelectBox from '../Utils/SelectBox'
-import City from './city.json';
 import Form from "react-bootstrap/Form";
-import {createQuotationRequest} from "./Duck/QuotationActions";
-import {createProductRequest} from "../Product/Duck/ProductsActions";
-import {createClientRequest} from "../Client/Duck/ClientsActions";
+import {updateQuotationRequest} from "./Duck/QuotationActions";
 import moment from "moment";
 
-class QuotationModal extends Component {
+class QuotationUpdateModal extends Component {
     constructor(props) {
         super(props);
-        let {quotation_length} = props
 
         this.state = {
             isLoading: false,
@@ -33,12 +29,12 @@ class QuotationModal extends Component {
             // lrNo: null,
             // vehicle: null,
             // supply: null,
-            invoiceDate: moment().format("YYYY-MM-DD"),
+            invoiceDate: null,
             // packing: null,
             // insurance: null,
             // freight: null,
             // discount: null,
-            invoice_number: `10${quotation_length + 1} 2022-23`,
+            invoice_number: null,
             items: {},
             conditions:"Offer Valid for 15 days only. " +
                 "\nGST extra 18% or as applicable at time of billing. " +
@@ -53,10 +49,34 @@ class QuotationModal extends Component {
         };
     }
 
+    componentDidMount() {
+        let {quotationId, quotation} = this.props;
+        let {_id} = this.state;
+
+        if(quotationId && quotation && quotation[quotationId] && !_id) {
+            let currentquotation = quotation[quotationId]
+            this.setState({
+                _id: currentquotation._id,
+                billing_name: currentquotation.billing_address.name,
+                billing_address: currentquotation.billing_address.address,
+                billing_gst: currentquotation.billing_address.gst,
+                invoiceDate: moment(currentquotation.invoiceDate).format("YYYY-MM-DD"),
+                invoice_number: currentquotation.invoice_number,
+                items: currentquotation.items,
+                subject: currentquotation.subject,
+                name: currentquotation.name,
+                selectedProduct: Object.keys(currentquotation.items).map(o=>{
+                    return {value: o, label: currentquotation.items[o].name}
+                }),
+            })
+            console.log(currentquotation)
+        }
+    }
+
 
     componentDidUpdate(preProps) {
-        // if(this.state.invoice_number === "00 /2022-23" && this.props.invoice && Object.keys(this.props.invoice).length > 0){
-        //     this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 1} /2022-23`})
+        // if(this.state.invoice_number === "00 /2022-23" && this.props.quotation && Object.keys(this.props.quotation).length > 0){
+        //     this.setState({invoice_number: `0${Object.keys(this.props.quotation).length + 1} /2022-23`})
         // }
         console.log(this.props.loading, preProps.loading, this.state.isLoading)
         if (!this.props.loading && preProps.loading && this.state.isLoading) {
@@ -88,12 +108,12 @@ class QuotationModal extends Component {
             // lrNo: null,
             // vehicle: null,
             // supply: null,
-            invoiceDate: moment().format("YYYY-MM-DD"),
+            invoiceDate: null,
             // packing: null,
             // insurance: null,
             // freight: null,
             // discount: null,
-            invoice_number: `10${quotation_length + 1} 2022-23`,
+            invoice_number: null,
             items: {},
             conditions:"Offer Valid for 15 days only. " +
                 "\nGST extra 18% or as applicable at time of billing. " +
@@ -113,36 +133,21 @@ class QuotationModal extends Component {
     onClickSave = () => {
         this.setState({isLoading: true})
         let {
-            // selectedState,
-            // selectedCity,
-            // shipping_name,
-            // shipping_address,
-            // shipping_gst,
             billing_name,
             billing_address,
             billing_gst,
-            // selectedTransport,
-            // selectedReverse,
-            // lrNo,
-            // vehicle,
-            // supply,
             invoiceDate,
-            // packing,
-            // insurance,
-            // freight,
-            // discount,
             items,
             invoice_number,
             name,
             subject,
-            conditions
+            conditions,
+            site_address
         }
          = this.state;
-        let {createQuotation, createProduct} = this.props;
+        let {updateQuotation, quotationId} = this.props;
 
         let params = {
-            // selectedState: selectedState,
-            // selectedCity: selectedCity,
             billing_address: {
                 name: billing_name,
                 address: billing_address,
@@ -153,15 +158,17 @@ class QuotationModal extends Component {
             invoice_number: invoice_number,
             name: name,
             subject: subject,
-            conditions: conditions
+            conditions: conditions,
+            site_address: site_address,
+            _id: quotationId,
         }
-        Object.keys(items).map(o=>{
-            if(o.includes("sel")){
-                let params = items[o]
-                createProduct(params)
-            }
-        })
-        createQuotation(params)
+        // Object.keys(items).map(o=>{
+        //     if(o.includes("sel")){
+        //         let params = items[o]
+        //         createProduct(params)
+        //     }
+        // })
+        updateQuotation(params)
         setTimeout(()=>this.onClickClose(), 5000)
     };
 
@@ -190,7 +197,7 @@ class QuotationModal extends Component {
                             <span className="spinner-border spinner-border-sm"></span>
                             <span className="visually-hidden"> Saving...</span>
                         </>
-                    ) : "Generate Quotation"
+                    ) : "Update Quotation"
                     }
                 </button>
             </>
@@ -250,7 +257,6 @@ class QuotationModal extends Component {
                 if(product[o.value] === undefined){
                     product[o.value] = {}
                 }
-                // console.log(product[o.value])
                 selectedItems[o.value].name = items[o.value].name ? items[o.value].name : product[o.value].name;
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
@@ -292,29 +298,12 @@ class QuotationModal extends Component {
     render() {
         let {
             show,
-            client,
             product
         } = this.props;
         let {
-            // selectedShipping,
             selectedProduct,
-            selectedBilling,
-            // selectedState,
-            // selectedCity,
-            // selectedTransport,
-            // selectedReverse,
-            // lrNo,
-            // vehicle,
-            // supply,
             invoiceDate,
-            // packing,
-            // insurance,
-            // freight,
-            // discount,
             items,
-            // shipping_name,
-            // shipping_address,
-            // shipping_gst,
             billing_name,
             billing_address,
             billing_gst,
@@ -324,7 +313,8 @@ class QuotationModal extends Component {
             conditions,
             site_address
         } = this.state;
-        let title = "Add New Quotation";
+        let title = invoice_number + " (" +(moment(invoiceDate).format("DD-MMM-YYYY")) + ")";
+
 
         return (
             <BaseModal
@@ -366,18 +356,7 @@ class QuotationModal extends Component {
                         </div>
                     </div>
 
-
                     <div className={'row'}>
-                        <div className="col-xl-12 col-12 col-md-12">
-                            <SelectBox searchable labelText={"Quotation to"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {
-                                return {
-                                    value: o._id,
-                                    label: o.name + o.address
-                                }
-                            })} value={selectedBilling} onChange={this.handleChange("selectedBilling")}/>
-                        </div>
-                    </div>
-                    { selectedBilling && <div className={'row'}>
                             <div className={"col-xl-4 col-4 col-md-4"}>
                             <TextInput
                                 labelClassName={"text-capitalize"}
@@ -402,7 +381,7 @@ class QuotationModal extends Component {
                                     onChange={this.handleChange("billing_gst")}
                                 />
                             </div>
-                    </div> }
+                    </div>
                     <div className={"row"}>
                         <div className={"col-xl-12 col-12 col-md-12"}>
                                 <TextInput
@@ -517,9 +496,9 @@ class QuotationModal extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         client: state?.client?.clients,
-        quotation: state?.quotation?.quotation,
+        // quotation: state?.quotation?.quotation,
         product: state?.product?.products,
-        invoice: state?.invoice?.invoice,
+        quotation: state?.quotation?.quotation,
         quotation_length: Object.values(state?.quotation?.quotation).length,
         loading: state?.client?.loading,
         error: state?.client?.error
@@ -527,10 +506,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        createClient: (params) => dispatch(createClientRequest(params)),
-        createProduct: (params) => dispatch(createProductRequest(params)),
-        createQuotation: (params) => dispatch(createQuotationRequest(params))
+        updateQuotation: (params) => dispatch(updateQuotationRequest(params))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuotationModal);
+export default connect(mapStateToProps, mapDispatchToProps)(QuotationUpdateModal);

@@ -6,12 +6,24 @@ import {fetchAllProductsRequest} from "../Product/Duck/ProductsActions";
 import {fetchAllQuotationRequest, deleteQuotationRequest} from "./Duck/QuotationActions";
 import {connect} from "react-redux";
 import PreviewQuotation from "./PreviewQuotation";
+import QuotationUpdateModal from "./QuotationUpdateModal";
+import TableContainer from "../Utils/TableContainer";
+import Tippy from "@tippyjs/react";
 
 class QuotationContainer extends Component {
     state = {
         previewQuotationModal: false,
         showQuotationModal: false,
-        quotationId: null
+        quotationId: null,
+        editQuotationModal: false,
+        headingData: [
+            "S. No.",
+            "Quotation No",
+            "Party Name",
+            "Date",
+            "Amount",
+            "Actions"
+        ]
     }
 
     componentDidMount() {
@@ -44,6 +56,53 @@ class QuotationContainer extends Component {
         )
     }
 
+    renderRowItem = (item, index) => {
+        // if(item?.total_amount <= item?.paid_amount){
+        //     color = 'green'
+        // } else {
+        //     color = 'orange'
+        // }
+
+        // let pending_amount = (item && item.total_amount) ? Number(item.total_amount- (item.paid_amount ? item.paid_amount : 0)) : 0
+        // const textDecoration = color === 'red' ? {textDecoration: "line-through"} : {}
+        return (
+            <tr key={item?._id}>
+                <td onClick={() => this.handleModal(false, true, item?._id)} className={'text-center'}>{index + 1}</td>
+                <td onClick={() => this.handleModal(false, true, item?._id)} className={'text-center'}>{item?.invoice_number}</td>
+                <td onClick={() => this.handleModal(false, true, item?._id)}>{item?.billing_address?.name}</td>
+                <td onClick={() => this.handleModal(false, true, item?._id)} className={'text-center'}>{moment(item?.invoiceDate).format('DD-MMM-YYYY')}</td>
+                <td onClick={() => this.handleModal(false, true, item?._id)} className={'text-center'} style={{ width: "10%" }}>₹ {item?.total_amount || 0}</td>
+                {/*<td className={'text-center'} style={{ width: "10%"}}>₹ {item?.paid_amount || 0}</td>*/}
+                {/*<td className={'text-center'} style={{ width: "10%"}}>₹ {pending_amount || 0}</td>*/}
+                {/*<td className={'text-center'} style={{color}}>{item?.gst_amount.toFixed(2)}</td>*/}
+                <td className={'text-center'}>
+                    {/*<span*/}
+                    {/*    // onClick={()=>this.handleModal(false, true, item?._id)}*/}
+                    {/*>*/}
+                    {/*   <Tippy content="Preview">*/}
+                    {/*        <i className="bx bxs-printer"></i>*/}
+                    {/*    </Tippy>*/}
+                    {/*</span>*/}
+                    <span className={'ml-2'}
+                          onClick={()=>this.handleModal(false, false, item?._id, true)}
+                    >
+                       <Tippy content="Edit">
+                            <i className="bx bxs-edit"/>
+                        </Tippy>
+                    </span>
+                    <span className={'ml-2'}
+                          onClick={() => this.handleModal(false, false, item?._id, false, true)}
+                    >
+                       <Tippy content="Delete">
+                            <i className="fe fe-delete"/>
+                        </Tippy>
+                    </span>
+
+                </td>
+            </tr>
+        );
+    };
+
     getFilterUserOrder = () => {
         let { searchText } = this.state;
         let { quotation } = this.props;
@@ -57,10 +116,11 @@ class QuotationContainer extends Component {
     }
 
     render(){
-        let { previewQuotationModal, showQuotationModal, quotationId } = this.state;
+        let { previewQuotationModal, showQuotationModal, quotationId, editQuotationModal } = this.state;
         let invoice = this.getFilterUserOrder();
         let list = !previewQuotationModal && invoice && Array.isArray(invoice) && invoice.length > 0 && invoice;
         return(
+            <>
             <div className={'row'}>
                 <div className="col-md-12">
                     {previewQuotationModal ? <div className="page-title-box d-flex align-items-center justify-content-between">
@@ -104,20 +164,41 @@ class QuotationContainer extends Component {
                         </div>}
                 </div>
 
-                {
-                    list && list.map(o=>this.cardTemplate(o))
-                }
+                {/*{*/}
+                {/*    list && list.map(o=>this.cardTemplate(o))*/}
+                {/*}*/}
                 {previewQuotationModal &&
                     <PreviewQuotation invoice={this.props.quotation[quotationId]}/>
                 }
-
                 <QuotationModal
                     // invoiceId={invoiceId}
                     show={showQuotationModal}
                     handelModal={this.handleModal}
                 />
 
+                <QuotationUpdateModal
+                    quotationId={quotationId}
+                    key={quotationId}
+                    show={editQuotationModal}
+                    handelModal={this.handleModal}
+                />
+
             </div>
+                {
+                    !previewQuotationModal &&
+                    <TableContainer
+                        title={"Purchase"}
+                        rowData={list ? list : []}
+                        renderRow={this.renderRowItem}
+                        // filter={{ searchText: this.state.searchText }}
+                        // onSearch={this.onSearch}
+                        searchPlaceholder={'Search by party'}
+                        totalEntries={list && list.length}
+                        showFilter={false}
+                        // filterOption={["All", "Pending", "Completed", "Rejected"]}
+                        headings={this.state.headingData}/>
+                }
+            </>
         )
     }
 }
