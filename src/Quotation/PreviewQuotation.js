@@ -83,7 +83,7 @@ const PreviewQuotation = React.forwardRef((props) => {
                 <div className="col-md-12">
                     <div className="row mt-3">
                     <div className="col-md-6 invoice_logo_wrapper text-left">
-                        <p className="mb-1"><b>Quotation number:</b>{invoice?.invoice_number}</p>
+                        <p className="mb-1"><b>Quotation no: </b>{invoice?.invoice_number}</p>
                     </div>
                     </div>
                     <div className="row mt-1">
@@ -135,8 +135,8 @@ const PreviewQuotation = React.forwardRef((props) => {
                     <div className="row mt-3">
                         <div className="col-md-12 invoice_logo_wrapper">
                             <b>For KCS ELECTRICAL TRADERS & ENGINEERING</b><br/>
-                            <b>K.C.Sharma - 9810959039</b><br/>
-                            <img style={{width: 200, height: 70}} src={Signature}/>
+                            <img style={{width: 200, height: 70}} src={Signature}/><br/>
+                            <b>K.C.Sharma - 9810959039</b>
                         </div>
                     </div>
                 </div>

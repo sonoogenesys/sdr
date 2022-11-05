@@ -9,6 +9,7 @@ import PreviewQuotation from "./PreviewQuotation";
 import QuotationUpdateModal from "./QuotationUpdateModal";
 import TableContainer from "../Utils/TableContainer";
 import Tippy from "@tippyjs/react";
+import BaseModal from "../Utils/BaseModal";
 
 class QuotationContainer extends Component {
     state = {
@@ -115,8 +116,52 @@ class QuotationContainer extends Component {
         return data || [];
     }
 
+    deleteInvoice = () => {
+        let {quotationId} = this.state;
+        this.setState({isLoading: true});
+        this.props.deleteQuotation(quotationId)
+        setTimeout(()=>{
+            this.setState({isLoading: false})
+            this.handleModal();
+        }, 2000)
+    }
+
+    renderFooter = () => {
+
+        return (
+            <>
+                <button
+                    type="button"
+                    className="btn btn-danger"
+                    data-dismiss="modal"
+                    onClick={() => this.handleModal()}
+                >
+                    No
+                </button>
+
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={this.deleteInvoice}
+                    disabled={this.state.isLoading}
+                >
+                    {
+                        this.state.isLoading
+                            ? (
+                                <>
+                                    <span className="spinner-border spinner-border-sm"></span>
+                                    <span className="visually-hidden"> Deleting...</span>
+                                </>
+                            )
+                            : "Yes"
+                    }
+                </button>
+            </>
+        );
+    };
+
     render(){
-        let { previewQuotationModal, showQuotationModal, quotationId, editQuotationModal } = this.state;
+        let { previewQuotationModal, showQuotationModal, quotationId, editQuotationModal, removeModal } = this.state;
         let invoice = this.getFilterUserOrder();
         let list = !previewQuotationModal && invoice && Array.isArray(invoice) && invoice.length > 0 && invoice;
         return(
@@ -198,6 +243,15 @@ class QuotationContainer extends Component {
                         // filterOption={["All", "Pending", "Completed", "Rejected"]}
                         headings={this.state.headingData}/>
                 }
+                <BaseModal
+                    closeButton={false}
+                    title={"Delete Quotation"}
+                    show={removeModal}
+                    size={'md'}
+                    footerComponent={this.renderFooter}
+                >
+                    Are you sure to delete this <b>{list && list.find(o=> o && o._id ===quotationId)?.invoice_number} </b>?
+                </BaseModal>
             </>
         )
     }
