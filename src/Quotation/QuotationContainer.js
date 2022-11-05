@@ -5,11 +5,13 @@ import {fetchAllClientsRequest} from "../Client/Duck/ClientsActions";
 import {fetchAllProductsRequest} from "../Product/Duck/ProductsActions";
 import {fetchAllQuotationRequest, deleteQuotationRequest} from "./Duck/QuotationActions";
 import {connect} from "react-redux";
+import PreviewQuotation from "./PreviewQuotation";
 
 class QuotationContainer extends Component {
     state = {
         previewQuotationModal: false,
-        showQuotationModal: false
+        showQuotationModal: false,
+        quotationId: null
     }
 
     componentDidMount() {
@@ -23,7 +25,7 @@ class QuotationContainer extends Component {
         this.setState({
             showQuotationModal: show,
             previewQuotationModal: show2,
-            QuotationId: invoiceId,
+            quotationId: invoiceId,
             editQuotationModal: edit,
             removeModal: remove
         });
@@ -31,7 +33,7 @@ class QuotationContainer extends Component {
 
     cardTemplate = (rowItem) =>{
         return(
-            <div key={rowItem?._id} className="card m-3" style={{width: '18rem'}}>
+            <div onClick={() => this.handleModal(false, true, rowItem?._id)} key={rowItem?._id} className="card m-3" style={{width: '18rem'}}>
                 <div className="card-body">
                     <h5 className="card-title text-center" style={{height: '5rem'}}>{rowItem?.billing_address?.name}</h5>
                     <p className="card-text pt-3"><b>Invoice: </b> {rowItem?.invoice_number}</p>
@@ -55,7 +57,7 @@ class QuotationContainer extends Component {
     }
 
     render(){
-        let { previewQuotationModal, showQuotationModal } = this.state;
+        let { previewQuotationModal, showQuotationModal, quotationId } = this.state;
         let invoice = this.getFilterUserOrder();
         let list = !previewQuotationModal && invoice && Array.isArray(invoice) && invoice.length > 0 && invoice;
         return(
@@ -66,7 +68,7 @@ class QuotationContainer extends Component {
                                 <button
                                     type="button"
                                     className="btn btn-primary my-2 btn-icon-text"
-                                    // onClick={() => this.handleModal(false, false, null)}
+                                    onClick={() => this.handleModal(false, false, null)}
                                 >
                                     <i className="fe fe-arrow-left mr-2"></i> Back
                                 </button>
@@ -104,6 +106,9 @@ class QuotationContainer extends Component {
 
                 {
                     list && list.map(o=>this.cardTemplate(o))
+                }
+                {previewQuotationModal &&
+                    <PreviewQuotation invoice={this.props.quotation[quotationId]}/>
                 }
 
                 <QuotationModal

@@ -3,6 +3,7 @@ import moment from "moment";
 import BaseTable from "../Utils/BaseTable";
 import NumToWords from "../Utils/NumToWords";
 import Line from "../Utils/Line";
+import Signature from "./signature.jpg";
 
 const TableComponent = React.forwardRef((props) => {
     let invoice = props.invoice;
@@ -301,10 +302,11 @@ const TableComponent = React.forwardRef((props) => {
                                 <div className="col-md-9 text-center border-left border-dark mt-2">
                                     <b>For KCS ELECTRICAL TRADERS & ENGINEERING</b>
                                     <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <p className="mb-1">Authorised signatory</p>
+                                    {/*<br/>*/}
+                                    {/*<br/>*/}
+                                    {/*<br/>*/}
+                                    <img style={{width: '80%', height: 100}} src={Signature}/>
+                                    <p className="mb-1">Authorised Digital signatory</p>
                                 </div>
                             </div>
                         </div>

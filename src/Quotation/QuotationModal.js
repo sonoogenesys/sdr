@@ -19,8 +19,8 @@ class QuotationModal extends Component {
             // selectedShipping: null,
             selectedBilling: null,
             selectedProduct: null,
-            selectedState: {value: "Haryana", label: "Haryana"},
-            selectedCity: {value: "Gurugram", label: "Gurugram"},
+            // selectedState: {value: "Haryana", label: "Haryana"},
+            // selectedCity: {value: "Gurugram", label: "Gurugram"},
             // shipping_name: null,
             // shipping_address: null,
             // shipping_gst: null,
@@ -38,7 +38,16 @@ class QuotationModal extends Component {
             // freight: null,
             // discount: null,
             invoice_number: "2022-23",
-            items: {}
+            items: {},
+            conditions:"Offer Valid for 15 days only. " +
+                "\nGST extra 18% or as applicable at time of billing. " +
+                "\nPayment 100 % advance." +
+                "\nAll Civil work in your scope." +
+                "\nAll Disputes are subject to Gurgaon jurisdiction." +
+                "\nAll DHBVN permission, formalities, Deposits in your scope" +
+                "\nWork will be completed within 1-2 working day, subject to payment & site clearance",
+            name: null,
+            subject: null
         };
     }
 
@@ -82,8 +91,17 @@ class QuotationModal extends Component {
             // insurance: null,
             // freight: null,
             // discount: null,
-            invoice_number: null,
-            items: {}
+            invoice_number: "2022-23",
+            items: {},
+            conditions:"Offer Valid for 15 days only. " +
+                "\nGST extra 18% or as applicable at time of billing. " +
+                "\nPayment 100 % advance." +
+                "\nAll Civil work in your scope." +
+                "\nAll Disputes are subject to Gurgaon jurisdiction." +
+                "\nAll DHBVN permission, formalities, Deposits in your scope" +
+                "\nWork will be completed within 1-2 working day, subject to payment & site clearance",
+            name: null,
+            subject: null
         });
 
         handelModal(false, false, null);
@@ -92,8 +110,8 @@ class QuotationModal extends Component {
     onClickSave = () => {
         this.setState({isLoading: true})
         let {
-            selectedState,
-            selectedCity,
+            // selectedState,
+            // selectedCity,
             // shipping_name,
             // shipping_address,
             // shipping_gst,
@@ -111,14 +129,17 @@ class QuotationModal extends Component {
             // freight,
             // discount,
             items,
-            invoice_number
+            invoice_number,
+            name,
+            subject,
+            conditions
         }
          = this.state;
         let {createQuotation, createProduct} = this.props;
 
         let params = {
-            selectedState: selectedState,
-            selectedCity: selectedCity,
+            // selectedState: selectedState,
+            // selectedCity: selectedCity,
             billing_address: {
                 name: billing_name,
                 address: billing_address,
@@ -126,7 +147,10 @@ class QuotationModal extends Component {
             },
             invoiceDate: invoiceDate,
             items: items,
-            invoice_number: invoice_number
+            invoice_number: invoice_number,
+            name: name,
+            subject: subject,
+            conditions: conditions
         }
         Object.keys(items).map(o=>{
             if(o.includes("sel")){
@@ -136,8 +160,6 @@ class QuotationModal extends Component {
         })
         createQuotation(params)
         setTimeout(()=>this.onClickClose(), 5000)
-
-
     };
 
     renderFooter = () => {
@@ -274,8 +296,8 @@ class QuotationModal extends Component {
             // selectedShipping,
             selectedProduct,
             selectedBilling,
-            selectedState,
-            selectedCity,
+            // selectedState,
+            // selectedCity,
             // selectedTransport,
             // selectedReverse,
             // lrNo,
@@ -293,7 +315,10 @@ class QuotationModal extends Component {
             billing_name,
             billing_address,
             billing_gst,
-            invoice_number
+            invoice_number,
+            name,
+            subject,
+            conditions
         } = this.state;
         let title = "Add New Invoice";
 
@@ -307,152 +332,38 @@ class QuotationModal extends Component {
             >
                 <form>
                     <div className="row">
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <SelectBox searchable value={selectedState} onChange={this.handleChange("selectedState")} labelText={"State"} options={Object.keys(City).map(o=>{
-                                return {
-                                    value: o, label: o
-                                }
-                            })}/>
+                        <div className="col-xl-2 col-2 col-md-2">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"invoice_number"}
+                                value={invoice_number}
+                                onChange={this.handleChange("invoice_number")}
+                            />
                         </div>
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <SelectBox searchable value={selectedCity} onChange={this.handleChange("selectedCity")} labelText={"City"} options={selectedState ? City[selectedState.value].map(o=>{
-                                return {
-                                    value: o, label: o
-                                }
-                            }) : []}/>
-                        </div>
-                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
-                        {/*    <SelectBox searchable value={selectedTransport}*/}
-                        {/*               onChange={this.handleChange("selectedTransport")}*/}
-                        {/*               labelText={"Transport Mode"}*/}
-                        {/*               options={[*/}
-                        {/*                   {*/}
-                        {/*                       value: "By Road (Bus)",*/}
-                        {/*                       label: "By Road (Bus)"*/}
-                        {/*                   },*/}
-                        {/*                   {*/}
-                        {/*                       value: "By Road (Rikshaw)",*/}
-                        {/*                       label: "By Road (Rikshaw)"*/}
-                        {/*                   },*/}
-                        {/*                   {*/}
-                        {/*                       value: "By Road (MotorCycle)",*/}
-                        {/*                       label: "By Road (MotorCycle)"*/}
-                        {/*                   },*/}
-                        {/*                   {*/}
-                        {/*                       value: "By Road (Car)",*/}
-                        {/*                       label: "By Road (Car)"*/}
-                        {/*                   },*/}
-                        {/*                   {*/}
-                        {/*                       value: "By Road (Truck)",*/}
-                        {/*                       label: "By Road (Truck)"*/}
-                        {/*                   },*/}
-                        {/*                   {*/}
-                        {/*                       value: "Train",*/}
-                        {/*                       label: "Train"*/}
-                        {/*                   },*/}
-                        {/*                   {*/}
-                        {/*                       value: "By Road (Crain)",*/}
-                        {/*                       label: "By Road (Crain)"*/}
-                        {/*                   }*/}
-
-                        {/*               ]}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
-                        {/*    <SelectBox onChange={this.handleChange("selectedReverse")} labelText={"Reverse Charge"} value={selectedReverse} options={[*/}
-                        {/*        { value: 'yes', label: 'Yes' },*/}
-                        {/*        { value: 'no', label: 'No' },*/}
-                        {/*    ]}/>*/}
-                        {/*</div>*/}
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <label className={"text-capitalize"}>Invoice Date</label>
                             <Form.Control value={invoiceDate} onChange={this.handleChange("invoiceDate")} type="date" name='date_of_birth' className={"text-capitalize"} />
                         </div>
-
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Invoice Number"}
-                                value={invoice_number}
-                                onChange={this.handleChange("invoice_number")}
-
+                                labelText={"name"}
+                                value={name}
+                                onChange={this.handleChange("name")}
+                            />
+                        </div>
+                        <div className="col-xl-6 col-6 col-md-6">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"subject"}
+                                value={subject}
+                                onChange={this.handleChange("subject")}
                             />
                         </div>
                     </div>
 
-                    <div className="row">
-
-                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
-                        {/*    <TextInput*/}
-                        {/*        labelClassName={"text-capitalize"}*/}
-                        {/*        labelText={"PO No"}*/}
-                        {/*        value={lrNo}*/}
-                        {/*        onChange={this.handleChange("lrNo")}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                        {/*<div className="col-xl-3 col-3 col-md-3">*/}
-                        {/*    <TextInput*/}
-                        {/*        labelClassName={"text-capitalize"}*/}
-                        {/*        labelText={"Vehicle number"}*/}
-                        {/*        value={vehicle}*/}
-                        {/*        onChange={this.handleChange("vehicle")}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-
-                    </div>
-
-                    {/*<div className="row">*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Place of Supply"}*/}
-                    {/*            value={supply}*/}
-                    {/*            onChange={this.handleChange("supply")}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Packing & Forwarding"}*/}
-                    {/*            onChange={this.handleChange("packing")}*/}
-                    {/*            value={packing}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Insurance charges"}*/}
-                    {/*            onChange={this.handleChange("insurance")}*/}
-                    {/*            value={insurance}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Freight"}*/}
-                    {/*            onChange={this.handleChange("freight")}*/}
-                    {/*            value={freight}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Discount"}*/}
-                    {/*            onChange={this.handleChange("discount")}*/}
-                    {/*            value={discount}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
 
                     <div className={'row'}>
-                        {/*<div className="col-xl-6 col-6 col-md-6">*/}
-                        {/*    <SelectBox searchable labelText={"Shipping To"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {*/}
-                        {/*        return {*/}
-                        {/*            value: o._id,*/}
-                        {/*            label: o.name + o.address*/}
-                        {/*        }*/}
-                        {/*    })} value={selectedShipping} onChange={this.handleChange("selectedShipping")}/>*/}
-                        {/*</div>*/}
                         <div className="col-xl-12 col-12 col-md-12">
                             <SelectBox searchable labelText={"Billing to"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {
                                 return {
@@ -462,38 +373,6 @@ class QuotationModal extends Component {
                             })} value={selectedBilling} onChange={this.handleChange("selectedBilling")}/>
                         </div>
                     </div>
-
-                    {/*{ selectedShipping && <div className={'row'}>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Shipping Name"}*/}
-                    {/*            value={shipping_name}*/}
-                    {/*            onChange={this.handleChange("shipping_name")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Shipping Address"}*/}
-                    {/*            value={shipping_address}*/}
-                    {/*            onChange={this.handleChange("shipping_address")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*            <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Shipping GST"}*/}
-                    {/*            value={shipping_gst}*/}
-                    {/*            onChange={this.handleChange("shipping_gst")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*</div> }*/}
-
-                    {/*<div className="row">*/}
-                    {/*    */}
-                    {/*</div>*/}
-
                     { selectedBilling && <div className={'row'}>
                             <div className={"col-xl-4 col-4 col-md-4"}>
                             <TextInput
@@ -601,6 +480,20 @@ class QuotationModal extends Component {
                             </div>
                         )
                     })}
+
+                    <div className="row">
+
+                        <div className="col-xl-12 col-12 col-md-12">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"Terms and conditions"}
+                                value={conditions}
+                                rows="7"
+                                cols="50"
+                                onChange={this.handleChange("conditions")}
+                            />
+                        </div>
+                    </div>
                 </form>
             </BaseModal>
         );
