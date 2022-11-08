@@ -38,15 +38,16 @@ class QuotationModal extends Component {
             // insurance: null,
             // freight: null,
             // discount: null,
-            invoice_number: `10${quotation_length + 1} 2022-23`,
+            invoice_number: `10${quotation_length + 1} / 2022-23`,
             items: {},
             conditions:"Offer Valid for 15 days only. " +
-                "\nGST extra 18% or as applicable at time of billing. " +
-                "\nPayment 100 % advance." +
+                "\nGST applicable at time of billing. " +
+                "\nPayment 100 % advance for material before delivery against PI." +
                 "\nAll Civil work in your scope." +
                 "\nAll Disputes are subject to Gurgaon jurisdiction." +
-                "\nAll DHBVN permission, formalities, Deposits in your scope" +
-                "\nWork will be completed within 1-2 working day, subject to payment & site clearance",
+                "\nAll DHBVN/Concern Authorities permission, formalities and Deposits in your scope." +
+                "\nWork will be completed within 1-2 working day from the date of advance received along with PO/WO subject to payment & site clearance." +
+                "\nPrices are only for above mention details on testing checking and other requirement will be extra charge.",
             name: null,
             subject: null,
             site_address: null
@@ -93,15 +94,16 @@ class QuotationModal extends Component {
             // insurance: null,
             // freight: null,
             // discount: null,
-            invoice_number: `10${quotation_length + 1} 2022-23`,
+            invoice_number: `10${quotation_length + 1} / 2022-23`,
             items: {},
             conditions:"Offer Valid for 15 days only. " +
-                "\nGST extra 18% or as applicable at time of billing. " +
-                "\nPayment 100 % advance." +
+                "\nGST applicable at time of billing. " +
+                "\nPayment 100 % advance for material before delivery against PI." +
                 "\nAll Civil work in your scope." +
                 "\nAll Disputes are subject to Gurgaon jurisdiction." +
-                "\nAll DHBVN permission, formalities, Deposits in your scope" +
-                "\nWork will be completed within 1-2 working day, subject to payment & site clearance",
+                "\nAll DHBVN/Concern Authorities permission, formalities and Deposits in your scope." +
+                "\nWork will be completed within 1-2 working day from the date of advance received along with PO/WO subject to payment & site clearance." +
+                "\nPrices are only for above mention details on testing checking and other requirement will be extra charge.",
             name: null,
             subject: null,
             site_address: null
@@ -502,7 +504,7 @@ class QuotationModal extends Component {
                                 labelClassName={"text-capitalize"}
                                 labelText={"Terms and conditions"}
                                 value={conditions}
-                                rows="7"
+                                rows="8"
                                 cols="50"
                                 onChange={this.handleChange("conditions")}
                             />

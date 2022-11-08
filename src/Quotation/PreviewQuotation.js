@@ -155,7 +155,7 @@ console.log(amount)
                                     <Column title="Rate" dataIndex="eRate" key="eRate" />
                                     <Column title="Amount" dataIndex="eAmount" key="eAmount" />
                                 </ColumnGroup>
-                                <ColumnGroup title="Total" className={'text-center'}>
+                                <ColumnGroup title="S.E.C Total" className={'text-center'}>
                                     <Column title="Rate" dataIndex="tRate" key="tRate" />
                                     <Column title="Amount" dataIndex="tAmount" key="tAmount" />
                                 </ColumnGroup>
