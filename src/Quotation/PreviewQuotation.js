@@ -139,8 +139,8 @@ console.log(amount)
                 <div className="col-md-12">
                     <div className="card-body">
                         <div className="acclist-height-base">
-                            <Table pagination={false} key={"index"}
-                                   className={'table table-striped table-bordered dt-responsive nowrap action_icons'}
+                            <Table align={'center'} sticky={true} pagination={false} key={"index"}
+                                   className={'table table-striped table-bordered dt-responsive nowrap action_icons text-center justify-center align-center'}
                                    dataSource={data}>
                                 <Column title="S.no" dataIndex="index" key="index" />
                                 <Column width={800} title="Product Description" dataIndex="name" key="name" />
@@ -194,11 +194,11 @@ console.log(amount)
 
 
         </div>
-            <div style={{position:'absolute', bottom: 1, left:0, right: 0, textAlign:'center'}}>
-                <Line />
-                <p style={{letterSpacing:'0px'}}>360(old 79/4) 3rd Floor, Flat No 301,  Anamika Enclave, Behind Kalyani Hospital, Gurugram - 122001, Haryana<br/>
-                    https://www.kcs-electrical.com</p>
-            </div>
+            {/*<div style={{position:'absolute', bottom: 1, left:0, right: 0, textAlign:'center'}}>*/}
+            {/*    <Line />*/}
+            {/*    <p style={{letterSpacing:'0px'}}>360(old 79/4) 3rd Floor, Flat No 301,  Anamika Enclave, Behind Kalyani Hospital, Gurugram - 122001, Haryana<br/>*/}
+            {/*        https://www.kcs-electrical.com</p>*/}
+            {/*</div>*/}
         </>
     );
 })

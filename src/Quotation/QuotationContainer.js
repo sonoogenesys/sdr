@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import moment from "moment";
-import QuotationModal from "./QuotationModal";
+import QuotationModal from "./ProductSelectModal";
 import {fetchAllClientsRequest} from "../Client/Duck/ClientsActions";
 import {fetchAllProductsRequest} from "../Product/Duck/ProductsActions";
 import {fetchAllQuotationRequest, deleteQuotationRequest} from "./Duck/QuotationActions";

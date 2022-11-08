@@ -54,11 +54,17 @@ class QuotationModal extends Component {
         };
     }
 
+    componentDidMount() {
+        let {quotation_length} = this.props;
+        this.setState({invoice_number: `10${quotation_length + 1} / 2022-23`})
+    }
 
-    componentDidUpdate(preProps) {
-        // if(this.state.invoice_number === "00 /2022-23" && this.props.invoice && Object.keys(this.props.invoice).length > 0){
-        //     this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 1} /2022-23`})
-        // }
+
+    componentDidUpdate(preProps, nxtProps) {
+        if(this.state.invoice_number === "101 / 2022-23" && this.props.quotation_length !== 0){
+            console.log(this.props.quotation_length)
+            this.setState({invoice_number: `10${this.props.quotation_length + 1} / 2022-23`})
+        }
         console.log(this.props.loading, preProps.loading, this.state.isLoading)
         if (!this.props.loading && preProps.loading && this.state.isLoading) {
             if (!this.props.error) {
@@ -330,9 +336,11 @@ class QuotationModal extends Component {
         } = this.state;
         let title = "Add New Quotation";
 
+
         return (
             <BaseModal
                 show={show}
+                // style={{marginTop:100, width: '2000px', margin:0,padding:0}}
                 size={"xl"}
                 handleClose={this.onClickClose}
                 title={title}

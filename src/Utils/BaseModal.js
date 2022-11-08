@@ -9,7 +9,8 @@ const BaseModal = ({
     children,
                        dialogClassName,
                        size,
-                       closeButton = true
+                       closeButton = true,
+    style={}
 }) => {
     console.log(closeButton)
     return (
