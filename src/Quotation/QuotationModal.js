@@ -235,8 +235,9 @@ class QuotationModal extends Component {
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
-                selectedItems[o.value].rate = items[o.value].rate ? items[o.value].rate : product[o.value].rate;
-                selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
+                selectedItems[o.value].sRate = items[o.value].sRate ? items[o.value].sRate : product[o.value].sRate;
+                selectedItems[o.value].eRate = items[o.value].eRate ? items[o.value].eRate : product[o.value].eRate;
+                // selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
             })
             this.setState({items: selectedItems, selectedProduct: selectedProduct})
         }
@@ -255,8 +256,9 @@ class QuotationModal extends Component {
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
-                selectedItems[o.value].rate = items[o.value].rate ? items[o.value].rate : product[o.value].rate;
-                selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
+                selectedItems[o.value].sRate = items[o.value].sRate ? items[o.value].sRate : product[o.value].sRate;
+                selectedItems[o.value].eRate = items[o.value].eRate ? items[o.value].eRate : product[o.value].eRate;
+                // selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
             })
             this.setState({items: selectedItems})
         }
@@ -271,10 +273,10 @@ class QuotationModal extends Component {
                 items[index].uom = value
             } else if (name.includes("Qty")) {
                 items[index].qty = value
-            } else if (name.includes("Rate")) {
-                items[index].rate = value
-            } else if (name.includes("GST")) {
-                items[index].gst = event.target.checked
+            } else if (name.includes("Supply")) {
+                items[index].sRate = value
+            } else if (name.includes("Erection")) {
+                items[index].eRate = value
             }
 
             this.setState({items})
@@ -438,7 +440,7 @@ class QuotationModal extends Component {
                     {selectedProduct && Array.isArray(selectedProduct) && selectedProduct.map((o, i)=>{
                         return (
                             <div className={'row'} key={o.value}>
-                                <div className={"col-xl-3 col-3 col-md-3 text-center"}>
+                                <div className={"col-xl-5 col-5 col-md-5 text-center"}>
                                     <TextInput
                                         labelClassName={"text-capitalize"}
                                         labelText={i === 0 && "Description"}
@@ -447,16 +449,16 @@ class QuotationModal extends Component {
                                         onChange={this.handleChange(`itemName-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
+                                <div className={"col-xl-1 col-1 col-md-1 text-center"}>
                                     <TextInput
                                         labelClassName={"text-capitalize"}
-                                        labelText={ i === 0 && "HSN / SAC"}
+                                        labelText={ i === 0 && "HSN"}
                                         style={{textAlign:'center'}}
                                         value={items[o.value]?.hsn}
                                         onChange={this.handleChange(`itemHsn-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
+                                <div className={"col-xl-1 col-1 col-md-1 text-center"}>
                                     <TextInput
                                         labelClassName={"text-capitalize"}
                                         labelText={ i === 0 && "UOM"}
@@ -465,7 +467,7 @@ class QuotationModal extends Component {
                                         onChange={this.handleChange(`itemUom-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
+                                <div className={"col-xl-1 col-1 col-md-1 text-center"}>
                                     <TextInput
                                         labelText={ i === 0 && "Qty"}
                                         style={{textAlign:'center'}}
@@ -473,24 +475,22 @@ class QuotationModal extends Component {
                                         onChange={this.handleChange(`itemQty-${o.value}`)}
                                     />
                                 </div>
-                                <div className={"col-xl-3 col-3 col-md-3 text-center"}>
+                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
                                     <TextInput
                                         style={{textAlign:'center'}}
-                                        labelText={ i === 0 && "Rate"}
-                                        value={items[o.value].rate}
-                                        onChange={this.handleChange(`itemRate-${o.value}`)}
+                                        labelText={ i === 0 && "Supply Rate"}
+                                        value={items[o.value].sRate}
+                                        onChange={this.handleChange(`itemSupplyRate-${o.value}`)}
                                     />
                                 </div>
-                                {/*<div className={"col-xl-2 col-2 col-md-2 align-self-center text-center mt-3"}>*/}
-                                {/*<Form.Check*/}
-                                {/*    type="switch"*/}
-                                {/*    onChange={this.handleChange(`itemGST-${o.value}`)}*/}
-                                {/*    id={o.value}*/}
-                                {/*    label={"Non GST"}*/}
-                                {/*    // label="non GST"*/}
-                                {/*    // onClick={(event)=>console.log(event.target)}*/}
-                                {/*/>*/}
-                                {/*</div>*/}
+                                <div className={"col-xl-2 col-2 col-md-2 text-center"}>
+                                    <TextInput
+                                        style={{textAlign:'center'}}
+                                        labelText={ i === 0 && "Erection Rate"}
+                                        value={items[o.value].eRate}
+                                        onChange={this.handleChange(`itemErectionRate-${o.value}`)}
+                                    />
+                                </div>
                             </div>
                         )
                     })}

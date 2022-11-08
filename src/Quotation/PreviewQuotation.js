@@ -4,48 +4,75 @@ import BaseTable from "../Utils/BaseTable";
 import NumToWords from "../Utils/NumToWords";
 import Line from "../Utils/Line";
 import Signature from "./signature.jpg";
+import ColumnTable from "./ColumnTable";
+import {Table} from "antd";
+const { Column, ColumnGroup } = Table;
 
 const PreviewQuotation = React.forwardRef((props) => {
     let invoice = props.invoice;
     // let {screenHeight} = props
     let conditions = invoice?.conditions && invoice.conditions.split("\n");
-
-    let headingData = [
-        "S. No.",
-        "Product Description",
-        "HSN / SAC",
-        "UOM",
-        "Qty",
-        "Rate",
-        // "GST %",
-        "Item Amount",
-        // "Item Disc.",
-        // "Taxable Value"
-    ]
-
-    const renderRowItem = (item, index) => {
-        let gst = item?.gst ? (item?.gst === true ? 0 : item?.gst) : 18
-        let taxAmount = gst ? (item?.rate || 0) * Number(item?.qty) : 0
-        return (
-            <tr key={index}>
-                <td style={{textAlign:'center'}}>{index + 1}</td>
-                <td>{item?.name}</td>
-                <td>{item?.hsn}</td>
-                <td>{item?.uom}</td>
-                <td>{item?.qty}</td>
-                <td style={{width: 150, textAlign:'center'}}>₹ {parseFloat((item?.rate) || 0).toFixed(2)}</td>
-                {/*<td>{parseFloat(gst).toFixed(2)}</td>*/}
-                <td style={{width: 150, textAlign:'center'}}>₹ {parseFloat((item?.rate || 0) * Number(item?.qty)).toFixed(2)}</td>
-                {/*<td>{item?.desc ? item.desc : "-"}</td>*/}
-                {/*<td style={{width: 150, textAlign:'center'}}>₹ {parseFloat(taxAmount).toFixed(2)}</td>*/}
-            </tr>
-        );
-    };
     let itemsData = invoice?.items ? Object.values(invoice?.items) : [];
+
+    const data = itemsData.map((o, i)=>{
+        o.index = i + 1;
+        const supply = Number(o.sRate || 0);
+        const erection = Number(o.eRate || 0);
+        return {
+            key: i,
+            index: i + 1,
+            name: o.name,
+            hsn: o.hsn,
+            uom: o.uom,
+            qty: o.qty,
+            sRate: supply,
+            sAmount:supply * o.qty,
+            eRate: erection,
+            eAmount: erection * o.qty,
+            tRate: supply + erection,
+            tAmount: (supply + erection) * o.qty,
+        };
+    });
+    const amount = data.reduce((a, b)=> a + b.tAmount, 0)
+
+console.log(amount)
+    // let headingData = [
+    //     "S. No.",
+    //     "Product Description",
+    //     "HSN / SAC",
+    //     "UOM",
+    //     "Qty",
+    //     "Supply-Rate",
+    //     "Erection-Rate",
+    //     // "GST %",
+    //     "Total Rate",
+    //     // "Item Disc.",
+    //     // "Taxable Value"
+    // ]
+
+    // const renderRowItem = (item, index) => {
+    //     let gst = item?.gst ? (item?.gst === true ? 0 : item?.gst) : 18
+    //     let taxAmount = gst ? (item?.rate || 0) * Number(item?.qty) : 0
+    //     return (
+    //         <tr key={index}>
+    //             <td style={{textAlign:'center'}}>{index + 1}</td>
+    //             <td>{item?.name}</td>
+    //             <td>{item?.hsn}</td>
+    //             <td>{item?.uom}</td>
+    //             <td>{item?.qty}</td>
+    //             <td style={{width: 150, textAlign:'center'}}>₹ {parseFloat((item?.rate) || 0).toFixed(2)}</td>
+    //             <td>₹ {parseFloat( 0).toFixed(2)}</td>
+    //             {/*<td>{parseFloat(gst).toFixed(2)}</td>*/}
+    //             <td style={{width: 150, textAlign:'center'}}>₹ {parseFloat((item?.rate || 0) * Number(item?.qty)).toFixed(2)}</td>
+    //             {/*<td>{item?.desc ? item.desc : "-"}</td>*/}
+    //             {/*<td style={{width: 150, textAlign:'center'}}>₹ {parseFloat(taxAmount).toFixed(2)}</td>*/}
+    //         </tr>
+    //     );
+    // };
     // let nonGSTItems = itemsData ? itemsData.filter(o=> o.gst === true) : [];
     // let nonGSTAmount = nonGSTItems.reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)) , 0);
-    let amount = Object.values(invoice).length !== 0 && Object.values(invoice?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
-    amount = (amount + Number(invoice?.packing || 0) + Number(invoice?.insurance || 0) + Number(invoice?.freight || 0))  - Number(invoice?.discount || 0)
+    // let amount = Object.values(invoice).length !== 0 && Object.values(invoice?.items).reduce((accumulator, currentValue)=>accumulator + (currentValue.rate * Number(currentValue.qty)), 0)
+    // amount = (amount + Number(invoice?.packing || 0) + Number(invoice?.insurance || 0) + Number(invoice?.freight || 0))  - Number(invoice?.discount || 0)
     // let GSTAmount = amount > nonGSTAmount ? amount - nonGSTAmount : nonGSTAmount - amount;
     // let igst_tax = invoice?.igst_tax ? Number(invoice.igst_tax) : undefined;
     return (
@@ -107,21 +134,44 @@ const PreviewQuotation = React.forwardRef((props) => {
                 </div>
 
 
-
                 <Line/>
 
                 <div className="col-md-12">
                     <div className="card-body">
-                        <BaseTable
-                            headingData={headingData}
-                            rowData={itemsData}
-                            renderRowItem={renderRowItem}
-                        />
+                        <div className="acclist-height-base">
+                            <Table pagination={false} key={"index"}
+                                   className={'table table-striped table-bordered dt-responsive nowrap action_icons'}
+                                   dataSource={data}>
+                                <Column title="S.no" dataIndex="index" key="index" />
+                                <Column width={800} title="Product Description" dataIndex="name" key="name" />
+                                <Column title="HSN" dataIndex="hsn" key="hsn" />
+                                <Column title="UOM" dataIndex="uom" key="uom" />
+                                <Column title="Qty" dataIndex="qty" key="qty" />
+                                <ColumnGroup title="Supply" className={'text-center'}>
+                                    <Column title="Rate" dataIndex="sRate" key="sRate" />
+                                    <Column title="Amount" dataIndex="sAmount" key="sAmount" />
+                                </ColumnGroup>
+                                <ColumnGroup title="Erection" className={'text-center'}>
+                                    <Column title="Rate" dataIndex="eRate" key="eRate" />
+                                    <Column title="Amount" dataIndex="eAmount" key="eAmount" />
+                                </ColumnGroup>
+                                <ColumnGroup title="Total" className={'text-center'}>
+                                    <Column title="Rate" dataIndex="tRate" key="tRate" />
+                                    <Column title="Amount" dataIndex="tAmount" key="tAmount" />
+                                </ColumnGroup>
+                            </Table>
+                        </div>
                     </div>
                 </div>
 
                 <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>
-                    <p className="mb-1 fa-1x"><b>Total Amount:</b> ₹ {parseFloat(amount).toFixed(2)}</p>
+                    <p className="mb-1 fa-1x"><b>Total Taxable Amount:</b> ₹ {parseFloat(amount).toFixed(2)}</p>
+                </div>
+                <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>
+                    <p className="mb-1 fa-1x"><b>GST @ 18%: </b> ₹ {parseFloat(amount * 18 / 100).toFixed(2)}</p>
+                </div>
+                <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>
+                    <p className="mb-1 fa-1x"><b>Total Amount </b> ₹ {parseFloat(amount + (amount * 18 / 100)).toFixed(2)}</p>
                 </div>
                 <Line/>
                 <div className="col-md-12">
