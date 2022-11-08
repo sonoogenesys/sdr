@@ -243,7 +243,7 @@ class QuotationUpdateModal extends Component {
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
-                selectedItems[o.value].sRate = items[o.value].sRate ? items[o.value].sRate : product[o.value].sRate;
+                selectedItems[o.value].sRate = items[o.value].sRate ? items[o.value].sRate : product[o.value].rate;
                 selectedItems[o.value].eRate = items[o.value].eRate ? items[o.value].eRate : product[o.value].eRate;
                 // selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
             })
@@ -263,7 +263,7 @@ class QuotationUpdateModal extends Component {
                 selectedItems[o.value].hsn = items[o.value].hsn ? items[o.value].hsn : product[o.value].hsn;
                 selectedItems[o.value].uom = items[o.value].uom ? items[o.value].uom : product[o.value].uom;
                 selectedItems[o.value].qty = items[o.value].qty ? items[o.value].qty : product[o.value].qty;
-                selectedItems[o.value].sRate = items[o.value].sRate ? items[o.value].sRate : product[o.value].sRate;
+                selectedItems[o.value].sRate = items[o.value].sRate ? items[o.value].sRate : product[o.value].rate;
                 selectedItems[o.value].eRate = items[o.value].eRate ? items[o.value].eRate : product[o.value].eRate;
                 // selectedItems[o.value].gst = items[o.value].gst !== undefined ? items[o.value].gst : product[o.value].gst;
             })
