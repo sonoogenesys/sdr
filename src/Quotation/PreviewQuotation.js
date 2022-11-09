@@ -140,7 +140,7 @@ console.log(amount)
                     <div className="card-body">
                         <div className="acclist-height-base">
                             <Table align={'center'} sticky={true} pagination={false} key={"index"}
-                                   className={'table table-striped table-bordered dt-responsive nowrap action_icons text-center justify-center align-center'}
+                                   className={'table table-striped table-bordered dt-responsive nowrap action_icons text-justify'}
                                    dataSource={data}>
                                 <Column title="S.no" dataIndex="index" key="index" />
                                 <Column width={800} title="Product Description" dataIndex="name" key="name" />

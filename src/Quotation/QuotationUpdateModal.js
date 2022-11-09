@@ -36,13 +36,7 @@ class QuotationUpdateModal extends Component {
             // discount: null,
             invoice_number: null,
             items: {},
-            conditions:"Offer Valid for 15 days only. " +
-                "\nGST extra 18% or as applicable at time of billing. " +
-                "\nPayment 100 % advance." +
-                "\nAll Civil work in your scope." +
-                "\nAll Disputes are subject to Gurgaon jurisdiction." +
-                "\nAll DHBVN permission, formalities, Deposits in your scope" +
-                "\nWork will be completed within 1-2 working day, subject to payment & site clearance",
+            conditions:null,
             name: null,
             subject: null,
             site_address: null
@@ -65,6 +59,7 @@ class QuotationUpdateModal extends Component {
                 items: currentquotation.items,
                 subject: currentquotation.subject,
                 name: currentquotation.name,
+                conditions: currentquotation.conditions,
                 site_address: currentquotation.site_address,
                 selectedProduct: Object.keys(currentquotation.items).map(o=>{
                     return {value: o, label: currentquotation.items[o].name}
@@ -116,13 +111,7 @@ class QuotationUpdateModal extends Component {
             // discount: null,
             invoice_number: null,
             items: {},
-            conditions:"Offer Valid for 15 days only. " +
-                "\nGST extra 18% or as applicable at time of billing. " +
-                "\nPayment 100 % advance." +
-                "\nAll Civil work in your scope." +
-                "\nAll Disputes are subject to Gurgaon jurisdiction." +
-                "\nAll DHBVN permission, formalities, Deposits in your scope" +
-                "\nWork will be completed within 1-2 working day, subject to payment & site clearance",
+            conditions:null,
             name: null,
             subject: null,
             site_address: null

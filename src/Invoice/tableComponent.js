@@ -29,7 +29,7 @@ const TableComponent = React.forwardRef((props) => {
         return (
             <tr key={index}>
                 <td style={{textAlign:'center'}}>{index + 1}</td>
-                <td>{item?.name}</td>
+                <td className={'text-justify'}>{item?.name}</td>
                 <td>{item?.hsn}</td>
                 <td>{item?.uom}</td>
                 <td>{item?.qty}</td>
