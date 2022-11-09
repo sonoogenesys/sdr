@@ -13,7 +13,7 @@ class ProductModal extends Component {
 
         this.state = {
             name: "",
-            description: "",
+            // description: "",
             hsn: "",
             uom: "",
             rate: "",
@@ -49,7 +49,7 @@ class ProductModal extends Component {
         let currentProduct = product[productId]
         this.setState({
             name: currentProduct?.name || "",
-            description: currentProduct?.description || "",
+            // description: currentProduct?.description || "",
             hsn: currentProduct?.hsn || "",
             uom: currentProduct?.uom || "",
             rate: currentProduct?.rate || "",
@@ -62,7 +62,7 @@ class ProductModal extends Component {
         let { handelModal } = this.props;
         this.setState({
             name: "",
-            description: "",
+            // description: "",
             hsn: "",
             uom: "",
             rate: "",
@@ -101,7 +101,7 @@ class ProductModal extends Component {
                 params = new FormData();
                 params.set("files", file);
                 params.set("name", name);
-                params.set("description", description);
+                // params.set("description", description);
                 params.set("hsn", hsn);
                 params.set("uom", uom);
                 params.set("rate", rate);
@@ -234,17 +234,17 @@ class ProductModal extends Component {
                             />
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-xl-12 col-12 col-md-12">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Description"}
-                                value={description}
-                                cols={"4"}
-                                onChange={this.handelChange("description")}
-                            />
-                        </div>
-                    </div>
+                    {/*<div className="row">*/}
+                    {/*    <div className="col-xl-12 col-12 col-md-12">*/}
+                    {/*        <TextInput*/}
+                    {/*            labelClassName={"text-capitalize"}*/}
+                    {/*            labelText={"Description"}*/}
+                    {/*            value={description}*/}
+                    {/*            cols={"4"}*/}
+                    {/*            onChange={this.handelChange("description")}*/}
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                     <div className="row">
 
                         <div className="col-xl-6 col-6 col-md-6">

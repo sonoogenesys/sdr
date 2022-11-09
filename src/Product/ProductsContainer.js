@@ -31,7 +31,7 @@ class ProductsContainer extends Component {
             product && (
                 <tr key={`${product._id}_${index}`}>
                     <td style={{...tableCSS, width: 50}}>{index + 1}</td>
-                    <td style={{...tableCSS, width: 400}}>{product?.name}</td>
+                    <td style={{...tableCSS, width: 400}} className={'text-justify'}>{product?.name}</td>
                     {/*<td style={{...tableCSS, width: 300}}>{product?.description}</td>*/}
                     <td style={tableCSS}>{product?.hsn}</td>
                    <td style={tableCSS}>{product?.uom}</td>
