@@ -554,7 +554,7 @@ class ProductSelectModal extends Component {
                                 rowKey={"_id"}
                                 rowClassName="editable-row"
                                 columns={columns}
-                                className={'table table-striped table-bordered dt-responsive nowrap action_icons text-center justify-center align-center'}
+                                className={'table table-striped table-bordered dt-responsive nowrap action_icons text-justify align-center'}
                                 scroll={{y:500}}
                                 dataSource={array}
 
