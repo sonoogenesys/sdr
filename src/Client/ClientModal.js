@@ -210,7 +210,7 @@ class UserModal extends Component {
     getDataFromGST = (gst) => {
         // let {gst} = this.state;
         this.setState({loading: true})
-        const api_key = '4a83aadb1d2e4f58bc6da050c35779fe'
+        const api_key = '1ad517fb1c2d86b0804c4966f46e224d'
         axios.get(`https://sheet.gstincheck.co.in/check/${api_key}/${gst}`).then(response=>{
             if(response?.data?.flag){
                 showNotification('success', 'GST Verified')
