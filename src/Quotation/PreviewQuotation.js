@@ -10,7 +10,7 @@ const { Column, ColumnGroup } = Table;
 
 const PreviewQuotation = React.forwardRef((props) => {
     let invoice = props.invoice;
-    // let {screenHeight} = props
+    let {screenHeight} = props
     let conditions = invoice?.conditions && invoice.conditions.split("\n");
     let itemsData = invoice?.items ? Object.values(invoice?.items) : [];
 
@@ -119,7 +119,7 @@ console.log(amount)
                         </div>
                     </div>
                     <div className="row mt-3">
-                        <div className="col-md-6 invoice_logo_wrapper">
+                        <div className="col-md-8 invoice_logo_wrapper">
                         {/*    <p className={"mb-1"}><b>Billed To:</b></p>*/}
                             <p className="mb-1"><b>{invoice?.billing_address?.name}</b></p>
                             <p className="mb-1"><b>{invoice?.billing_address?.address}</b></p>
@@ -163,16 +163,72 @@ console.log(amount)
                         </div>
                     </div>
                 </div>
+                <div className="row">
+                    <div className="col-md-7 invoice_logo_wrapper pl-5">
+                        <p className="mb-1"><b>Bank Details</b></p>
+                    </div>
+                    <div className="col-md-3 invoice_logo_wrapper text-left">
+                        <p className="mb-1 fa-1x"><b> </b></p>
+                    </div>
+                    <div className="col-md-2 invoice_logo_wrapper text-right pr-5">
+                        <p className="mb-1"></p>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-7 invoice_logo_wrapper pl-5">
+                        <p className="mb-1"><b>Current Account: 41270364532</b></p>
+                    </div>
+                    <div className="col-md-3 invoice_logo_wrapper text-left">
+                        <p className="mb-1 fa-1x"><b>Total Taxable Amount:</b></p>
+                    </div>
+                    <div className="col-md-2 invoice_logo_wrapper text-right pr-5">
+                        <p className="mb-1">₹ {parseFloat(amount).toFixed(2)}</p>
+                    </div>
 
-                <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>
-                    <p className="mb-1 fa-1x"><b>Total Taxable Amount:</b> ₹ {parseFloat(amount).toFixed(2)}</p>
                 </div>
-                <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>
-                    <p className="mb-1 fa-1x"><b>GST @ 18%: </b> ₹ {parseFloat(amount * 18 / 100).toFixed(2)}</p>
+                <div className="row">
+                    <div className="col-md-7 invoice_logo_wrapper pl-5">
+                        <p className="mb-1"><b>IFSC CODE: SBIN0020829</b></p>
+                    </div>
+                    <div className="col-md-3 invoice_logo_wrapper text-left">
+                        <p className="mb-1 fa-1x"><b>GST @ 18%:</b></p>
+                    </div>
+                    <div className="col-md-2 invoice_logo_wrapper text-right pr-5">
+                        <p className="mb-1">₹ {parseFloat(amount * 18 / 100).toFixed(2)}</p>
+                    </div>
+
                 </div>
-                <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>
-                    <p className="mb-1 fa-1x"><b>Total Amount </b> ₹ {parseFloat(amount + (amount * 18 / 100)).toFixed(2)}</p>
+                <div className="row">
+                    <div className="col-md-7 invoice_logo_wrapper pl-5">
+                        <p className="mb-1"><b>State Bank of India, Sector - 14 Branch, Gurugram. 122001</b></p>
+                    </div>
+                    <div className="col-md-3 invoice_logo_wrapper text-left">
+                        <p className="mb-1 fa-1x"><b>Total Amount: </b></p>
+                    </div>
+                    <div className="col-md-2 invoice_logo_wrapper text-right pr-5">
+                        <p className="mb-1">₹ {parseFloat(amount + (amount * 18 / 100)).toFixed(2)}</p>
+                    </div>
+
                 </div>
+                {/*<div className={"row"}>*/}
+                {/*    <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>*/}
+                {/*
+                {/*    </div>*/}
+                {/*    <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>*/}
+                {/*        <p className="mb-1 fa-1x"><b>GST @ 18%: </b> ₹ {parseFloat(amount * 18 / 100).toFixed(2)}</p>*/}
+                {/*    </div>*/}
+                {/*    <div className="col-md-12 invoice_logo_wrapper text-right" style={{marginRight: 10}}>*/}
+                {/*        <p className="mb-1 fa-1x"><b>Total Amount </b> ₹ {parseFloat(amount + (amount * 18 / 100)).toFixed(2)}</p>*/}
+                {/*    </div>*/}
+                    {/*<b>*/}
+                    {/*    Bank Details:- <br/>*/}
+                    {/*    Current Account: 41270364532<br/>*/}
+                    {/*    IFSC CODE: SBIN0020829<br/>*/}
+                    {/*    State Bank of India, Sector - 14 Branch, Gurugram. 122001<br/>*/}
+                    {/*</b>*/}
+                {/*</div>*/}
+
+
                 <Line/>
                 <div className="col-md-12">
                     <div className="row mt-3">
@@ -194,11 +250,11 @@ console.log(amount)
 
 
         </div>
-            {/*<div style={{position:'absolute', bottom: 1, left:0, right: 0, textAlign:'center'}}>*/}
-            {/*    <Line />*/}
-            {/*    <p style={{letterSpacing:'0px'}}>360(old 79/4) 3rd Floor, Flat No 301,  Anamika Enclave, Behind Kalyani Hospital, Gurugram - 122001, Haryana<br/>*/}
-            {/*        https://www.kcs-electrical.com</p>*/}
-            {/*</div>*/}
+            {screenHeight && <div style={{position:'absolute', bottom: 1, left:0, right: 0, textAlign:'center'}}>
+                <Line />
+                <p style={{letterSpacing:'0px'}}>360(old 79/4) 3rd Floor, Flat No 301,  Anamika Enclave, Behind Kalyani Hospital, Gurugram - 122001, Haryana<br/>
+                    https://www.kcs-electrical.com</p>
+            </div>}
         </>
     );
 })

@@ -10,6 +10,10 @@ import QuotationUpdateModal from "./QuotationUpdateModal";
 import TableContainer from "../Utils/TableContainer";
 import Tippy from "@tippyjs/react";
 import BaseModal from "../Utils/BaseModal";
+import {Switch} from 'antd';
+import TextInput from "../Utils/TextInput";
+
+require('./switch.css');
 
 class QuotationContainer extends Component {
     state = {
@@ -17,6 +21,7 @@ class QuotationContainer extends Component {
         showQuotationModal: false,
         quotationId: null,
         editQuotationModal: false,
+        screenHeight: true,
         headingData: [
             "S. No.",
             "Quotation No",
@@ -32,6 +37,11 @@ class QuotationContainer extends Component {
         fetchClient();
         fetchProduct();
         fetchQuotation();
+    }
+
+    handleHeight = (e) => {
+        console.log(e)
+        this.setState({screenHeight: e.target.checked})
     }
 
     handleModal = (show = false, show2 = false, invoiceId = null, edit = false, remove = false) => {
@@ -161,7 +171,7 @@ class QuotationContainer extends Component {
     };
 
     render(){
-        let { previewQuotationModal, showQuotationModal, quotationId, editQuotationModal, removeModal } = this.state;
+        let { previewQuotationModal, showQuotationModal, quotationId, editQuotationModal, removeModal, screenHeight } = this.state;
         let invoice = this.getFilterUserOrder();
         let list = !previewQuotationModal && invoice && Array.isArray(invoice) && invoice.length > 0 && invoice;
         return(
@@ -178,7 +188,14 @@ class QuotationContainer extends Component {
                                     <i className="fe fe-arrow-left mr-2"></i> Back
                                 </button>
                             </div>
-                            {/*<TextInput value={} onChange={this.handleHeight}/>*/}
+                        {/*<h3> Footer:>*/}
+                        <label className="switch">
+                            <input type="checkbox" checked={screenHeight} onChange={this.handleHeight}/>
+                                <span className="slider round"></span>
+                        </label>
+                            {/*</h3>*/}
+                            {/*<Switch size={'small'} onChange={this.handleHeight} checked={screenHeight}/>*/}
+                            {/*<TextInput value={screenHeight} onChange={this.handleHeight}/>*/}
                             <div className="page-title-right">
                                 <button
                                     type="button"
@@ -213,7 +230,7 @@ class QuotationContainer extends Component {
                 {/*    list && list.map(o=>this.cardTemplate(o))*/}
                 {/*}*/}
                 {previewQuotationModal &&
-                    <PreviewQuotation invoice={this.props.quotation[quotationId]}/>
+                    <PreviewQuotation invoice={this.props.quotation[quotationId]} screenHeight={screenHeight}/>
                 }
                 <QuotationModal
                     // invoiceId={invoiceId}
@@ -235,6 +252,7 @@ class QuotationContainer extends Component {
                         title={"Purchase"}
                         rowData={list ? list : []}
                         renderRow={this.renderRowItem}
+                        pagination={false}
                         // filter={{ searchText: this.state.searchText }}
                         // onSearch={this.onSearch}
                         searchPlaceholder={'Search by party'}

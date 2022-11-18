@@ -5,7 +5,7 @@ import BaseTable from "./BaseTable";
 const TableContainer = ({
     baseTableClassName,
     title = "",
-    entriesOptions = [10, 25, 50, 100],
+    entriesOptions = [100, 200, 300, 400, 500, 1000],
     showSelectAll,
     headings = ["Col 1", "Col 2", "Col 3"],
     rowData = [],

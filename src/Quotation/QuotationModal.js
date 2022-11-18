@@ -13,8 +13,8 @@ import moment from "moment";
 class QuotationModal extends Component {
     constructor(props) {
         super(props);
-        let {quotation_length} = props
-        let i = 100 + quotation_length + 1;
+        // let {quotation_length} = props
+        // let i = 100 + quotation_length + 1;
 
         this.state = {
             isLoading: false,
@@ -39,7 +39,7 @@ class QuotationModal extends Component {
             // insurance: null,
             // freight: null,
             // discount: null,
-            invoice_number: `${i} / 2022-23`,
+            invoice_number: "",//`${i} / 2022-23`,
             items: {},
             conditions:"Offer Valid for 15 days only. " +
                 "\nGST applicable at time of billing. " +
@@ -56,18 +56,17 @@ class QuotationModal extends Component {
     }
 
     componentDidMount() {
-        let {quotation_length} = this.props;
-        this.setState({invoice_number: `10${quotation_length + 1} / 2022-23`})
+        // let {quotation_length} = this.props;
+        // this.setState({invoice_number: `10${quotation_length + 1} / 2022-23`})
     }
 
 
-    componentDidUpdate(preProps, nxtProps) {
-        if(this.state.invoice_number === "101 / 2022-23" && this.props.quotation_length !== 0){
-            console.log(this.props.quotation_length)
+    componentDidUpdate(preProps) {
+        console.log('----->', this.props.quotation_length, this.state.invoice_number)
+        if(this.state.invoice_number === "" && this.props.quotation_length !== 0){
             let i = 100 + this.props.quotation_length + 1;
             this.setState({invoice_number: `${i} / 2022-23`})
         }
-        console.log(this.props.loading, preProps.loading, this.state.isLoading)
         if (!this.props.loading && preProps.loading && this.state.isLoading) {
             if (!this.props.error) {
                 this.onClickClose();
@@ -102,7 +101,7 @@ class QuotationModal extends Component {
             // insurance: null,
             // freight: null,
             // discount: null,
-            invoice_number: `10${quotation_length + 1} / 2022-23`,
+            invoice_number: "",//`10${quotation_length + 1} / 2022-23`,
             items: {},
             conditions:"Offer Valid for 15 days only. " +
                 "\nGST applicable at time of billing. " +
