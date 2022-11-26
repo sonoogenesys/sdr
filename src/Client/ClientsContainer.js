@@ -109,9 +109,9 @@ class ClientsContainer extends Component {
         let { client } = this.props;
 
         let data = client && Object.values(client)
-
         if (searchText) {
-            data = data.filter(o=>o.name.toLowerCase().includes(searchText))
+            console.log(searchText)
+            data = data.filter(o=>o.name.toLowerCase().includes(searchText.toLowerCase()))
         }
 
         return data || [];

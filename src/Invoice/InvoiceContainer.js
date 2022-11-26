@@ -112,7 +112,7 @@ class OrderInvoice extends React.Component {
 
         let data = invoice && Object.values(invoice)
         if (searchText) {
-            data = data.filter(o=> o && o.shipping_address.name.includes(searchText))
+            data = data.filter(o=> o && o.shipping_address.name.toLowerCase().includes(searchText.toLowerCase()))
         }
 
         return data || [];
