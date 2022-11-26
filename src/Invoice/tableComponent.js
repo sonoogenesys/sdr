@@ -56,15 +56,15 @@ const TableComponent = React.forwardRef((props) => {
                     <div className="col-md-12">
                         <img style={{width: '100%', height: 120}} src={"/img/logo1.png"}/>
                         <div className="row">
-                            <p style={{letterSpacing: '0.7px', paddingLeft: "10px"}}><b>Distribution Transformers, LT Panels, HT Panel, CT, PT, HT/LT Cables, Cable Jointing Kit, Earthing Material, PCC Pole, Cable Tray etc.</b></p>
+                            <p style={{letterSpacing: '1px', paddingLeft: "10px"}}><b>Distribution Transformers, LT Panels, HT Panel, CT, PT, HT/LT Cables, Cable Jointing Kit, Earthing Material, PCC Pole, Cable Tray etc.</b></p>
                         </div>
                     </div>
                     <Line left={"10px"}/>
                     <div className="col-md-12 invoice_logo_wrapper">
                         <div className="row" style={{flexWrap: "nowrap", justifyContent: 'space-between', alignItem: 'center'}}>
                             <div> <p className="mb-1"><b>GST No:</b> 06ARFPS3941N1ZA</p></div>
-                            <div> <p className="mb-1"><b>UDYAM No:</b> UDYAM-HR-05-0022551</p></div>
                             <div> <p className="mb-1"><b>PAN No:</b> ARFPS3941N</p></div>
+                            <div> <p className="mb-1"><b>MSME No:</b> UDYAM-HR-05-0022551</p></div>
                             <div> <p className="mb-1"><b>Email:</b> sales@kcs-electrical.com</p></div>
                             <div> <p className="mb-1"><b>Mob:</b> #9810959039</p></div>
                             {/*<p className="col-md-3 text-left"><b>GST No:</b> 06ARFPS3941N1ZA</p>*/}
@@ -82,7 +82,7 @@ const TableComponent = React.forwardRef((props) => {
                     </div>
                     <Line left={"10px"}/>
 
-                    <div className="pt-5 pb-2 d-flex justify-content-center">
+                    <div className="pt-2 pb-1 d-flex justify-content-center">
                         <h5 className="">
                             <span>Tax Invoice</span>
                         </h5>
@@ -289,6 +289,10 @@ const TableComponent = React.forwardRef((props) => {
                             <div className={'row invoice_logo_wrapper'} style={{paddingRight: "2px"}}>
                                     <b style={{width: '5%'}}>3 </b>
                                     <p style={{width: '95%'}}> All disputes are subject for GURUGRAM JURISDICTION only.</p>
+                            </div>
+                            <div className={'row invoice_logo_wrapper'} style={{paddingRight: "2px"}}>
+                                    <b style={{width: '5%'}}>4 </b>
+                                    <p style={{width: '95%'}}> E. & O.E</p>
                             </div>
                         </div>
                         <div className="col-md-6 text-center border border-dark ">

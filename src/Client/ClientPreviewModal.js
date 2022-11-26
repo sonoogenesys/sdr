@@ -126,7 +126,7 @@ const ClientPreviewModal = React.forwardRef((props) => {
     };
     return (
         <div className="col-md-12">
-            {currentUserPurchase && currentUserPurchase.length === 0 && <div className="row align-items-start dashboard-grid">
+            <div className="row align-items-start dashboard-grid">
                     <CounterContainer
                         counter_key={"total_invoice"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
@@ -152,9 +152,9 @@ const ClientPreviewModal = React.forwardRef((props) => {
                         name={"Raised Amount"}
                         counter={paidAmount || 0}
                     />
-                </div>}
+                </div>
 
-            {currentUserInvoice && currentUserInvoice.length === 0 && <div className="row align-items-start dashboard-grid">
+            <div className="row align-items-start dashboard-grid">
                     <CounterContainer
                         counter_key={"total_invoice"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
@@ -180,10 +180,10 @@ const ClientPreviewModal = React.forwardRef((props) => {
                         name={"Purchase Paid Amount"}
                         counter={paidPurchaseAmount || 0}
                     />
-                </div>}
+                </div>
 
-            {currentUserPurchase && currentUserPurchase.length === 0 && <TableContainer
-                // title={"Invoice"}
+            {currentUserInvoice && currentUserInvoice.length > 0 && <TableContainer
+                title={"Invoice List"}
                 rowData={currentUserInvoice || []}
                 renderRow={renderRowItem}
                 showSearch={false}
@@ -194,8 +194,8 @@ const ClientPreviewModal = React.forwardRef((props) => {
                 showFilter={false}
                 // filterOption={["All", "Pending", "Completed", "Rejected"]}
                 headings={headingData}/>}
-            {currentUserInvoice && currentUserInvoice.length === 0 && <TableContainer
-                // title={"Invoice"}
+            {currentUserPurchase && currentUserPurchase.length > 0 && <TableContainer
+                title={"Purchase List"}
                 rowData={currentUserPurchase || []}
                 renderRow={renderPurchaseItem}
                 showSearch={false}
