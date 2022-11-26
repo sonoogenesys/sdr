@@ -111,7 +111,7 @@ class ClientsContainer extends Component {
         let data = client && Object.values(client)
 
         if (searchText) {
-            data = data.filter(o=>o.name.includes(searchText) || o.email.includes(searchText))
+            data = data.filter(o=>o.name.toLowerCase().includes(searchText))
         }
 
         return data || [];
