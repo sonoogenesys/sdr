@@ -137,20 +137,20 @@ const ClientPreviewModal = React.forwardRef((props) => {
                         counter_key={"total_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Invoice Amount"}
-                        counter={totalAmount || 0}
+                        counter={totalAmount?.toFixed(2) || 0}
 
                     />
                     <CounterContainer
                         counter_key={"pending_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Pending Amount"}
-                        counter={pendingAmount || 0}
+                        counter={pendingAmount?.toFixed(2) || 0}
                     />
                     <CounterContainer
                         counter_key={"completed_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Raised Amount"}
-                        counter={paidAmount || 0}
+                        counter={paidAmount?.toFixed(2) || 0}
                     />
                 </div>
 
@@ -165,20 +165,20 @@ const ClientPreviewModal = React.forwardRef((props) => {
                         counter_key={"total_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Purchase Amount"}
-                        counter={totalPurchaseAmount || 0}
+                        counter={totalPurchaseAmount?.toFixed(2) || 0}
 
                     />
                     <CounterContainer
                         counter_key={"pending_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Purchase Pending Amount"}
-                        counter={pendingPurchaseAmount || 0}
+                        counter={pendingPurchaseAmount?.toFixed(2) || 0}
                     />
                     <CounterContainer
                         counter_key={"completed_amount"}
                         containerClassName={"dashboard_one common_grid_css bg-white p-3 br-5 mb-3"}
                         name={"Purchase Paid Amount"}
-                        counter={paidPurchaseAmount || 0}
+                        counter={paidPurchaseAmount?.toFixed(2) || 0}
                     />
                 </div>
 
