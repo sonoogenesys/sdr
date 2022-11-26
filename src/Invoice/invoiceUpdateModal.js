@@ -482,7 +482,7 @@ class InvoiceModal extends Component {
                     </div>
 
                     <div className="row">
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Advance Amount"}
@@ -492,12 +492,6 @@ class InvoiceModal extends Component {
                             />
                         </div>
                         <div className="col-xl-3 col-3 col-md-3">
-                            <SelectBox onChange={this.handleChange("selectedReverse")} labelText={"Reverse Charge"} value={selectedReverse} options={[
-                                { value: 'yes', label: 'Yes' },
-                                { value: 'no', label: 'No' },
-                            ]}/>
-                        </div>
-                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"PO No"}
@@ -505,6 +499,21 @@ class InvoiceModal extends Component {
                                 onChange={this.handleChange("lrNo")}
                             />
                         </div>
+                        <div className="col-xl-3 col-3 col-md-3">
+                            <TextInput
+                                labelClassName={"text-capitalize"}
+                                labelText={"E-WayBill No"}
+                                value={supply}
+                                onChange={this.handleChange("supply")}
+                            />
+                        </div>
+                        <div className="col-xl-2 col-2 col-md-2">
+                            <SelectBox onChange={this.handleChange("selectedReverse")} labelText={"Reverse Charge"} value={selectedReverse} options={[
+                                { value: 'yes', label: 'Yes' },
+                                { value: 'no', label: 'No' },
+                            ]}/>
+                        </div>
+
                         <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
@@ -513,14 +522,7 @@ class InvoiceModal extends Component {
                                 onChange={this.handleChange("vehicle")}
                             />
                         </div>
-                        <div className="col-xl-2 col-2 col-md-2">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Place of Supply"}
-                                value={supply}
-                                onChange={this.handleChange("supply")}
-                            />
-                        </div>
+
                     </div>
 
                     <div className={"row"}>

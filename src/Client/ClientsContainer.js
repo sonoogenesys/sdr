@@ -9,6 +9,7 @@ import StatusToggleModal from "./StatusToggle";
 import ClientPreviewModal from "./ClientPreviewModal";
 import TextInput from "../Utils/TextInput";
 import {fetchAllInvoiceRequest} from "../Invoice/Duck/InvoiceActions";
+import {fetchAllPurchaseRequest} from "../Purchase/Duck/PurchaseActions";
 
 class ClientsContainer extends Component {
     constructor(props) {
@@ -25,9 +26,10 @@ class ClientsContainer extends Component {
     }
 
     componentDidMount() {
-        let {fetchClient, fetchInvoice} = this.props;
+        let {fetchClient, fetchInvoice, fetchPurchase} = this.props;
         fetchClient();
         fetchInvoice()
+        fetchPurchase()
     }
 
     renderTableRow = (client, index) => {
@@ -117,7 +119,7 @@ class ClientsContainer extends Component {
 
     render() {
         let { searchText, showUserModal, userId, showToggleUserStatusModal, previewClientModal } = this.state;
-        let { invoice } = this.props
+        let { invoice, purchase } = this.props
 
         let clients = this.getFilterUserOrder();
         let totalCount = clients?.length
@@ -186,7 +188,7 @@ class ClientsContainer extends Component {
                     </div>
                 </div>
 
-                {previewClientModal && <ClientPreviewModal invoice={invoice} userId={userId}/>}
+                {previewClientModal && <ClientPreviewModal invoice={invoice} userId={userId} purchase={purchase}/>}
 
 
                 {!previewClientModal && <TableContainer
@@ -231,6 +233,7 @@ class ClientsContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         client: state?.client?.clients,
+        purchase: state?.purchase?.purchase,
         loading: state?.client?.loading,
         invoice: state?.invoice?.invoice,
         error: state?.client?.error,
@@ -240,6 +243,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchClient: (params) => dispatch(fetchAllClientsRequest(params)),
         fetchInvoice: (params) => dispatch(fetchAllInvoiceRequest(params)),
+        fetchPurchase: (params) => dispatch(fetchAllPurchaseRequest(params)),
     };
 };
 

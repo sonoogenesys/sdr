@@ -87,20 +87,26 @@ console.log(amount)
                         </div>
                     </div>
                     <Line left={"10px"}/>
-                    <div className="col-md-12">
-                        <div className="row" style={{flexWrap: "nowrap"}}>
+                    <div className="col-md-12 invoice_logo_wrapper">
+                        <div className="row" style={{flexWrap: "nowrap", justifyContent: 'space-between', alignItem: 'center'}}>
+                            <div> <p className="mb-1"><b>GST No:</b> 06ARFPS3941N1ZA</p></div>
+                            <div> <p className="mb-1"><b>UDYAM No:</b> UDYAM-HR-05-0022551</p></div>
+                            <div> <p className="mb-1"><b>PAN No:</b> ARFPS3941N</p></div>
+                            <div> <p className="mb-1"><b>Email:</b> sales@kcs-electrical.com</p></div>
+                            <div> <p className="mb-1"><b>Mob:</b> #9810959039</p></div>
+                        {/*<div className="row" style={{flexWrap: "nowrap"}}>*/}
                             {/*<div className="col-md-3 text-left">*/}
-                            <p className="col-md-3 text-left"><b>GST No:</b> 06ARFPS3941N1ZA</p>
+                            {/*<p className="col-md-3 text-left"><b>GST No:</b> 06ARFPS3941N1ZA</p>*/}
                             {/*</div>*/}
-                            <div className="col-md-3 text-center">
-                                <p className="mb-1"><b>PAN No:</b> ARFPS3941N</p>
-                            </div>
-                            <div className="col-md-4 text-center">
-                                <p className="mb-1"><b>e-mail:</b> sales@kcs-electrical.com</p>
-                            </div>
-                            <div className="col-md-2 text-right">
-                                <p className="mb-1"><b>Mob:</b> #9810959039</p>
-                            </div>
+                            {/*<div className="col-md-3 text-center">*/}
+                            {/*    <p className="mb-1"><b>PAN No:</b> ARFPS3941N</p>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-md-4 text-center">*/}
+                            {/*    <p className="mb-1"><b>e-mail:</b> sales@kcs-electrical.com</p>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-md-2 text-right">*/}
+                            {/*    <p className="mb-1"><b>Mob:</b> #9810959039</p>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <Line left={"10px"}/>

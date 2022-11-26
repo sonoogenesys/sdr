@@ -405,9 +405,9 @@ class InvoiceModal extends Component {
                         <div className="col-xl-3 col-3 col-md-3">
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Vehicle number"}
-                                value={vehicle}
-                                onChange={this.handleChange("vehicle")}
+                                labelText={"E-WayBill No"}
+                                value={supply}
+                                onChange={this.handleChange("supply")}
                             />
                         </div>
                         <div className="col-xl-3 col-3 col-md-3">
@@ -430,11 +430,13 @@ class InvoiceModal extends Component {
                         <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
-                                labelText={"Place of Supply"}
-                                value={supply}
-                                onChange={this.handleChange("supply")}
+                                labelText={"Vehicle number"}
+                                value={vehicle}
+                                onChange={this.handleChange("vehicle")}
                             />
                         </div>
+
+
                         <div className="col-xl-3 col-3 col-md-3">
                             <TextInput
                                 labelClassName={"text-capitalize"}
