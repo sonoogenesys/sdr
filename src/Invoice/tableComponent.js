@@ -129,7 +129,7 @@ const TableComponent = React.forwardRef((props) => {
                             <p className="mb-1"><b>State:</b> {invoice?.selectedState?.value}</p>
                         </div>
                         <div className="col-md-6 invoice_logo_wrapper text-left">
-                            <p className="mb-1"><b>EwaE-WayBill No:</b>{invoice?.supply}</p>
+                            <p className="mb-1"><b>E-WayBill No:</b>{invoice?.supply}</p>
                         </div>
                     </div>
                 </div>
