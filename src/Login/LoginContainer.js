@@ -7,6 +7,7 @@ import CheckUserAuthentication from '../Utils/CheckUserAuthentication'
 import './Components/LoginStyle.css';
 import TextInput from '../Utils/TextInput';
 import GetInTouch from '../Home/HomeChunks/GetInTouch';
+import jwtDecode from "jwt-decode";
 
 class LoginContainer extends Component {
 
@@ -192,7 +193,7 @@ const mapStateToProps = (state) => {
     return {
         isLoading: state?.token?.loading,
         data: state?.token?.data,
-        err: state?.token?.error,
+        err: state?.token?.error
     }
 }
 const mapDispatchToProps = (dispatch) => {

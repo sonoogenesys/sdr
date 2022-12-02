@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 
 const AppSidebar = (props) => {
     const pathname = window?.location?.pathname;
+    let {loggedInUser} = props;
+    console.log(loggedInUser)
+    const isAdmin = loggedInUser && loggedInUser.role_id === "admin";
 
     return (
         <div className={props.showSideBar ? "vertical-menu side_menu open" : "vertical-menu side_menu"}>

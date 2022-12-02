@@ -215,9 +215,13 @@ class PurchaseUpdateModal extends Component {
         }
         console.log('params', params)
 
-        updateInvoice(params)
+        let {loggedInUser} = this.props;
+        const isAdmin = loggedInUser && loggedInUser.role_id === "admin";
+        if(isAdmin) {
 
+            updateInvoice(params)
 
+        }
         setTimeout(()=>this.onClickClose(), 5000)
     };
 
@@ -692,7 +696,8 @@ const mapStateToProps = (state, ownProps) => {
         product: state?.product?.products,
         invoice: state?.purchase?.purchase,
         loading: state?.client?.loading,
-        error: state?.client?.error
+        error: state?.client?.error,
+        loggedInUser: state?.loggedInUser?.data?.data,
     };
 };
 const mapDispatchToProps = (dispatch) => {

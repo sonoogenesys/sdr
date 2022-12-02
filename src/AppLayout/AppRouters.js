@@ -11,27 +11,32 @@ import TallyContainer from '../Tally/TallyContainer'
 import ProductContainer from '../Product/ProductsContainer'
 import QueryContainer from "../Query/QueryContainer";
 import QuotationContainer from "../Quotation/QuotationContainer";
+import Restriction from "../Restriction/restriction";
 
 const scrollToTop = () => {
 	document.documentElement.scrollTop = 0
 }
 
 const AppRouters = (props) => {
+	let {loggedInUser} = props
 	scrollToTop()
-
+	let isAdmin = loggedInUser?.role_id === "admin"
 	return  (
 		<React.Fragment>
-			<Route path='/app/Dashboard' exact component={Dashboard} />
 			<Route path='/app/about' exact component={AboutContainer} />
 			<Route path='/app/product' exact component={ProductContainer} />
-			<Route path='/app/client' exact component={ClientContainer} />
+			{isAdmin && <Route path='/app/client' exact component={ClientContainer} />}
+			{!isAdmin && <Route path='/app/client' exact component={Restriction} />}
 			<Route path='/app/invoice' exact component={Invoice} />
 			<Route path='/app/purchase' exact component={Purchase} />
+			{isAdmin && <Route path='/app/Dashboard' exact component={Dashboard} />}
+			{!isAdmin && <Route path='/app/Dashboard' exact component={Restriction} />}
 			<Route path='/app/gallery' exact component={GalleryContainer} />
 			<Route path='/app/editProfile' exact component={EditProfile} />
 			<Route path='/app/tally' exact component={TallyContainer} />
 			<Route path='/app/query' exact component={QueryContainer} />
-			<Route path='/app/quotation' exact component={QuotationContainer} />
+			{isAdmin && <Route path='/app/quotation' exact component={QuotationContainer} />}
+			{!isAdmin && <Route path='/app/quotation' exact component={Restriction} />}
 
 		</React.Fragment>
 	)

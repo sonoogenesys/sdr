@@ -63,13 +63,18 @@ class OrderInvoice extends React.Component {
     };
 
     deleteInvoice = () => {
-        let {invoiceId} = this.state;
-        this.setState({isLoading: true});
-        this.props.deleteInvoice(invoiceId)
-        setTimeout(()=>{
-            this.setState({isLoading: false})
-            this.handleModal();
-        }, 2000)
+        let {loggedInUser} = this.props;
+        const isAdmin = loggedInUser && loggedInUser.role_id === "admin";
+        if(isAdmin){
+            let {invoiceId} = this.state;
+            this.setState({isLoading: true});
+            this.props.deleteInvoice(invoiceId)
+            setTimeout(()=>{
+                this.setState({isLoading: false})
+                this.handleModal();
+            }, 2000)
+        }
+
     }
 
     renderFooter = () => {
@@ -277,7 +282,8 @@ const mapStateToProps = (state, ownProps) => {
         product: state?.product?.products,
         invoice: state?.invoice?.invoice,
         loading: state?.client?.loading,
-        error: state?.client?.error
+        error: state?.client?.error,
+        loggedInUser: state?.loggedInUser?.data?.data
     };
 };
 const mapDispatchToProps = (dispatch) => {
