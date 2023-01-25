@@ -14,7 +14,7 @@ const BaseModal = ({
 }) => {
     console.log(closeButton)
     return (
-        <Modal size={size} show={show} onHide={handleClose}>
+        <Modal backdrop={"static"} size={size} show={show} onHide={handleClose} onBackdropClick={null}>
             <Modal.Header closeButton={closeButton}>
                 <Modal.Title>{title}</Modal.Title>
             </Modal.Header>

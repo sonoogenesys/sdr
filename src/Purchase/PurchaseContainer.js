@@ -23,6 +23,7 @@ class OrderPurchase extends React.Component {
             "Invoice Amount",
             "Paid Amount",
             "Pending Amount",
+            "Paid Date",
             "GST",
             "Actions"
         ],
@@ -140,6 +141,7 @@ class OrderPurchase extends React.Component {
                 <td className={'text-center'} style={{ width: "10%" }}>₹ {item?.total_amount || 0}</td>
                 <td className={'text-center'} style={{ width: "10%"}}>₹ {item?.paid_amount || 0}</td>
                 <td className={'text-center'} style={{ width: "10%"}}>₹ {pending_amount || 0}</td>
+                <td className={'text-center'}>{item?.paidDate ? moment(item?.paidDate).format('DD-MMM-YYYY') : "-"}</td>
                 <td className={'text-center'} style={{color}}>{item?.gst_amount.toFixed(2)}</td>
                 <td className={'text-center'}>
                     {/*<span*/}

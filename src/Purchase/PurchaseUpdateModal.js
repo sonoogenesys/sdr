@@ -32,6 +32,7 @@ class PurchaseUpdateModal extends Component {
             vehicle: null,
             supply: null,
             invoiceDate: null,
+            paidDate: null,
             packing: null,
             insurance: null,
             freight: null,
@@ -73,6 +74,7 @@ class PurchaseUpdateModal extends Component {
                 // vehicle: currentInvoice.vehicle,
                 // supply: currentInvoice.supply,
                 invoiceDate: moment(currentInvoice.invoiceDate).format("YYYY-MM-DD"),
+                paidDate: moment(currentInvoice.paidDate).format("YYYY-MM-DD"),
                 // packing: currentInvoice.packing,
                 // insurance: currentInvoice.insurance,
                 // freight: currentInvoice.freight,
@@ -116,6 +118,7 @@ class PurchaseUpdateModal extends Component {
                 // vehicle: currentInvoice.vehicle,
                 // supply: currentInvoice.supply,
                 invoiceDate: moment(currentInvoice.invoiceDate).format("YYYY-MM-DD"),
+                paidDate: moment(currentInvoice.paidDate).format("YYYY-MM-DD"),
                 // packing: currentInvoice.packing,
                 // insurance: currentInvoice.insurance,
                 // freight: currentInvoice.freight,
@@ -154,6 +157,7 @@ class PurchaseUpdateModal extends Component {
             vehicle: null,
             supply: null,
             invoiceDate: null,
+            paidDate: null,
             packing: null,
             insurance: null,
             freight: null,
@@ -174,6 +178,7 @@ class PurchaseUpdateModal extends Component {
             shipping_address,
             shipping_gst,
             invoiceDate,
+            paidDate,
             invoice_number,
             paid_amount,
             total_amount
@@ -201,6 +206,7 @@ class PurchaseUpdateModal extends Component {
             // vehicle: vehicle,
             // supply: supply,
             invoiceDate: invoiceDate,
+            paidDate: paidDate,
             // packing: packing,
             // insurance: insurance,
             // freight: freight,
@@ -290,6 +296,7 @@ class PurchaseUpdateModal extends Component {
         let {
             selectedShipping,
             invoiceDate,
+            paidDate,
             shipping_name,
             shipping_address,
             shipping_gst,
@@ -316,15 +323,7 @@ class PurchaseUpdateModal extends Component {
                             <Form.Control value={invoiceDate} onChange={this.handleChange("invoiceDate")} type="date" name='date_of_birth' className={"text-capitalize"} />
                         </div>
 
-                        <div className="col-xl-3 col-3 col-md-3">
-                            <TextInput
-                                labelClassName={"text-capitalize"}
-                                labelText={"Invoice Number"}
-                                value={invoice_number}
-                                onChange={this.handleChange("invoice_number")}
 
-                            />
-                        </div>
                         <div className="col-xl-3 col-3 col-md-3">
                             <TextInput
                                 labelClassName={"text-capitalize"}
@@ -343,21 +342,23 @@ class PurchaseUpdateModal extends Component {
 
                             />
                         </div>
+                        <div className="col-xl-3 col-3 col-md-3">
+                            <label className={"text-capitalize"}>Paid Date</label>
+                            <Form.Control value={paidDate} onChange={this.handleChange("paidDate")} type="date" name='date_of_birth' className={"text-capitalize"} />
+                        </div>
 
                     </div>
 
-                    {/*<div className="row">*/}
-                    {/*    <div className="col-xl-12 col-12 col-md-12">*/}
-                    {/*        <SelectBox searchable labelText={"Purchase from"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {*/}
-                    {/*            return {*/}
-                    {/*                value: o._id,*/}
-                    {/*                label: o.name + o.address*/}
-                    {/*            }*/}
-                    {/*        })} value={selectedShipping} onChange={this.handleChange("selectedShipping")}/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
                    <div className={'row'}>
+                       <div className="col-xl-2 col-2 col-md-2">
+                           <TextInput
+                               labelClassName={"text-capitalize"}
+                               labelText={"Invoice Number"}
+                               value={invoice_number}
+                               onChange={this.handleChange("invoice_number")}
+
+                           />
+                       </div>
                         <div className={"col-xl-4 col-4 col-md-4"}>
                             <TextInput
                                 labelClassName={"text-capitalize"}
@@ -374,7 +375,7 @@ class PurchaseUpdateModal extends Component {
                                 onChange={this.handleChange("shipping_address")}
                             />
                         </div>
-                        <div className={"col-xl-4 col-4 col-md-4"}>
+                        <div className={"col-xl-2 col-2 col-md-2"}>
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Party GST"}
@@ -382,307 +383,8 @@ class PurchaseUpdateModal extends Component {
                                 onChange={this.handleChange("shipping_gst")}
                             />
                         </div>
+
                     </div>
-
-
-
-                    {/*<div className="row">*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*    <SelectBox labelText={"Payment Status"} onChange={this.handleChange("selectedStatus")} value={selectedStatus}*/}
-                    {/*               options={[*/}
-                    {/*                   {*/}
-                    {/*                       value: "pending", label: "pending"*/}
-                    {/*                   },*/}
-                    {/*                   {*/}
-                    {/*                       value: "rejected", label: "rejected"*/}
-                    {/*                   },*/}
-                    {/*                   {*/}
-                    {/*                       value: "completed", label: "completed"*/}
-                    {/*                   }*/}
-                    {/*               ]}*/}
-                    {/*    />*/}
-                    {/*    </div>*/}
-
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <SelectBox searchable value={selectedState} onChange={this.handleChange("selectedState")} labelText={"State"} options={Object.keys(City).map(o=>{*/}
-                    {/*            return {*/}
-                    {/*                value: o, label: o*/}
-                    {/*            }*/}
-                    {/*        })}/>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <SelectBox searchable value={selectedCity} onChange={this.handleChange("selectedCity")} labelText={"City"} options={selectedState ? City[selectedState.value].map(o=>{*/}
-                    {/*            return {*/}
-                    {/*                value: o, label: o*/}
-                    {/*            }*/}
-                    {/*        }) : []}/>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <SelectBox searchable value={selectedTransport}*/}
-                    {/*                   onChange={this.handleChange("selectedTransport")}*/}
-                    {/*                   labelText={"Transport Mode"}*/}
-                    {/*                   options={[*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (Bus)",*/}
-                    {/*                           label: "By Road (Bus)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (Rikshaw)",*/}
-                    {/*                           label: "By Road (Rikshaw)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (MotorCycle)",*/}
-                    {/*                           label: "By Road (MotorCycle)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (Car)",*/}
-                    {/*                           label: "By Road (Car)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "By Road (Truck)",*/}
-                    {/*                           label: "By Road (Truck)"*/}
-                    {/*                       },*/}
-                    {/*                       {*/}
-                    {/*                           value: "Train",*/}
-                    {/*                           label: "Train"*/}
-                    {/*                       }*/}
-
-                    {/*                   ]}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className="row">*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Advance Amount"}*/}
-                    {/*            value={paid_amount}*/}
-                    {/*            disabled={selectedStatus && selectedStatus.value === "completed"}*/}
-                    {/*            onChange={this.handleChange("paid_amount")}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-3 col-3 col-md-3">*/}
-                    {/*        <SelectBox onChange={this.handleChange("selectedReverse")} labelText={"Reverse Charge"} value={selectedReverse} options={[*/}
-                    {/*            { value: 'yes', label: 'Yes' },*/}
-                    {/*            { value: 'no', label: 'No' },*/}
-                    {/*        ]}/>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"PO No"}*/}
-                    {/*            value={lrNo}*/}
-                    {/*            onChange={this.handleChange("lrNo")}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Vehicle number"}*/}
-                    {/*            value={vehicle}*/}
-                    {/*            onChange={this.handleChange("vehicle")}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Place of Supply"}*/}
-                    {/*            value={supply}*/}
-                    {/*            onChange={this.handleChange("supply")}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className={"row"}>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Invoice Number"}*/}
-                    {/*            value={invoice_number}*/}
-                    {/*            onChange={this.handleChange("invoice_number")}*/}
-
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <label className={"text-capitalize"}>Invoice Date</label>*/}
-                    {/*        <Form.Control value={invoiceDate} onChange={this.handleChange("invoiceDate")} type="date" name='date_of_birth' className={"text-capitalize"} />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Packing & Forwarding"}*/}
-                    {/*            onChange={this.handleChange("packing")}*/}
-                    {/*            value={packing}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Insurance charges"}*/}
-                    {/*            onChange={this.handleChange("insurance")}*/}
-                    {/*            value={insurance}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Freight"}*/}
-                    {/*            onChange={this.handleChange("freight")}*/}
-                    {/*            value={freight}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-xl-2 col-2 col-md-2">*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Discount"}*/}
-                    {/*            onChange={this.handleChange("discount")}*/}
-                    {/*            value={discount}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
-                    {/*/!*<div className="row">*!/*/}
-
-                    {/*/!*    <div className="col-xl-4 col-4 col-md-4">*!/*/}
-                    {/*/!*        <TextInput*!/*/}
-                    {/*/!*            labelClassName={"text-capitalize"}*!/*/}
-                    {/*/!*            labelText={"Invoice Number"}*!/*/}
-                    {/*/!*            value={invoice_number}*!/*/}
-                    {/*/!*            onChange={this.handleChange("invoice_number")}*!/*/}
-
-                    {/*/!*        />*!/*/}
-                    {/*/!*    </div>*!/*/}
-                    {/*/!*    <div className="col-xl-4 col-4 col-md-4">*!/*/}
-                    {/*/!*        <label className={"text-capitalize"}>Invoice Date</label>*!/*/}
-                    {/*/!*        <Form.Control value={invoiceDate} onChange={this.handleChange("invoiceDate")} type="date" name='date_of_birth' className={"text-capitalize"} />*!/*/}
-                    {/*/!*    </div>*!/*/}
-                    {/*/!*</div>*!/*/}
-                    {/*<p>Shipping To: </p>*/}
-                    {/*<div className={'row'}>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Name"}*/}
-                    {/*            value={shipping_name}*/}
-                    {/*            onChange={this.handleChange("shipping_name")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Address"}*/}
-                    {/*            value={shipping_address}*/}
-                    {/*            onChange={this.handleChange("shipping_address")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*            <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"GST"}*/}
-                    {/*            value={shipping_gst}*/}
-                    {/*            onChange={this.handleChange("shipping_gst")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*</div>*/}
-                    {/*<p>Billing To: </p>*/}
-                    {/*<div className={'row'}>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Name"}*/}
-                    {/*            value={billing_name}*/}
-                    {/*            onChange={this.handleChange("billing_name")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*        <TextInput*/}
-                    {/*            labelClassName={"text-capitalize"}*/}
-                    {/*            labelText={"Address"}*/}
-                    {/*            value={billing_address}*/}
-                    {/*            onChange={this.handleChange("billing_address")}*/}
-                    {/*        />*/}
-                    {/*        </div>*/}
-                    {/*        <div className={"col-xl-4 col-4 col-md-4"}>*/}
-                    {/*            <TextInput*/}
-                    {/*                labelClassName={"text-capitalize"}*/}
-                    {/*                labelText={"GST"}*/}
-                    {/*                value={billing_gst}*/}
-                    {/*                onChange={this.handleChange("billing_gst")}*/}
-                    {/*            />*/}
-                    {/*        </div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className={"row"}>*/}
-                    {/*    <div className="col-xl-11 col-11 col-md-11">*/}
-                    {/*        <SelectBox onChange={this.handleChange("selectedProduct")} multiple={true} value={selectedProduct} labelText={"Product"} options={product && Object.values(product).length > 0 && Object.values(product).map(o=> {*/}
-                    {/*            return {*/}
-                    {/*                value: o._id,*/}
-                    {/*                label: o.name + o.description*/}
-                    {/*            }*/}
-                    {/*        })}/>*/}
-
-                    {/*    </div>*/}
-                    {/*    <div className={'col-xl-1 col-1 col-md-1 align-self-center mt-3'}>*/}
-                    {/*        <button*/}
-                    {/*            type="button"*/}
-                    {/*            className="btn border btn-icon-text "*/}
-                    {/*            onClick={this.handleChange("addProduct")}*/}
-                    {/*        >*/}
-                    {/*            <i className="fe fe-plus mr-2"></i>*/}
-                    {/*        </button>*/}
-                    {/*    </div>*/}
-
-                    {/*</div>*/}
-                    {/*{selectedProduct && Array.isArray(selectedProduct) && selectedProduct.map((o, i)=>{*/}
-                    {/*    return (*/}
-                    {/*        <div className={'row'} key={o.value}>*/}
-                    {/*            <div className={"col-xl-5 col-5 col-md-5 text-center"}>*/}
-                    {/*                <TextInput*/}
-                    {/*                    labelClassName={"text-capitalize"}*/}
-                    {/*                    labelText={i === 0 && "Description"}*/}
-                    {/*                    value={items[o.value]?.name}*/}
-                    {/*                    onChange={this.handleChange(`itemName-${o.value}`)}*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-                    {/*            <div className={"col-xl-2 col-2 col-md-2"}>*/}
-                    {/*                <TextInput*/}
-                    {/*                    labelClassName={"text-capitalize"}*/}
-                    {/*                    labelText={ i === 0 && "HSN / SAC"}*/}
-                    {/*                    // style={{textAlign:'center'}}*/}
-                    {/*                    value={items[o.value]?.hsn}*/}
-                    {/*                    onChange={this.handleChange(`itemHsn-${o.value}`)}*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-                    {/*            <div className={"col-xl-2 col-2 col-md-2"}>*/}
-                    {/*                <TextInput*/}
-                    {/*                    labelClassName={"text-capitalize"}*/}
-                    {/*                    labelText={ i === 0 && "UOM"}*/}
-                    {/*                    // style={{textAlign:'center'}}*/}
-                    {/*                    value={items[o.value].uom}*/}
-                    {/*                    onChange={this.handleChange(`itemUom-${o.value}`)}*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-                    {/*            <div className={"col-xl-1 col-1 col-md-1"}>*/}
-                    {/*                <TextInput*/}
-                    {/*                    labelText={ i === 0 && "Qty"}*/}
-                    {/*                    // style={{textAlign:'center'}}*/}
-                    {/*                    value={items[o.value].qty}*/}
-                    {/*                    onChange={this.handleChange(`itemQty-${o.value}`)}*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-                    {/*            <div className={"col-xl-2 col-2 col-md-2 text-center"}>*/}
-                    {/*                <TextInput*/}
-                    {/*                    style={{textAlign:'center'}}*/}
-                    {/*                    labelText={ i === 0 && "Rate"}*/}
-                    {/*                    value={items[o.value].rate}*/}
-                    {/*                    onChange={this.handleChange(`itemRate-${o.value}`)}*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*    )*/}
-                    {/*})}*/}
-
 
                 </form>
             </BaseModal>
