@@ -12,6 +12,7 @@ import ProductContainer from '../Product/ProductsContainer'
 import QueryContainer from "../Query/QueryContainer";
 import QuotationContainer from "../Quotation/QuotationContainer";
 import Restriction from "../Restriction/restriction";
+import GstContainer from "../Gst/GstContainer";
 
 const scrollToTop = () => {
 	document.documentElement.scrollTop = 0
@@ -35,6 +36,7 @@ const AppRouters = (props) => {
 			<Route path='/app/editProfile' exact component={EditProfile} />
 			<Route path='/app/tally' exact component={TallyContainer} />
 			<Route path='/app/query' exact component={QueryContainer} />
+			<Route path='/app/gst' exact component={GstContainer} />
 			{isAdmin && <Route path='/app/quotation' exact component={QuotationContainer} />}
 			{!isAdmin && <Route path='/app/quotation' exact component={Restriction} />}
 

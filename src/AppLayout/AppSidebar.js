@@ -53,6 +53,12 @@ const AppSidebar = (props) => {
                                 <span key="t-invoice"> Invoice</span>
                             </Link>
                         </li>
+                        <li className={pathname === '/app/gst' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
+                            <Link to="/app/gst" className="waves-effect">
+                                <i className="ti ti-wallet"></i>
+                                <span key="t-gst">GST</span>
+                            </Link>
+                        </li>
                         <li className={pathname === '/app/purchase' ? 'mm-active' : undefined} onClick={props.closeSideBar}>
                             <Link to="/app/purchase" className="waves-effect">
                                 <i className="ti ti-hand-point-right"></i>
