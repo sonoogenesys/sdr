@@ -5,7 +5,7 @@ import BaseTable from '../Utils/BaseTable';
 import { fetchDashboardRequest } from './Duck/DashboardActions';
 import moment from 'moment';
 import { Badge, Form } from 'react-bootstrap';
-
+import Year from './Components/YearField'
 // import FilePreviewModal from '../FilePreview/filePreviewModal';
 // import FilePreviewWrapper from '../FilePreview/filePreviewWrapper';
 import {Tab,Tabs, Row, Col } from 'react-bootstrap';
@@ -14,7 +14,6 @@ import DashboardChart from './Components/DashboardChart';
 import { Pie } from "react-chartjs-2";
 import { getCurrentMonthOfWeek } from '../Utils/CommonFunctions';
 import {fetchAllInvoiceRequest} from "../Invoice/Duck/InvoiceActions";
-
 
 class Dashboard extends Component {
 
@@ -25,6 +24,7 @@ class Dashboard extends Component {
         showPreviewOfFileId: null,
         fromDate: null,
         toDate: null,
+        year: moment.utc().format('YYYY'),
         date: null // moment.utc().format('YYYY-MM')
     }
    }
@@ -90,6 +90,13 @@ class Dashboard extends Component {
         let { fetchDashboard } = this.props;
         fetchDashboard && fetchDashboard({month: event.target.value});
     }
+    setYear = (event) => {
+        console.log(event.target.value)
+        this.setState({year: event.target.value})
+
+        let { fetchDashboard } = this.props;
+        fetchDashboard && fetchDashboard({year: event.target.value});
+    }
 
     render() {
         let { dashboard } = this.props;
@@ -99,15 +106,20 @@ class Dashboard extends Component {
 
         return (
             <>
+
                 <div style={{background:'#E5F2FF',borderBottom:'1px solid #B4BBC4',padding:10}}>
                     <Row style={{borderBottom:'1px solid #ECEEF0'}}>
                         <Col style={{color:'#44830e', paddingTop:10}}>
                             <b>Monthly Wise Report</b>
                         </Col>
+                        <Col>
+                            <Year value={this.state.year} onChange={(e)=>this.setYear(e)}/>
+                        </Col>
 
-                        <Col className={'text-right'}>
+                        <Col>
                             <Form.Control type="month" name='month' onChange={(e)=>this.setDate(e)}/>
                         </Col>
+
                     </Row>
 
 
