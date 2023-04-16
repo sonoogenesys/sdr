@@ -65,7 +65,7 @@ class QuotationModal extends Component {
         console.log('----->', this.props.quotation_length, this.state.invoice_number)
         if(this.state.invoice_number === "" && this.props.quotation_length !== 0){
             let i = 100 + this.props.quotation_length + 1;
-            this.setState({invoice_number: `${i} / 2022-23`})
+            this.setState({invoice_number: `${i} / 2023-24`})
         }
         if (!this.props.loading && preProps.loading && this.state.isLoading) {
             if (!this.props.error) {
@@ -101,7 +101,7 @@ class QuotationModal extends Component {
             // insurance: null,
             // freight: null,
             // discount: null,
-            invoice_number: "",//`10${quotation_length + 1} / 2022-23`,
+            invoice_number: "",//`10${quotation_length + 1} / 2023-24`,
             items: {},
             conditions:"Offer Valid for 15 days only. " +
                 "\nGST applicable at time of billing. " +

@@ -37,15 +37,15 @@ class InvoiceModal extends Component {
             insurance: null,
             freight: null,
             discount: null,
-            invoice_number: "00 /2022-23",
+            invoice_number: "00 /2023-24",
             items: {}
         };
     }
 
 
     componentDidUpdate(preProps) {
-        if(this.state.invoice_number === "00 /2022-23" && this.props.invoice && Object.keys(this.props.invoice).length > 0){
-            this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 1} /2022-23`})
+        if(this.state.invoice_number === "00 /2023-24" && this.props.invoice && Object.keys(this.props.invoice).length > 0){
+            this.setState({invoice_number: `0${Object.keys(this.props.invoice).length + 1} /2023-24`})
         }
         console.log(this.props.loading, preProps.loading, this.state.isLoading)
         if (!this.props.loading && preProps.loading && this.state.isLoading) {
@@ -82,7 +82,7 @@ class InvoiceModal extends Component {
             insurance: null,
             freight: null,
             discount: null,
-            invoice_number: "00 /2022-23",
+            invoice_number: "00 /2023-24",
             items: {}
         });
 
