@@ -101,8 +101,8 @@ class Dashboard extends Component {
     render() {
         let { dashboard } = this.props;
         let {date} = this.state;
-        let {pending_invoice, completed_invoice, rejected_invoice, pending_amount, completed_amount, query_count, total_purchase_amount, paid_purchase_amount, purchase_count} = dashboard
-        let chartData = this.getGraphData(date)
+        let {graph, pending_invoice, completed_invoice, rejected_invoice, pending_amount, completed_amount, query_count, total_purchase_amount, paid_purchase_amount, purchase_count} = dashboard
+        let chartData = graph ? graph : this.getGraphData(date)
 
         return (
             <>
