@@ -40,7 +40,11 @@ class PurchaseModal extends Component {
             freight: null,
             discount: null,
             invoice_number: null,
-            items: {}
+            items: {},
+            gst_slab: {
+                value: 18,
+                label: "18"
+            }
         };
     }
 
@@ -87,7 +91,11 @@ class PurchaseModal extends Component {
             freight: null,
             discount: null,
             invoice_number: null,
-            items: {}
+            items: {},
+            gst_slab: {
+                value: 18,
+                label: "18"
+            }
         });
 
         handelModal(false, false, null);
@@ -117,7 +125,8 @@ class PurchaseModal extends Component {
             freight,
             discount,
             // items,
-            invoice_number
+            invoice_number,
+            gst_slab
         }
          = this.state;
         let {createInvoice, createProduct} = this.props;
@@ -143,7 +152,8 @@ class PurchaseModal extends Component {
             // items: items,
             total_amount: total_amount,
             paid_amount: paid_amount,
-            invoice_number: invoice_number
+            invoice_number: invoice_number,
+            gst_slab: gst_slab
         }
         // Object.keys(items).map(o=>{
         //     if(o.includes("sel")){
@@ -154,7 +164,9 @@ class PurchaseModal extends Component {
         let {loggedInUser} = this.props;
         const isAdmin = loggedInUser && loggedInUser.role_id === "admin";
         if(isAdmin) {
-
+            if(paid_amount){
+                params.paidDate = moment().format("YYYY-MM-DD")
+            }
             createInvoice(params)
         }
         setTimeout(()=>this.onClickClose(), 5000)
@@ -230,9 +242,32 @@ class PurchaseModal extends Component {
             shipping_gst,
             invoice_number,
             total_amount,
-            paid_amount
+            paid_amount,
+            gst_slab
         } = this.state;
         let title = "Add New Purchase";
+        const gst = [
+            {
+                value: 0,
+                label: "0"
+            },
+            {
+                value: 5,
+                label: "5"
+            },
+            {
+                value: 12,
+                label: "12"
+            },
+            {
+                value: 18,
+                label: "18"
+            },
+            {
+                value: 28,
+                label: "28"
+            },
+        ]
 
         return (
             <BaseModal
@@ -280,7 +315,10 @@ class PurchaseModal extends Component {
                     </div>
 
                     <div className="row">
-                        <div className="col-xl-12 col-12 col-md-12">
+                        <div className="col-xl-2 col-2 col-md-2">
+                            <SelectBox searchable labelText={"GST"} options={gst} value={gst_slab} onChange={this.handleChange("gst_slab")}/>
+                        </div>
+                        <div className="col-xl-10 col-10 col-md-10">
                             <SelectBox searchable labelText={"Purchase from"} options={client && Object.values(client).length > 0 && Object.values(client).map(o=> {
                                 return {
                                     value: o._id,

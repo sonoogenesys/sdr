@@ -41,7 +41,8 @@ class PurchaseUpdateModal extends Component {
             total_amount: null,
             items: {},
             _id: null,
-            selectedStatus: null
+            selectedStatus: null,
+            gst_slab: null
         };
     }
 
@@ -80,6 +81,7 @@ class PurchaseUpdateModal extends Component {
                 // freight: currentInvoice.freight,
                 // discount: currentInvoice.discount,
                 invoice_number: currentInvoice.invoice_number,
+                gst_slab: currentInvoice.gst_slab
                 // items: currentInvoice.items,
                 // selectedStatus: { value: currentInvoice.status, label: currentInvoice.status },
                 // selectedProduct: Object.keys(currentInvoice.items).map(o=>{
@@ -123,6 +125,7 @@ class PurchaseUpdateModal extends Component {
                 // insurance: currentInvoice.insurance,
                 // freight: currentInvoice.freight,
                 // discount: currentInvoice.discount,
+                gst_slab: currentInvoice.gst_slab,
                 invoice_number: currentInvoice.invoice_number,
                 // items: currentInvoice.items,
                 // selectedStatus: { value: currentInvoice.status, label: currentInvoice.status },
@@ -165,7 +168,8 @@ class PurchaseUpdateModal extends Component {
             invoice_number: null,
             total_amount: null,
             items: {},
-            selectedStatus: null
+            selectedStatus: null,
+            gst_slab: null
         });
         handelModal()
 
@@ -181,7 +185,8 @@ class PurchaseUpdateModal extends Component {
             paidDate,
             invoice_number,
             paid_amount,
-            total_amount
+            total_amount,
+            gst_slab
         }
          = this.state;
         let {updateInvoice, invoiceId} = this.props;
@@ -217,6 +222,7 @@ class PurchaseUpdateModal extends Component {
             // paid_amount: paid_amount,
             total_amount: total_amount,
             paid_amount: paid_amount,
+            gst_slab: gst_slab,
             invoice_number: invoice_number
         }
         console.log('params', params)
@@ -302,9 +308,32 @@ class PurchaseUpdateModal extends Component {
             shipping_gst,
             invoice_number,
             total_amount,
-            paid_amount
+            paid_amount,
+            gst_slab
         } = this.state;
         let title = invoice_number + " (" +(moment(invoiceDate).format("DD-MMM-YYYY")) + ")";
+        const gst = [
+            {
+                value: 0,
+                label: "0"
+            },
+            {
+                value: 5,
+                label: "5"
+            },
+            {
+                value: 12,
+                label: "12"
+            },
+            {
+                value: 18,
+                label: "18"
+            },
+            {
+                value: 28,
+                label: "28"
+            },
+        ]
 
         return (
             <BaseModal
@@ -324,7 +353,7 @@ class PurchaseUpdateModal extends Component {
                         </div>
 
 
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Invoice Amount With GST"}
@@ -333,7 +362,7 @@ class PurchaseUpdateModal extends Component {
 
                             />
                         </div>
-                        <div className="col-xl-3 col-3 col-md-3">
+                        <div className="col-xl-2 col-2 col-md-2">
                             <TextInput
                                 labelClassName={"text-capitalize"}
                                 labelText={"Paid Amount"}
@@ -341,6 +370,9 @@ class PurchaseUpdateModal extends Component {
                                 onChange={this.handleChange("paid_amount")}
 
                             />
+                        </div>
+                        <div className="col-xl-2 col-2 col-md-2">
+                            <SelectBox searchable labelText={"GST"} options={gst} value={gst_slab} onChange={this.handleChange("gst_slab")}/>
                         </div>
                         <div className="col-xl-3 col-3 col-md-3">
                             <label className={"text-capitalize"}>Paid Date</label>

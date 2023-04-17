@@ -79,7 +79,7 @@ class InvoiceModal extends Component {
                 invoice_number: currentInvoice.invoice_number,
                 items: currentInvoice.items,
                 selectedStatus: { value: currentInvoice.status, label: currentInvoice.status },
-                selectedProduct: Object.keys(currentInvoice.items).map(o=>{
+                selectedProduct: currentInvoice?.items && Object.keys(currentInvoice.items).map(o=>{
                     return {value: o, label: currentInvoice.items[o].name}
                 }),
                 igst_tax: currentInvoice.igst_tax
