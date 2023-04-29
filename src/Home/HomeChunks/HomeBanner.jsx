@@ -1,7 +1,4 @@
-
-
 import React, { useState, useEffect } from "react";
-
 import Slider from "react-slick";
 
 
@@ -40,8 +37,7 @@ const HomeBanner = () => {
                     <div className="container">
                         <div className="row">
                         <div className="col-lg-6 col-md-12 col-sm-12 home_banner_text">
-                        {/*<p className="text-white"><strong>YOLOJET</strong> is empowering <strong>sellers and Individuals</strong> <span className="theme_text_color">easy pickup and delivery services  along </span> with <strong>resolving the logistics pain points.</strong> Thus delivering flawless experience.</p>
-			          */}        <h1 className="text-white display-4"><strong>Clients satisfaction</strong>
+                              <h1 className="text-white display-4"><strong>Clients satisfaction</strong>
 			                    </h1>
 			                    <p className="text-white">
                                     Our client satisfaction that determines how happy customers are with our products, services, and capabilities</p>
@@ -76,11 +72,7 @@ const HomeBanner = () => {
                     </div>
                 </article>
             </Slider>
-
 )
 }
-
-
-
 
 export default HomeBanner;
